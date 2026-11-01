@@ -64,3 +64,69 @@ for (const p of posts) { if (p.featured && seen) p.featured = false; if (p.featu
 
 fs.writeFileSync(path.join(OUT, "posts.json"), JSON.stringify(posts));
 console.log(`✓ ${posts.length} нийтлэл → dist/posts.json`);
+
+// 3) Хэвлэлд гарсан мэдээ: press/*.md → dist/press.json
+const PRESS_DIR = path.join(ROOT, "press");
+const press = [];
+if (fs.existsSync(PRESS_DIR)) {
+  for (const file of fs.readdirSync(PRESS_DIR)) {
+    if (!file.endsWith(".md")) continue;
+    const { data: d } = matter(fs.readFileSync(path.join(PRESS_DIR, file), "utf8"));
+    const url = String(d.url || "").trim();
+    if (!/^https?:\/\//i.test(url) || !d.title) continue;
+    let source = String(d.source || "").trim();
+    if (!source) { try { source = new URL(url).hostname.replace(/^www\./, ""); } catch { source = ""; } }
+    press.push({
+      id: file.replace(/\.md$/, ""),
+      date: toDate(d.date),
+      source: esc(source),
+      url: esc(url),
+      title: { mn: esc(d.title), en: esc(d.title_en || "") }
+    });
+  }
+}
+press.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+fs.writeFileSync(path.join(OUT, "press.json"), JSON.stringify(press));
+console.log(`✓ ${press.length} мэдээ → dist/press.json`);
+
+// 4) 333 нуур: lakes/*.md + data/lakes-program.json → dist/lakes.json
+const LAKES_DIR = path.join(ROOT, "lakes");
+const lakes = [];
+const num = v => (v === null || v === undefined || v === "" || isNaN(v)) ? null : Number(v);
+if (fs.existsSync(LAKES_DIR)) {
+  for (const file of fs.readdirSync(LAKES_DIR)) {
+    if (!file.endsWith(".md")) continue;
+    const { data: d, content } = matter(fs.readFileSync(path.join(LAKES_DIR, file), "utf8"));
+    if (!d.name) continue;
+    const url = String(d.source_url || "").trim();
+    lakes.push({
+      id: file.replace(/\.md$/, ""),
+      name: esc(d.name), name_en: esc(d.name_en || ""),
+      aimag: esc(d.aimag || ""), soum: esc(d.soum || ""),
+      status: ["done", "building", "planned"].includes(d.status) ? d.status : "planned",
+      kind: esc(d.kind || ""),
+      year: num(d.year), volume_m3: num(d.volume_m3), area_ha: num(d.area_ha),
+      purposes: Array.isArray(d.purposes) ? d.purposes.map(esc) : [],
+      partners: esc(d.partners || ""),
+      lat: num(d.lat), lng: num(d.lng),
+      photo: esc(d.photo || ""),
+      source_url: /^https?:\/\//i.test(url) ? esc(url) : "",
+      description: { mn: marked.parse(content || ""), en: d.description_en ? marked.parse(String(d.description_en)) : "" }
+    });
+  }
+}
+const order = { done: 0, building: 1, planned: 2 };
+lakes.sort((a, b) => order[a.status] - order[b.status] || (b.year || 0) - (a.year || 0) || a.name.localeCompare(b.name));
+let program = {};
+const progFile = path.join(ROOT, "data", "lakes-program.json");
+if (fs.existsSync(progFile)) {
+  try {
+    const p = JSON.parse(fs.readFileSync(progFile, "utf8"));
+    for (const k of ["target", "sites_identified", "completed", "in_progress"]) program[k] = num(p[k]);
+    program.as_of = toDate(p.as_of);
+    program.note = esc(p.note || ""); program.note_en = esc(p.note_en || "");
+    program.source_url = /^https?:\/\//i.test(p.source_url || "") ? esc(p.source_url) : "";
+  } catch (e) { console.warn("data/lakes-program.json уншиж чадсангүй:", e.message); }
+}
+fs.writeFileSync(path.join(OUT, "lakes.json"), JSON.stringify({ program, lakes }));
+console.log(`✓ ${lakes.length} нуур → dist/lakes.json`);

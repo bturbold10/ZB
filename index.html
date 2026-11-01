@@ -198,13 +198,79 @@ h2.big{font-size:clamp(2.1rem,4.6vw,3.6rem);font-weight:800;line-height:1.04;let
 .pager button:disabled{opacity:.35;cursor:default}
 
 /* press */
-.press{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink)}
-.press a{display:block;padding:24px 24px 26px 0;text-decoration:none;border-bottom:1px solid var(--line)}
-.press a + a{padding-left:24px;border-left:1px solid var(--line)}
-.press .src{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
-.press h3{font-size:1.12rem;font-weight:700;line-height:1.35;margin:8px 0 0}
-.press a:hover h3{text-decoration:underline}
-@media (max-width:860px){.press{grid-template-columns:1fr}.press a + a{padding-left:0;border-left:0}}
+.plist{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.plist li{border-bottom:1px solid var(--line)}
+.plist a{display:grid;grid-template-columns:200px 1fr 24px;gap:24px;align-items:baseline;padding:20px 0;text-decoration:none}
+.plist .src{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.plist .pd{display:block;font-size:.82rem;color:var(--muted);font-weight:500;margin-top:2px}
+.plist .pt{font-size:1.1rem;font-weight:700;line-height:1.38}
+.plist .ar{font-weight:700;transition:transform .15s}
+.plist a:hover .pt{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.plist a:hover .ar{transform:translateX(4px)}
+@media (max-width:700px){.plist a{grid-template-columns:1fr 20px;gap:4px 12px}.plist a > span:first-child{grid-column:1/-1}.plist .pd{display:inline;margin-left:8px}}
+.press-more{margin-top:30px}
+.press-empty{color:var(--muted);padding:30px 0;border-top:2px solid var(--ink)}
+/* 333 lakes */
+.lk-stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--ink);border-bottom:1px solid var(--line);margin-bottom:40px}
+.lk-stat{padding:24px 20px 26px 0}
+.lk-stat + .lk-stat{padding-left:20px;border-left:1px solid var(--line)}
+.lk-stat b{display:block;font-size:clamp(2.2rem,4.6vw,3.6rem);font-weight:800;letter-spacing:-.04em;line-height:1}
+.lk-stat span{display:block;margin-top:8px;font-size:.9rem;color:var(--ink-2);font-weight:600}
+.lk-stat.hl b{color:var(--accent)}
+.lk-bar{grid-column:1/-1;padding:0 0 20px}
+.lk-bar .track{height:10px;background:#fff;border:1px solid var(--line);border-radius:999px;overflow:hidden;display:flex}
+.lk-bar .done{background:var(--accent)}
+.lk-bar .build{background:#8fbfcf}
+.lk-bar .legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:10px;font-size:.82rem;color:var(--muted)}
+.lk-bar .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.lk-asof{grid-column:1/-1;font-size:.8rem;color:var(--muted);padding:0 0 14px}
+@media (max-width:760px){.lk-stats{grid-template-columns:1fr 1fr !important}.lk-stat:nth-child(odd){padding-left:0;border-left:0}.lk-stat:nth-child(n+3){border-top:1px solid var(--line)}}
+.lk-purpose{margin:0 0 44px}
+.lk-purpose h3{font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.lk-purpose ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.lk-purpose li{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;font-weight:700;font-size:.95rem;line-height:1.3;display:flex;flex-direction:column;gap:10px}
+.lk-purpose li .ic{width:34px;height:34px;border-radius:50%;background:var(--accent-pale);color:var(--accent-2);display:flex;align-items:center;justify-content:center}
+@media (max-width:900px){.lk-purpose ul{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.lk-purpose ul{grid-template-columns:1fr 1fr}}
+.lk-map{height:440px;border-radius:var(--r);border:1px solid var(--line);margin:0 0 36px;z-index:1}
+@media (max-width:640px){.lk-map{height:320px}}
+.lk-controls{border-top:2px solid var(--ink)}
+.lk-right{display:flex;gap:10px;flex-wrap:wrap}
+.sel select{font:600 .9rem var(--font);border:1px solid var(--line);border-radius:999px;padding:9px 34px 9px 15px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%230d1114' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 14px center;appearance:none;-webkit-appearance:none;color:var(--ink);cursor:pointer}
+.lk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:960px){.lk-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.lk-grid{grid-template-columns:1fr}.lk-right{width:100%}.lk-right .search{flex:1}}
+.lake{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;text-align:left;cursor:pointer;padding:0;color:inherit;display:flex;flex-direction:column;transition:box-shadow .15s,border-color .15s}
+.lake:hover{border-color:var(--ink);box-shadow:0 14px 30px -22px rgba(0,0,0,.45)}
+.lake .photo{aspect-ratio:16/9}
+.lake .lb{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.lake h3{font-size:1.15rem;font-weight:800;letter-spacing:-.01em;line-height:1.25;margin:0}
+.lake .loc{font-size:.88rem;color:var(--ink-2)}
+.lake .meta{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:auto;padding-top:10px;font-size:.84rem;color:var(--muted)}
+.lake .meta b{color:var(--ink);font-weight:700}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;align-self:flex-start}
+.st::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.st-done{background:#e3f1ea;color:#1d6b45}
+.st-building{background:#fff1d9;color:#8a5a12}
+.st-planned{background:#eceef0;color:#4a545b}
+.lk-src{font-size:.82rem;color:var(--muted);margin:26px 0 0}
+.lk-src a{color:var(--muted)}
+.lk-detail .facts{margin:26px 0 30px}
+.lk-detail .photo{aspect-ratio:16/9;border-radius:var(--r);margin:22px 0 10px}
+.lk-detail .pur{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+.lk-detail .pur span{font-size:.85rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.lk-detail .mini-map{height:280px;border-radius:var(--r);border:1px solid var(--line);margin:10px 0 30px}
+.lk-detail .srcl{font-weight:700}
+
+/* all-press overlay */
+.pall .wrap{max-width:980px}
+.pall-head{padding:52px 0 24px}
+.pall-head h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.04;margin:8px 0 0}
+.pall .controls{margin-bottom:6px}
+.chip select{all:unset;cursor:pointer;max-width:8em}
+.yr-h{display:flex;align-items:baseline;gap:12px;font-size:1.7rem;font-weight:800;letter-spacing:-.02em;margin:46px 0 12px}
+.yr-h small{font-size:.85rem;font-weight:600;color:var(--muted);letter-spacing:0}
+.pall .load{display:flex;justify-content:center;margin:40px 0 90px}
 
 /* newsletter */
 .signup{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
@@ -299,6 +365,7 @@ footer a:hover{color:#fff;text-decoration:underline}
       <ul id="navList">
         <li><a href="#about"><span data-lang="mn">Намтар</span><span data-lang="en">About</span></a></li>
         <li><a href="#work"><span data-lang="mn">Үйл ажиллагаа</span><span data-lang="en">Work</span></a></li>
+        <li><a href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span></a></li>
         <li><a href="#stories"><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span></a></li>
         <li><a href="#press"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">Press</span></a></li>
       </ul>
@@ -361,9 +428,9 @@ footer a:hover{color:#fff;text-decoration:underline}
         <div class="photo" style="--p1:#2f7fa3;--p2:#123c55" data-mn="Ус түгээх байр, ундны ус" data-en="Water kiosk, drinking water"></div>
         <div class="txt"><h3><span data-lang="mn">Ундны ус</span><span data-lang="en">Drinking water</span></h3><p><span data-lang="mn">Иргэн бүрт аюулгүй ундны ус, ариун цэврийн байгууламж.</span><span data-lang="en">Safe drinking water and sanitation for every citizen.</span></p><span class="go"><span data-lang="mn">Дэлгэрэнгүй →</span><span data-lang="en">Learn more →</span></span></div>
       </a>
-      <a class="sq" href="#stories" data-filter="policy">
+      <a class="sq" href="#lakes">
         <div class="photo" style="--p1:#2e7a72;--p2:#0f3c38" data-mn="Усан сан, нуур" data-en="Reservoir, lake"></div>
-        <div class="txt"><h3><span data-lang="mn">Гадаргын ус</span><span data-lang="en">Surface water</span></h3><p><span data-lang="mn">Усан сан, нуур байгуулж, гадаргын усны нөөцийг нэмэгдүүлэх.</span><span data-lang="en">Building reservoirs and lakes to grow surface water reserves.</span></p><span class="go"><span data-lang="mn">Дэлгэрэнгүй →</span><span data-lang="en">Learn more →</span></span></div>
+        <div class="txt"><h3><span data-lang="mn">Гадаргын ус</span><span data-lang="en">Surface water</span></h3><p><span data-lang="mn">«333 нуур» хөтөлбөр: сум бүрт нуур, цөөрөм байгуулах.</span><span data-lang="en">The “333 Lakes” initiative: a lake or reservoir for every soum.</span></p><span class="go"><span data-lang="mn">Дэлгэрэнгүй →</span><span data-lang="en">Learn more →</span></span></div>
       </a>
       <a class="sq" href="#stories" data-filter="intl">
         <div class="photo" style="--p1:#6b5f92;--p2:#2e2748" data-mn="Олон улсын уулзалт, форум" data-en="International meeting, forum"></div>
@@ -377,9 +444,47 @@ footer a:hover{color:#fff;text-decoration:underline}
 <section class="mission">
   <div class="wrap">
     <p class="kicker"><span data-lang="mn">Эрхэм зорилго</span><span data-lang="en">Mission</span></p>
-    <p class="stmt" data-lang="mn"><span>Монгол хүн бүрт</span><span class="hl">цэвэр, аюулгүй</span><span>ус.</span></p>
-    <p class="stmt" data-lang="en"><span>Clean, safe</span><span class="hl">water for every</span><span>Mongolian.</span></p>
-    <p><span data-lang="mn">Ирээдүй хойч үедээ усны нөөцөө хамгаалж үлдээх нь бидний нийтлэг үүрэг.</span><span data-lang="en">Protecting our water for future generations is a responsibility we all share.</span></p>
+    <p class="stmt" data-lang="mn"><span>Сум бүрт нуур.</span><span class="hl">333 шинэ нуур</span><span>Монгол орондоо.</span></p>
+    <p class="stmt" data-lang="en"><span>A lake for every soum.</span><span class="hl">333 new lakes</span><span>for Mongolia.</span></p>
+    <p><span data-lang="mn">Ерөнхийлөгч У.Хүрэлсүхийн санаачилсан «Нэг сум — Нэг нуур — 333 нуур» хөтөлбөрийг Усны газар хэрэгжүүлж байна. Бороо, үерийн усыг хуримтлуулж, малчид, тариаланчид, иргэдээ усаар хангаж, гадаргын усны нөөцөө нэмэгдүүлнэ.</span><span data-lang="en">The Water Agency is implementing the “One Soum – One Lake – 333 Lakes” initiative launched by President U. Khurelsukh: capturing rain and flood water, supplying herders, farmers and communities, and growing the nation's surface water reserves.</span></p>
+    <p style="margin-top:28px"><a class="btn" href="#lakes"><span data-lang="mn">333 нуурыг үзэх →</span><span data-lang="en">Explore the 333 lakes →</span></a></p>
+  </div>
+</section>
+
+<!-- 333 LAKES -->
+<section class="alt" id="lakes">
+  <div class="wrap">
+    <div class="sec-top">
+      <div>
+        <p class="kicker"><span data-lang="mn">Нэг сум — Нэг нуур</span><span data-lang="en">One soum – one lake</span></p>
+        <h2 class="big"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span></h2>
+        <p><span data-lang="mn">Улс орны хэмжээнд байгуулж буй нуур, цөөрөм бүрийн байршил, явц, хэмжээ.</span><span data-lang="en">Where each lake and reservoir is being built, how far along it is, and how big it will be.</span></p>
+      </div>
+    </div>
+
+    <div class="lk-stats" id="lkStats"></div>
+
+    <div class="lk-purpose">
+      <h3><span data-lang="mn">Нуур бүрийн зорилго</span><span data-lang="en">What each lake is for</span></h3>
+      <ul id="lkPurposes"></ul>
+    </div>
+
+    <div class="lk-map-wrap" id="lkMapWrap" hidden><div id="lkMap" class="lk-map" role="region" aria-label="Map"></div></div>
+
+    <div class="controls lk-controls">
+      <div class="chips" id="lkChips"></div>
+      <div class="lk-right">
+        <label class="sel"><span class="sr">Аймаг / Province</span><select id="lkAimag"></select></label>
+        <label class="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="lkSearch" type="search" autocomplete="off">
+        </label>
+      </div>
+    </div>
+    <p class="count" id="lkCount"></p>
+    <div class="lk-grid" id="lkGrid"></div>
+    <div class="load" id="lkLoad"></div>
+    <p class="lk-src" id="lkSrc"></p>
   </div>
 </section>
 
@@ -456,11 +561,8 @@ footer a:hover{color:#fff;text-decoration:underline}
         <h2 class="big" style="margin:0"><span data-lang="mn">Мэдээ</span><span data-lang="en">News</span></h2>
       </div>
     </div>
-    <div class="press">
-      <a href="https://gogo.mn/r/4m06dq" target="_blank" rel="noopener"><span class="src">gogo.mn · 2026.03.26</span><h3><span data-lang="mn">Усны газрын дарга Ерөнхий сайдад үүрэг даалгаврын явцыг танилцуулав</span><span data-lang="en">Water Agency head briefs the Prime Minister on progress</span></h3></a>
-      <a href="https://www.golomtbank.com/en/news/52626" target="_blank" rel="noopener"><span class="src">golomtbank.com · 2026.02.05</span><h3><span data-lang="mn">“Бумбатын усан сан” төслийг эхлүүлэх санамж бичиг байгуулав</span><span data-lang="en">MoU signed to launch the Bumbat Reservoir Project</span></h3></a>
-      <a href="https://www.golomtbank.com/en/news/47227" target="_blank" rel="noopener"><span class="src">golomtbank.com · 2025.03.21</span><h3><span data-lang="mn">Дэлхийн усны өдөр: Голомт банктай хамтын ажиллагааны санамж бичиг</span><span data-lang="en">World Water Day: partnership MoU with Golomt Bank</span></h3></a>
-    </div>
+    <ul class="plist" id="pressList"></ul>
+    <div class="press-more" id="pressMore"></div>
   </div>
 </section>
 
@@ -517,6 +619,7 @@ footer a:hover{color:#fff;text-decoration:underline}
       <div><h4><span data-lang="mn">Тухай</span><span data-lang="en">About</span></h4><ul>
         <li><a href="#about"><span data-lang="mn">Намтар</span><span data-lang="en">Biography</span></a></li>
         <li><a href="#work"><span data-lang="mn">Үйл ажиллагаа</span><span data-lang="en">Work</span></a></li>
+        <li><a href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span></a></li>
         <li><a href="#press"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">Press</span></a></li>
       </ul></div>
       <div><h4><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span></h4><ul>
@@ -545,6 +648,37 @@ footer a:hover{color:#fff;text-decoration:underline}
     <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span></b>
   </div></div>
   <article class="article" id="readerBody"></article>
+</div>
+
+<div class="reader" id="lakeView" role="dialog" aria-modal="true" aria-labelledby="lakeTitle">
+  <div class="rbar"><div class="wrap">
+    <button type="button" id="lakeClose"><span data-lang="mn">← 333 нуур руу буцах</span><span data-lang="en">← Back to 333 Lakes</span></button>
+    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span></b>
+  </div></div>
+  <article class="article lk-detail" id="lakeBody"></article>
+</div>
+
+<div class="reader pall" id="pressAll" role="dialog" aria-modal="true" aria-labelledby="pallTitle">
+  <div class="rbar"><div class="wrap">
+    <button type="button" id="pallClose"><span data-lang="mn">← Нүүр хуудас руу буцах</span><span data-lang="en">← Back to home</span></button>
+    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span></b>
+  </div></div>
+  <div class="wrap">
+    <div class="pall-head">
+      <p class="kicker"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">In the press</span></p>
+      <h1 id="pallTitle"><span data-lang="mn">Хэвлэлд гарсан бүх мэдээ</span><span data-lang="en">All press coverage</span></h1>
+    </div>
+    <div class="controls">
+      <div class="chips" id="pChips"></div>
+      <label class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="pSearch" type="search" autocomplete="off">
+      </label>
+    </div>
+    <p class="count" id="pCount"></p>
+    <div id="pGroups"></div>
+    <div class="load" id="pLoad"></div>
+  </div>
 </div>
 
 <script>
@@ -652,6 +786,206 @@ function closePost(){ reader.classList.remove("open"); document.body.style.overf
 readerClose.onclick = closePost;
 document.addEventListener("keydown", e=>{ if(e.key==="Escape" && cur) closePost(); });
 
+/* press (admin → press/*.md → press.json) */
+let PRESS = [];
+const HOME_PRESS = 6, PSTEP = 20, MAX_CHIPS = 6;
+const ps = { src: "all", q: "", shown: PSTEP };
+const pTitle = p => (L()==="en" && p.title.en) ? p.title.en : p.title.mn;
+const arrow = '<span class="ar" aria-hidden="true">↗</span>';
+const pRow = p => `<li><a href="${p.url}" target="_blank" rel="noopener">
+    <span><span class="src">${p.source}</span><span class="pd">${fmt(p.date)}</span></span>
+    <span class="pt">${pTitle(p)}</span>${arrow}</a></li>`;
+
+function renderPressHome(){
+  const l = L();
+  pressList.innerHTML = PRESS.slice(0, HOME_PRESS).map(pRow).join("");
+  pressList.style.display = PRESS.length ? "" : "none";
+  if (!PRESS.length) { pressMore.innerHTML = `<p class="press-empty">${l==="en"?"No press coverage yet.":"Одоогоор мэдээ алга."}</p>`; return; }
+  pressMore.innerHTML = PRESS.length > HOME_PRESS
+    ? `<button class="btn outline" type="button" id="pressAllBtn">${l==="en"?"All press coverage":"Бүх мэдээ"} (${PRESS.length}) →</button>` : "";
+  const b = document.getElementById("pressAllBtn"); if (b) b.onclick = openPressAll;
+}
+
+function renderPressAll(){
+  const l = L(), q = ps.q.trim().toLowerCase();
+  pSearch.placeholder = l==="en" ? "Search headlines…" : "Гарчгаар хайх…";
+  // хэвлэлүүд: хамгийн олон мэдээтэй эхэнд
+  const counts = {}; PRESS.forEach(p => counts[p.source] = (counts[p.source]||0) + 1);
+  const srcs = Object.keys(counts).sort((a,b) => counts[b]-counts[a]);
+  const top = srcs.slice(0, MAX_CHIPS), rest = srcs.slice(MAX_CHIPS);
+  pChips.innerHTML = `<button class="chip" data-src="all" aria-selected="${ps.src==="all"}">${l==="en"?"All":"Бүгд"}<span class="n">${PRESS.length}</span></button>`
+    + top.map(s=>`<button class="chip" data-src="${s}" aria-selected="${ps.src===s}">${s}<span class="n">${counts[s]}</span></button>`).join("")
+    + (rest.length ? `<span class="chip" aria-selected="${rest.includes(ps.src)}"><select id="pOther" aria-label="${l==="en"?"Other outlets":"Бусад хэвлэл"}"><option value="">${l==="en"?"Other…":"Бусад…"}</option>${rest.map(s=>`<option value="${s}" ${ps.src===s?"selected":""}>${s} (${counts[s]})</option>`).join("")}</select></span>` : "");
+  pChips.querySelectorAll("[data-src]").forEach(b => b.onclick = () => { ps.src = b.dataset.src; ps.shown = PSTEP; renderPressAll(); });
+  const o = document.getElementById("pOther"); if (o) o.onchange = () => { ps.src = o.value || "all"; ps.shown = PSTEP; renderPressAll(); };
+
+  const list = PRESS.filter(p => (ps.src==="all" || p.source===ps.src) && (!q || (p.title.mn+" "+(p.title.en||"")+" "+p.source).toLowerCase().includes(q)));
+  pCount.textContent = l==="en" ? `${list.length} article${list.length===1?"":"s"}` : `Нийт ${list.length} мэдээ`;
+  const shown = list.slice(0, ps.shown), groups = {};
+  shown.forEach(p => (groups[p.date.slice(0,4)] ||= []).push(p));
+  const yc = {}; list.forEach(p => { const y = p.date.slice(0,4); yc[y] = (yc[y]||0) + 1; });
+  pGroups.innerHTML = list.length
+    ? Object.keys(groups).sort().reverse().map(y => `<h2 class="yr-h">${y}<small>${yc[y]} ${l==="en"?"articles":"мэдээ"}</small></h2><ul class="plist">${groups[y].map(pRow).join("")}</ul>`).join("")
+    : `<div class="empty">${l==="en"?"Nothing matches your search.":"Хайлтад тохирох мэдээ олдсонгүй."}</div>`;
+  pLoad.innerHTML = list.length > ps.shown ? `<button class="btn outline" type="button" id="pMoreBtn">${l==="en"?"Show more":"Цааш үзэх"} (${list.length - ps.shown})</button>` : "";
+  const m = document.getElementById("pMoreBtn"); if (m) m.onclick = () => { ps.shown += PSTEP; renderPressAll(); };
+}
+let pOpen = false;
+function openPressAll(){ pOpen = true; renderPressAll(); pressAll.classList.add("open"); pressAll.scrollTop = 0; document.body.style.overflow = "hidden"; history.replaceState(null,"","#press/all"); }
+function closePressAll(){ pOpen = false; pressAll.classList.remove("open"); document.body.style.overflow = ""; history.replaceState(null,"","#press"); }
+pallClose.onclick = closePressAll;
+document.addEventListener("keydown", e => { if (e.key==="Escape" && pOpen) closePressAll(); });
+let ptm; pSearch.addEventListener("input", e => { clearTimeout(ptm); ptm = setTimeout(() => { ps.q = e.target.value; ps.shown = PSTEP; renderPressAll(); }, 150); });
+
+/* 333 lakes (admin → lakes/*.md + data/lakes-program.json → lakes.json) */
+const AIMAGS = {
+  arkhangai:["Архангай","Arkhangai"], bayan_ulgii:["Баян-Өлгий","Bayan-Ölgii"], bayankhongor:["Баянхонгор","Bayankhongor"],
+  bulgan:["Булган","Bulgan"], govi_altai:["Говь-Алтай","Govi-Altai"], govisumber:["Говьсүмбэр","Govisümber"],
+  darkhan_uul:["Дархан-Уул","Darkhan-Uul"], dornogovi:["Дорноговь","Dornogovi"], dornod:["Дорнод","Dornod"],
+  dundgovi:["Дундговь","Dundgovi"], zavkhan:["Завхан","Zavkhan"], orkhon:["Орхон","Orkhon"],
+  uvurkhangai:["Өвөрхангай","Övörkhangai"], umnugovi:["Өмнөговь","Ömnögovi"], sukhbaatar:["Сүхбаатар","Sükhbaatar"],
+  selenge:["Сэлэнгэ","Selenge"], tuv:["Төв","Töv"], uvs:["Увс","Uvs"], khovd:["Ховд","Khovd"],
+  khuvsgul:["Хөвсгөл","Khövsgöl"], khentii:["Хэнтий","Khentii"], ulaanbaatar:["Улаанбаатар","Ulaanbaatar"]
+};
+const STATUS = {
+  done:     { mn:"Ашиглалтад орсон", en:"Completed" },
+  building: { mn:"Байгуулж буй", en:"Under construction" },
+  planned:  { mn:"Төлөвлөсөн", en:"Planned" }
+};
+const KIND = { new:{mn:"Шинэ нуур",en:"New lake"}, reservoir:{mn:"Хөв, цөөрөм",en:"Reservoir / pond"}, restored:{mn:"Сэргээсэн нуур",en:"Restored lake"} };
+const PURPOSES = {
+  drinking:  { mn:"Хүн амын ундны ус", en:"Drinking water", ic:'<path d="M12 3C9 7.5 6.5 10.5 6.5 14a5.5 5.5 0 0 0 11 0C17.5 10.5 15 7.5 12 3z"/>' },
+  livestock: { mn:"Мал аж ахуйн ус", en:"Water for livestock", ic:'<path d="M4 10h13a3 3 0 0 1 3 3v2H4z"/><path d="M6 15v4M17 15v4M4 10l-1-3M17 10l2-3"/>' },
+  farming:   { mn:"Тариалангийн ус", en:"Water for crops", ic:'<path d="M12 21V9"/><path d="M12 13c-3 0-5-2-5-5 3 0 5 2 5 5zM12 11c0-3 2-5 5-5 0 3-2 5-5 5z"/>' },
+  flood:     { mn:"Үерээс хамгаалах", en:"Flood protection", ic:'<path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/>' },
+  ecology:   { mn:"Экологийн тэнцвэр", en:"Ecological balance", ic:'<circle cx="12" cy="12" r="8"/><path d="M8 13c2 0 4-2 4-5 2 3 4 4 4 5a4 4 0 0 1-8 0z"/>' }
+};
+let LAKES = [], PROG = {};
+const LSTEP = 12;
+const ls = { status:"all", aimag:"", q:"", shown:LSTEP };
+const aimagName = k => (AIMAGS[k] || [k||"", k||""])[L()==="en"?1:0];
+const lName = k => (L()==="en" && k.name_en) ? k.name_en : k.name;
+const nf = n => Number(n).toLocaleString(L()==="en" ? "en-US" : "ru-RU");
+const isNum = v => v !== null && v !== undefined && v !== "" && !isNaN(v);
+const stBadge = k => `<span class="st st-${STATUS[k.status]?k.status:"planned"}">${(STATUS[k.status]||STATUS.planned)[L()]}</span>`;
+const lakePhoto = k => k.photo ? `<div class="photo"><img src="${k.photo}" alt="" loading="lazy"></div>`
+  : `<div class="photo" style="--p1:#3b8aa6;--p2:#0f3a52">${wavesSVG((k.id||"").length)}</div>`;
+
+function renderLakeStats(){
+  /* Явцын тоо (ашиглалтад орсон / байгуулж буй) зөвхөн админд албан ёсны тоо
+     оруулсан үед харагдана. Жагсаалт бүрэн биш байж болох тул түүнээс тоолж
+     харуулбал үзэгчийг төөрөгдүүлнэ. */
+  const l = L(), p = PROG, target = isNum(p.target) && +p.target > 0 ? +p.target : 333;
+  const hasDone = isNum(p.completed), hasBuild = isNum(p.in_progress);
+  const done = hasDone ? +p.completed : 0, building = hasBuild ? +p.in_progress : 0;
+  const cells = [
+    { v: target, t: l==="en"?"Target lakes":"Зорилтот нуур" },
+    isNum(p.sites_identified) ? { v: +p.sites_identified, t: l==="en"?"Suitable sites identified":"Тохиромжтой байршил тогтоосон" } : null,
+    hasDone ? { v: done, t: l==="en"?"Completed":"Ашиглалтад орсон", hl: true } : null,
+    hasBuild ? { v: building, t: l==="en"?"Under construction":"Байгуулж буй" } : null,
+    (!hasDone && !hasBuild) ? { v: LAKES.length, t: l==="en"?"Lakes listed on this site":"Энэ сайтад бүртгэсэн нуур", hl: true } : null
+  ].filter(Boolean);
+  const pd = Math.min(100, done / target * 100), pb = Math.max(0, Math.min(100 - pd, building / target * 100));
+  lkStats.style.gridTemplateColumns = `repeat(${cells.length},1fr)`;
+  lkStats.innerHTML = cells.map(c => `<div class="lk-stat ${c.hl?"hl":""}"><b>${nf(c.v)}</b><span>${c.t}</span></div>`).join("")
+    + ((hasDone || hasBuild) ? `<div class="lk-bar"><div class="track" role="img" aria-label="${done} / ${target}"><div class="done" style="width:${pd}%"></div><div class="build" style="width:${pb}%"></div></div>
+       <div class="legend">${hasDone?`<span><i style="background:var(--accent)"></i>${l==="en"?"Completed":"Ашиглалтад орсон"} ${Math.round(pd)}%</span>`:""}${hasBuild?`<span><i style="background:#8fbfcf"></i>${l==="en"?"Under construction":"Байгуулж буй"} ${Math.round(pb)}%</span>`:""}</div></div>` : "")
+    + (p.as_of ? `<div class="lk-asof">${l==="en"?"Figures as of":"Тоон мэдээллийн огноо:"} ${fmt(String(p.as_of).slice(0,10))}${(l==="en" ? p.note_en : p.note) ? " · " + (l==="en" ? p.note_en : p.note) : ""}</div>` : "");
+  lkPurposes.innerHTML = Object.values(PURPOSES).map(x => `<li><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${x.ic}</svg></span>${x[l]}</li>`).join("");
+}
+
+function renderLakes(){
+  const l = L(), q = ls.q.trim().toLowerCase();
+  lkSearch.placeholder = l==="en" ? "Search lake or soum…" : "Нуур, сумаар хайх…";
+  const chipsData = [{k:"all",t:l==="en"?"All":"Бүгд",n:LAKES.length}, ...Object.keys(STATUS).map(k=>({k,t:STATUS[k][l],n:LAKES.filter(x=>x.status===k).length}))];
+  lkChips.innerHTML = chipsData.map(c=>`<button class="chip" data-st="${c.k}" aria-selected="${ls.status===c.k}">${c.t}<span class="n">${c.n}</span></button>`).join("");
+  lkChips.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{ls.status=b.dataset.st;ls.shown=LSTEP;renderLakes();});
+  const used = [...new Set(LAKES.map(k=>k.aimag))].filter(Boolean).sort((a,b)=>aimagName(a).localeCompare(aimagName(b)));
+  lkAimag.innerHTML = `<option value="">${l==="en"?"All provinces":"Бүх аймаг"}</option>` + used.map(a=>`<option value="${a}" ${ls.aimag===a?"selected":""}>${aimagName(a)} (${LAKES.filter(k=>k.aimag===a).length})</option>`).join("");
+  const list = LAKES.filter(k => (ls.status==="all"||k.status===ls.status) && (!ls.aimag||k.aimag===ls.aimag)
+    && (!q || [k.name,k.name_en,k.soum,aimagName(k.aimag)].join(" ").toLowerCase().includes(q)));
+  lkCount.textContent = l==="en" ? `${list.length} lake${list.length===1?"":"s"} listed` : `Жагсаалтад ${list.length} нуур`;
+  lkGrid.innerHTML = list.length ? list.slice(0, ls.shown).map(k => `<button class="lake" type="button" data-lake="${k.id}">
+      ${lakePhoto(k)}
+      <div class="lb">${stBadge(k)}<h3>${lName(k)}</h3>
+        <div class="loc">${aimagName(k.aimag)}${k.soum ? " · " + k.soum + (l==="en"?" soum":" сум") : ""}</div>
+        <div class="meta">${k.kind&&KIND[k.kind]?`<span>${KIND[k.kind][l]}</span>`:""}${isNum(k.volume_m3)?`<span><b>${nf(k.volume_m3)}</b> м³</span>`:""}${isNum(k.area_ha)?`<span><b>${nf(k.area_ha)}</b> ${l==="en"?"ha":"га"}</span>`:""}${k.year?`<span>${k.year}</span>`:""}</div>
+      </div></button>`).join("")
+    : `<div class="empty">${LAKES.length ? (l==="en"?"No lakes match these filters.":"Шүүлтүүрт тохирох нуур олдсонгүй.") : (l==="en"?"Lakes will appear here as they are added.":"Нуурууд нэмэгдэхээр энд харагдана.")}</div>`;
+  lkLoad.innerHTML = list.length > ls.shown ? `<button class="btn outline" type="button" id="lkMore">${l==="en"?"Show more":"Цааш үзэх"} (${list.length-ls.shown})</button>` : "";
+  const m = document.getElementById("lkMore"); if (m) m.onclick = () => { ls.shown += LSTEP; renderLakes(); };
+  lkGrid.querySelectorAll("[data-lake]").forEach(b=>b.onclick=()=>openLake(b.dataset.lake));
+  let host = ""; try { host = PROG.source_url ? new URL(PROG.source_url).hostname.replace(/^www\./,"") : ""; } catch(e) { host = PROG.source_url; }
+  lkSrc.innerHTML = PROG.source_url ? `${l==="en"?"Source for program figures":"Хөтөлбөрийн тоон мэдээллийн эх сурвалж"}: <a href="${PROG.source_url}" target="_blank" rel="noopener">${host}</a>` : "";
+  updateMap(list);
+}
+lkAimag.onchange = () => { ls.aimag = lkAimag.value; ls.shown = LSTEP; renderLakes(); };
+let ltm; lkSearch.addEventListener("input", e => { clearTimeout(ltm); ltm = setTimeout(()=>{ ls.q = e.target.value; ls.shown = LSTEP; renderLakes(); }, 150); });
+
+/* Газрын зураг: зөвхөн координаттай нуур байвал харагдана (Leaflet + OpenStreetMap) */
+let map = null, mapLayer = null, leafletLoading = null;
+const hasXY = k => isNum(k.lat) && isNum(k.lng);
+function loadLeaflet(){
+  if (window.L && window.L.map) return Promise.resolve();
+  if (leafletLoading) return leafletLoading;
+  leafletLoading = new Promise((res, rej) => {
+    const css = document.createElement("link"); css.rel = "stylesheet"; css.href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"; document.head.appendChild(css);
+    const js = document.createElement("script"); js.src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"; js.onload = res; js.onerror = rej; document.head.appendChild(js);
+  });
+  return leafletLoading;
+}
+const pinColor = s => s==="done" ? "#1d6b45" : s==="building" ? "#c98a3a" : "#7a858c";
+function updateMap(list){
+  const pts = list.filter(hasXY);
+  if (!LAKES.some(hasXY)) { lkMapWrap.hidden = true; return; }
+  lkMapWrap.hidden = false;
+  loadLeaflet().then(() => {
+    const Lf = window.L;
+    if (!map) {
+      map = Lf.map("lkMap", { scrollWheelZoom: false }).setView([46.8, 103.0], 5);
+      Lf.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "© OpenStreetMap" }).addTo(map);
+    }
+    if (mapLayer) mapLayer.remove();
+    mapLayer = Lf.layerGroup(pts.map(k => Lf.circleMarker([+k.lat, +k.lng], { radius: 7, color: "#fff", weight: 2, fillColor: pinColor(k.status), fillOpacity: 1 })
+      .bindTooltip(lName(k)).on("click", () => openLake(k.id)))).addTo(map);
+    if (pts.length > 1) map.fitBounds(Lf.latLngBounds(pts.map(k=>[+k.lat,+k.lng])).pad(0.2), { maxZoom: 9 });
+    else if (pts.length === 1) map.setView([+pts[0].lat, +pts[0].lng], 8);
+  }).catch(() => { lkMapWrap.hidden = true; });
+}
+
+let curLake = null, miniMap = null;
+function openLake(id, silent){
+  const k = LAKES.find(x=>x.id===id); if (!k) return; curLake = id; const l = L();
+  const row = (t, v) => v ? `<div><dt>${t}</dt><dd>${v}</dd></div>` : "";
+  lakeBody.innerHTML = `${stBadge(k)}
+    <h1 id="lakeTitle">${lName(k)}</h1>
+    ${lakePhoto(k)}
+    <dl class="facts">
+      ${row(l==="en"?"Province":"Аймаг", aimagName(k.aimag))}
+      ${row(l==="en"?"Soum":"Сум", k.soum)}
+      ${row(l==="en"?"Type":"Төрөл", k.kind&&KIND[k.kind] ? KIND[k.kind][l] : "")}
+      ${row(l==="en"?"Year":"Он", k.year)}
+      ${row(l==="en"?"Volume":"Багтаамж", isNum(k.volume_m3) ? nf(k.volume_m3)+" м³" : "")}
+      ${row(l==="en"?"Area":"Талбай", isNum(k.area_ha) ? nf(k.area_ha)+(l==="en"?" ha":" га") : "")}
+      ${row(l==="en"?"Partners":"Хамтрагч", k.partners)}
+    </dl>
+    ${(k.purposes||[]).length ? `<div class="pur">${k.purposes.map(p=>PURPOSES[p]?`<span>${PURPOSES[p][l]}</span>`:"").join("")}</div>` : ""}
+    ${(l==="en" && k.description.en) ? k.description.en : k.description.mn}
+    ${hasXY(k) ? `<div class="mini-map" id="miniMap"></div>` : ""}
+    ${k.source_url ? `<p><a class="srcl" href="${k.source_url}" target="_blank" rel="noopener">${l==="en"?"Source article":"Эх сурвалж"} ↗</a></p>` : ""}`;
+  lakeView.classList.add("open"); document.body.style.overflow = "hidden";
+  if (!silent) { lakeView.scrollTop = 0; history.replaceState(null,"","#lake/"+id); }
+  if (hasXY(k)) loadLeaflet().then(() => {
+    const Lf = window.L; if (miniMap) { miniMap.remove(); miniMap = null; }
+    miniMap = Lf.map("miniMap", { scrollWheelZoom:false }).setView([+k.lat,+k.lng], 10);
+    Lf.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "© OpenStreetMap" }).addTo(miniMap);
+    Lf.circleMarker([+k.lat,+k.lng], { radius: 8, color:"#fff", weight:2, fillColor: pinColor(k.status), fillOpacity:1 }).addTo(miniMap);
+  }).catch(()=>{});
+}
+function closeLake(){ lakeView.classList.remove("open"); document.body.style.overflow=""; curLake=null; history.replaceState(null,"","#lakes"); }
+lakeClose.onclick = closeLake;
+document.addEventListener("keydown", e => { if (e.key==="Escape" && curLake) closeLake(); });
+
 /* newsletter (demo) */
 signup.addEventListener("submit", e=>{
   e.preventDefault();
@@ -666,7 +1000,7 @@ function setLang(l){
   document.querySelectorAll("[data-set-lang]").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.setLang===l)));
   document.title = l==="en" ? "Z. Batbayar" : "З. Батбаяр";
   try{ localStorage.setItem("site-lang", l); }catch(e){}
-  render(); if(cur) openPost(cur, true);
+  render(); renderPressHome(); renderLakeStats(); renderLakes(); if(pOpen) renderPressAll(); if(cur) openPost(cur, true); if(curLake) openLake(curLake, true);
 }
 document.querySelectorAll("[data-set-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.setLang));
 
@@ -685,6 +1019,23 @@ fetch("/posts.json", { cache: "no-cache" })
     POSTS = Array.isArray(list) ? list : [];
     render();
     if (location.hash.startsWith("#post/")) openPost(decodeURIComponent(location.hash.slice(6)));
+  });
+fetch("/lakes.json", { cache: "no-cache" })
+  .then(r => r.ok ? r.json() : {})
+  .catch(() => ({}))
+  .then(d => {
+    PROG = (d && d.program) || {};
+    LAKES = (d && Array.isArray(d.lakes)) ? d.lakes : [];
+    renderLakeStats(); renderLakes();
+    if (location.hash.startsWith("#lake/")) openLake(decodeURIComponent(location.hash.slice(6)));
+  });
+fetch("/press.json", { cache: "no-cache" })
+  .then(r => r.ok ? r.json() : [])
+  .catch(() => [])
+  .then(list => {
+    PRESS = Array.isArray(list) ? list : [];
+    renderPressHome();
+    if (location.hash === "#press/all") openPressAll();
   });
 </script>
 </body>

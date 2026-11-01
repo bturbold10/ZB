@@ -70,3 +70,137 @@ collections:
       - { name: summary, label: "Товч агуулга", widget: text, i18n: true, hint: "Блогийн жагсаалтад харагдах 1–2 өгүүлбэр." }
       - { name: featured, label: "Онцлох нийтлэл (блогийн хамгийн дээр том харагдана)", widget: boolean, i18n: duplicate, default: false, required: false }
       - { name: body, label: "Нийтлэлийн эх", widget: markdown, i18n: true }
+
+  # ---------------- Хэвлэлд гарсан мэдээ ----------------
+  - name: press
+    label: "Хэвлэлд гарсан мэдээ"
+    label_singular: "мэдээ"
+    description: "Бусад сайт, хэвлэлд гарсан мэдээний холбоосууд. Нүүр хуудсанд сүүлийн 6 нь, бүгд нь «Бүх мэдээ» хуудсанд харагдана."
+    folder: "press"
+    editor: { preview: false }
+    extension: "md"
+    format: "frontmatter"
+    create: true
+    i18n: false
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    identifier_field: title
+    summary: "{{date | date('YYYY.MM.DD')}} · {{source}} · {{title}}"
+    sortable_fields: ["date", "source", "title"]
+    fields:
+      - { name: url, label: "Мэдээний холбоос (линк)", widget: string, pattern: ["^https?://", "https:// эсвэл http://-ээр эхэлсэн линк оруулна уу"] }
+      - { name: title, label: "Гарчиг (монгол)", widget: string }
+      - { name: title_en, label: "Гарчиг (англи)", widget: string, required: false, hint: "Хоосон орхивол англи хэл дээр монгол гарчиг харагдана." }
+      - { name: source, label: "Хэвлэлийн нэр", widget: string, required: false, hint: "Жишээ: ikon.mn, gogo.mn, Монцамэ. Хоосон орхивол линкээс автоматаар авна." }
+      - name: date
+        label: "Огноо"
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY.MM.DD"
+        time_format: false
+
+  # ---------------- 333 нуур: нуур бүр ----------------
+  - name: lakes
+    label: "333 нуур: нуурууд"
+    label_singular: "нуур"
+    description: "«Нэг сум — Нэг нуур — 333 нуур» хөтөлбөрийн нуур, цөөрөм бүр. Төлөв нь «Ашиглалтад орсон» болоход сайтын тоолуур автоматаар шинэчлэгдэнэ."
+    folder: "lakes"
+    editor: { preview: false }
+    extension: "md"
+    format: "frontmatter"
+    create: true
+    i18n: false
+    slug: "{{slug}}"
+    identifier_field: name
+    summary: "{{name}} · {{soum}} сум · {{status}}"
+    sortable_fields: ["name", "aimag", "status", "year"]
+    view_filters:
+      - { label: "Ашиглалтад орсон", field: status, pattern: done }
+      - { label: "Байгуулж буй", field: status, pattern: building }
+      - { label: "Төлөвлөсөн", field: status, pattern: planned }
+    fields:
+      - { name: name, label: "Нуурын нэр (монгол)", widget: string }
+      - { name: name_en, label: "Нуурын нэр (англи)", widget: string, required: false }
+      - name: aimag
+        label: "Аймаг"
+        widget: select
+        options:
+          - { label: "Архангай", value: arkhangai }
+          - { label: "Баян-Өлгий", value: bayan_ulgii }
+          - { label: "Баянхонгор", value: bayankhongor }
+          - { label: "Булган", value: bulgan }
+          - { label: "Говь-Алтай", value: govi_altai }
+          - { label: "Говьсүмбэр", value: govisumber }
+          - { label: "Дархан-Уул", value: darkhan_uul }
+          - { label: "Дорноговь", value: dornogovi }
+          - { label: "Дорнод", value: dornod }
+          - { label: "Дундговь", value: dundgovi }
+          - { label: "Завхан", value: zavkhan }
+          - { label: "Орхон", value: orkhon }
+          - { label: "Өвөрхангай", value: uvurkhangai }
+          - { label: "Өмнөговь", value: umnugovi }
+          - { label: "Сүхбаатар", value: sukhbaatar }
+          - { label: "Сэлэнгэ", value: selenge }
+          - { label: "Төв", value: tuv }
+          - { label: "Увс", value: uvs }
+          - { label: "Ховд", value: khovd }
+          - { label: "Хөвсгөл", value: khuvsgul }
+          - { label: "Хэнтий", value: khentii }
+          - { label: "Улаанбаатар", value: ulaanbaatar }
+      - { name: soum, label: "Сум / дүүрэг", widget: string }
+      - name: status
+        label: "Төлөв"
+        widget: select
+        default: planned
+        options:
+          - { label: "Ашиглалтад орсон", value: done }
+          - { label: "Байгуулж буй", value: building }
+          - { label: "Төлөвлөсөн", value: planned }
+      - name: kind
+        label: "Төрөл"
+        widget: select
+        required: false
+        options:
+          - { label: "Шинэ нуур", value: new }
+          - { label: "Хөв, цөөрөм", value: reservoir }
+          - { label: "Сэргээсэн нуур", value: restored }
+      - { name: year, label: "Он (ашиглалтад орсон / орох)", widget: number, value_type: int, required: false }
+      - { name: volume_m3, label: "Усны багтаамж (м³)", widget: number, value_type: float, required: false }
+      - { name: area_ha, label: "Талбай (га)", widget: number, value_type: float, required: false }
+      - name: purposes
+        label: "Зорилго"
+        widget: select
+        multiple: true
+        required: false
+        options:
+          - { label: "Хүн амын ундны ус", value: drinking }
+          - { label: "Мал аж ахуйн ус", value: livestock }
+          - { label: "Тариалангийн ус", value: farming }
+          - { label: "Үерээс хамгаалах", value: flood }
+          - { label: "Экологийн тэнцвэр", value: ecology }
+      - { name: partners, label: "Хамтрагч байгууллагууд", widget: string, required: false }
+      - { name: lat, label: "Өргөрөг (latitude)", widget: number, value_type: float, required: false, hint: "Google Maps дээр нуурын байрлал дээр баруун товч дарахад гарах эхний тоо. Жишээ: 47.19. Оруулбал газрын зураг дээр харагдана." }
+      - { name: lng, label: "Уртраг (longitude)", widget: number, value_type: float, required: false, hint: "Хоёр дахь тоо. Жишээ: 102.82" }
+      - { name: photo, label: "Зураг", widget: image, required: false }
+      - { name: source_url, label: "Эх сурвалж (мэдээний линк)", widget: string, required: false }
+      - { name: description_en, label: "Тайлбар (англи)", widget: markdown, required: false, buttons: [bold, italic, link, bulleted-list] }
+      - { name: body, label: "Тайлбар (монгол)", widget: markdown, required: false }
+
+  # ---------------- 333 нуур: хөтөлбөрийн тоон үзүүлэлт ----------------
+  - name: settings
+    label: "333 нуур: тоон үзүүлэлт"
+    description: "Сайтын «333 нуур» хэсгийн дээд талын тоонууд. Ашиглалтад орсон / байгуулж буй тоог оруулбал явцын шугам харагдана; хоосон орхивол харагдахгүй."
+    editor: { preview: false }
+    files:
+      - name: lakes_program
+        label: "Хөтөлбөрийн тоонууд"
+        file: "data/lakes-program.json"
+        format: json
+        fields:
+          - { name: target, label: "Зорилтот нуурын тоо", widget: number, value_type: int, default: 333 }
+          - { name: sites_identified, label: "Тохиромжтой байршил тогтоосон", widget: number, value_type: int, required: false }
+          - { name: completed, label: "Ашиглалтад орсон (албан ёсны тоо)", widget: number, value_type: int, required: false, hint: "Албан ёсны тоо. Хоосон орхивол сайтад харагдахгүй." }
+          - { name: in_progress, label: "Байгуулж буй (албан ёсны тоо)", widget: number, value_type: int, required: false, hint: "Албан ёсны тоо. Хоосон орхивол сайтад харагдахгүй." }
+          - { name: as_of, label: "Тоон мэдээллийн огноо", widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY.MM.DD", time_format: false, required: false }
+          - { name: note, label: "Тайлбар (монгол)", widget: string, required: false }
+          - { name: note_en, label: "Тайлбар (англи)", widget: string, required: false }
+          - { name: source_url, label: "Эх сурвалж (линк)", widget: string, required: false }
