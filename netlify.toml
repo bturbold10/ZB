@@ -1,0 +1,19 @@
+# Netlify тохиргоо: сайтыг хэрхэн бүтээж, нийтлэх
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# posts.json-г үргэлж шинээр татах (шинэ нийтлэл шууд харагдах)
+[[headers]]
+  for = "/posts.json"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+# Админ хэсгийг хайлтын системд харуулахгүй
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
