@@ -103,6 +103,13 @@ h2.big{font-size:clamp(2.1rem,4.6vw,3.6rem);font-weight:800;line-height:1.04;let
 .more-link:hover{color:var(--accent)}
 @media (max-width:640px){section{padding:70px 0}section.tight{padding:56px 0}}
 
+/* work: merged intro + focus cards */
+.work-top{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end;margin-bottom:48px}
+.work-top h2.big{margin:0}
+.work-intro p{margin:0 0 14px;font-size:1.08rem;color:var(--ink)}
+.work-intro p.muted{color:var(--ink-2);font-size:1rem}
+.work-links{display:flex;flex-wrap:wrap;gap:22px;margin-top:20px}
+@media (max-width:860px){.work-top{grid-template-columns:1fr;gap:20px;margin-bottom:36px}}
 /* two visit-style cards */
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 .duo-card{display:flex;flex-direction:column}
@@ -279,6 +286,39 @@ section.dark{background:#0b2530;color:#e6edf0}
 .lk-detail .mini-map{height:280px;border-radius:var(--r);border:1px solid var(--line);margin:10px 0 30px}
 .lk-detail .srcl{font-weight:700}
 
+/* gallery */
+.g-albums{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+#gLoad{display:flex;justify-content:center;margin-top:40px}
+#gLoad:empty{display:none}
+@media (max-width:960px){.g-albums{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.g-albums{grid-template-columns:1fr}}
+.g-card{display:flex;flex-direction:column;text-align:left;background:none;border:0;padding:0;color:inherit;cursor:pointer}
+.g-cover{position:relative;aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:#d6dadc;margin-bottom:14px}
+.g-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.g-card:hover .g-cover img{transform:scale(1.04)}
+.g-cover .n{position:absolute;right:10px;bottom:10px;display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.6);color:#fff;font-size:.8rem;font-weight:700;padding:4px 9px;border-radius:999px}
+.g-card h3{font-size:1.2rem;font-weight:800;letter-spacing:-.01em;line-height:1.25;margin:4px 0 0}
+.g-card:hover h3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.g-meta{font-size:.85rem;color:var(--muted)}
+.g-album{padding-top:44px;padding-bottom:90px}
+.g-album h1{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:10px 0 8px}
+.g-album .g-desc{max-width:720px;color:var(--ink-2);margin:14px 0 0}
+.g-grid{columns:3 280px;column-gap:14px;margin-top:34px}
+.g-grid button{display:block;width:100%;margin:0 0 14px;padding:0;border:0;background:#d6dadc;border-radius:var(--r);overflow:hidden;cursor:zoom-in;break-inside:avoid}
+.g-grid img{width:100%;display:block;transition:opacity .2s}
+.g-grid button:hover img{opacity:.88}
+.lightbox{position:fixed;inset:0;z-index:90;background:#0a0e10;display:flex;align-items:center;justify-content:center}
+.lightbox[hidden]{display:none}
+.lb-fig{margin:0;max-width:min(92vw,1400px);display:flex;flex-direction:column;align-items:center}
+.lb-fig img{max-width:100%;max-height:82vh;object-fit:contain;display:block}
+.lb-fig figcaption{color:#d7dde0;font-size:.95rem;margin-top:14px;text-align:center;max-width:760px}
+.lb-fig figcaption .c{color:#8b969b;margin-left:10px;font-size:.85rem}
+.lb-x{position:absolute;top:14px;right:18px;background:none;border:0;color:#fff;font-size:2.4rem;line-height:1;cursor:pointer;padding:4px 10px}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:0;color:#fff;font-size:2.6rem;line-height:1;width:54px;height:72px;cursor:pointer;border-radius:var(--r)}
+.lb-nav:hover{background:rgba(255,255,255,.18)}
+.lb-prev{left:14px}.lb-next{right:14px}
+@media (max-width:640px){.lb-nav{width:40px;height:56px;font-size:2rem}.lb-prev{left:4px}.lb-next{right:4px}}
+
 /* all-press overlay */
 .pall .wrap{max-width:980px}
 .pall-head{padding:52px 0 24px}
@@ -384,6 +424,7 @@ footer a:hover{color:#fff;text-decoration:underline}
         <li><a href="#work"><span data-lang="mn">Үйл ажиллагаа</span><span data-lang="en">Work</span></a></li>
         <li><a href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span></a></li>
         <li><a href="#stories"><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span></a></li>
+        <li class="nav-gallery" hidden><a href="#gallery"><span data-lang="mn">Зураг</span><span data-lang="en">Photos</span></a></li>
         <li><a href="#press"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">Press</span></a></li>
       </ul>
       <div class="lang" role="group" aria-label="Language">
@@ -413,30 +454,21 @@ footer a:hover{color:#fff;text-decoration:underline}
   </div>
 </section>
 
-<!-- TWO CARDS -->
-<section class="tight">
-  <div class="wrap duo">
-    <div class="duo-card">
-      <div class="photo" style="--p1:#506d79;--p2:#1d3039" data-mn="Хөрөг зураг" data-en="Portrait"></div>
-      <h3><span data-lang="mn">Хуульч, дипломатч, төрийн албан хаагч</span><span data-lang="en">Lawyer, diplomat, public servant</span></h3>
-      <p><span data-lang="mn">Хувийн хэвшил, төрийн захиргаа, дипломат албанд 25 гаруй жил ажилласан. Унгар Улсад Элчин сайдаар ажиллаж байсан.</span><span data-lang="en">More than 25 years across the private sector, public administration and diplomacy, including as Ambassador to Hungary.</span></p>
-      <a class="btn" href="#about"><span data-lang="mn">Намтар унших</span><span data-lang="en">Read biography</span></a>
-    </div>
-    <div class="duo-card">
-      <div class="photo" style="--p1:#2f7fa3;--p2:#0f3a52" data-mn="Усны газрын ажил: усан сан, худаг, лаборатори" data-en="Water Agency at work: reservoir, well, lab"></div>
-      <h3><span data-lang="mn">Монгол Улсын Усны газар</span><span data-lang="en">The Water Agency of Mongolia</span></h3>
-      <p><span data-lang="mn">2024 оноос удирдаж буй байгууллага нь улсын хэмжээнд усны нөөцийн бүртгэл, хамгаалалт, ашиглалтыг хариуцдаг.</span><span data-lang="en">Led by him since 2024, the agency is responsible for monitoring, protecting and managing the nation's water.</span></p>
-      <a class="btn" href="#work"><span data-lang="mn">Үйл ажиллагаа</span><span data-lang="en">Our work</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- THREE SQUARE CARDS -->
-<section class="tight alt" id="work">
+<!-- WORK (агентлаг + товч танилцуулга + чиглэлүүд) -->
+<section id="work">
   <div class="wrap">
-    <div class="sec-top">
+    <div class="work-top">
       <div>
-        <h2 class="big"><span data-lang="mn">Үйл ажиллагааны чиглэл</span><span data-lang="en">Areas of focus</span></h2>
+        <p class="kicker"><span data-lang="mn">Үйл ажиллагаа</span><span data-lang="en">Our work</span></p>
+        <h2 class="big"><span data-lang="mn">Монгол Улсын Усны газар</span><span data-lang="en">The Water Agency of Mongolia</span></h2>
+      </div>
+      <div class="work-intro">
+        <p><span data-lang="mn">Усны газар нь улсын хэмжээнд усны нөөцийн бүртгэл, хамгаалалт, зохистой ашиглалтыг хариуцдаг. З. Батбаяр 2024 оноос тус газрыг удирдаж байна.</span><span data-lang="en">The Water Agency is responsible for monitoring, protecting and managing the nation's water. Z. Batbayar has led it since 2024.</span></p>
+        <p class="muted"><span data-lang="mn">Хуульч мэргэжилтэй. Хувийн хэвшил, төрийн захиргаа, дипломат албанд 25 гаруй жил ажилласан, Унгар Улсад Элчин сайдаар ажиллаж байсан.</span><span data-lang="en">A lawyer with more than 25 years across the private sector, public administration and diplomacy, including as Ambassador to Hungary.</span></p>
+        <div class="work-links">
+          <a class="more-link" href="#about"><span data-lang="mn">Намтар унших</span><span data-lang="en">Read biography</span> →</a>
+          <a class="more-link" href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span> →</a>
+        </div>
       </div>
     </div>
     <div class="trio">
@@ -567,6 +599,21 @@ footer a:hover{color:#fff;text-decoration:underline}
   </div>
 </section>
 
+<!-- GALLERY -->
+<section class="alt" id="gallery" hidden>
+  <div class="wrap">
+    <div class="sec-top">
+      <div>
+        <p class="kicker"><span data-lang="mn">Зургийн цомог</span><span data-lang="en">Gallery</span></p>
+        <h2 class="big" style="margin:0"><span data-lang="mn">Үйл явдлын зургууд</span><span data-lang="en">Photos from the field</span></h2>
+      </div>
+      <p class="count" id="gCount" style="margin:0"></p>
+    </div>
+    <div class="g-albums" id="gAlbums"></div>
+    <div class="load" id="gLoad"></div>
+  </div>
+</section>
+
 <!-- PRESS -->
 <section class="tight alt" id="press">
   <div class="wrap">
@@ -671,6 +718,21 @@ footer a:hover{color:#fff;text-decoration:underline}
     <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span></b>
   </div></div>
   <article class="article lk-detail" id="lakeBody"></article>
+</div>
+
+<div class="reader" id="albumView" role="dialog" aria-modal="true" aria-labelledby="albumTitle">
+  <div class="rbar"><div class="wrap">
+    <button type="button" id="albumClose"><span data-lang="mn">← Зургийн цомог руу буцах</span><span data-lang="en">← Back to gallery</span></button>
+    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span></b>
+  </div></div>
+  <div class="wrap g-album" id="albumBody"></div>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button type="button" class="lb-x" id="lbClose" aria-label="Close">×</button>
+  <button type="button" class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <figure class="lb-fig"><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button type="button" class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
 </div>
 
 <div class="reader pall" id="pressAll" role="dialog" aria-modal="true" aria-labelledby="pallTitle">
@@ -1028,6 +1090,69 @@ function closeLake(){ lakeView.classList.remove("open"); document.body.style.ove
 lakeClose.onclick = closeLake;
 document.addEventListener("keydown", e => { if (e.key==="Escape" && curLake) closeLake(); });
 
+/* Зургийн цомог (admin → gallery/*.md → gallery.json) */
+let ALBUMS = [];
+const GSTEP = 6;
+let gShown = GSTEP, curAlbum = null;
+/* Netlify-ийн зургийн CDN-ээр жижигрүүлсэн хувилбар; ажиллахгүй бол эх зургийг харуулна */
+const thumb = (src, w) => src.startsWith("/") && !/^\/\//.test(src) ? `/.netlify/images?url=${encodeURIComponent(src)}&w=${w}` : src;
+const imgTag = (src, w, alt) => `<img src="${thumb(src, w)}" data-orig="${src}" alt="${alt||""}" loading="lazy" onerror="if(this.src.indexOf('/.netlify/images')>-1){this.src=this.dataset.orig}">`;
+const aTitle = a => (L()==="en" && a.title.en) ? a.title.en : a.title.mn;
+const camSm = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="4"/></svg>';
+
+function renderGallery(){
+  const l = L(), on = ALBUMS.length > 0;
+  gallery.hidden = !on;
+  document.querySelectorAll(".nav-gallery").forEach(li => li.hidden = !on);
+  if (!on) return;
+  const total = ALBUMS.reduce((n, a) => n + a.photos.length, 0);
+  gCount.textContent = l==="en" ? `${ALBUMS.length} albums · ${total} photos` : `${ALBUMS.length} цомог · ${total} зураг`;
+  gAlbums.innerHTML = ALBUMS.slice(0, gShown).map(a => `<button class="g-card" type="button" data-album="${a.id}">
+      <div class="g-cover">${imgTag(a.cover || a.photos[0].src, 800, "")}<span class="n">${camSm}${a.photos.length}</span></div>
+      <span class="g-meta">${a.date ? fmt(a.date) : ""}${a.location ? " · " + a.location : ""}</span>
+      <h3>${aTitle(a)}</h3></button>`).join("");
+  gAlbums.querySelectorAll("[data-album]").forEach(b => b.onclick = () => openAlbum(b.dataset.album));
+  gLoad.innerHTML = ALBUMS.length > gShown ? `<button class="btn outline" type="button" id="gMore">${l==="en"?"More albums":"Бусад цомог"} (${ALBUMS.length - gShown})</button>` : "";
+  const m = document.getElementById("gMore"); if (m) m.onclick = () => { gShown += GSTEP; renderGallery(); };
+}
+
+function openAlbum(id, silent){
+  const a = ALBUMS.find(x => x.id === id); if (!a) return; curAlbum = id; const l = L();
+  albumBody.innerHTML = `<p class="kicker">${l==="en"?"Gallery":"Зургийн цомог"}</p>
+    <h1 id="albumTitle">${aTitle(a)}</h1>
+    <span class="g-meta">${a.date ? fmt(a.date) : ""}${a.location ? " · " + a.location : ""} · ${a.photos.length} ${l==="en"?"photos":"зураг"}</span>
+    ${(l==="en" && a.description.en) ? `<div class="g-desc">${a.description.en}</div>` : (a.description.mn ? `<div class="g-desc">${a.description.mn}</div>` : "")}
+    <div class="g-grid">${a.photos.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.caption || (l==="en"?"Photo":"Зураг") + " " + (i+1)}">${imgTag(p.src, 700, p.caption)}</button>`).join("")}</div>`;
+  albumBody.querySelectorAll("[data-i]").forEach(b => b.onclick = () => openLightbox(+b.dataset.i));
+  albumView.classList.add("open"); document.body.style.overflow = "hidden";
+  if (!silent) { albumView.scrollTop = 0; history.replaceState(null, "", "#album/" + id); }
+}
+function closeAlbum(){ albumView.classList.remove("open"); document.body.style.overflow = ""; curAlbum = null; history.replaceState(null, "", "#gallery"); }
+albumClose.onclick = closeAlbum;
+
+/* lightbox */
+let lbI = 0;
+function showLb(){
+  const a = ALBUMS.find(x => x.id === curAlbum); if (!a) return;
+  const p = a.photos[lbI];
+  lbImg.src = thumb(p.src, 1800); lbImg.dataset.orig = p.src; lbImg.alt = p.caption || "";
+  lbImg.onerror = () => { if (lbImg.src.indexOf("/.netlify/images") > -1) lbImg.src = p.src; };
+  lbCap.innerHTML = `${p.caption || ""}<span class="c">${lbI + 1} / ${a.photos.length}</span>`;
+  lbPrev.hidden = lbNext.hidden = a.photos.length < 2;
+}
+function openLightbox(i){ lbI = i; showLb(); lightbox.hidden = false; lbClose.focus(); }
+function closeLightbox(){ lightbox.hidden = true; lbImg.removeAttribute("src"); }
+function stepLb(d){ const a = ALBUMS.find(x => x.id === curAlbum); if (!a) return; lbI = (lbI + d + a.photos.length) % a.photos.length; showLb(); }
+lbClose.onclick = closeLightbox; lbPrev.onclick = () => stepLb(-1); lbNext.onclick = () => stepLb(1);
+lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
+let tx = null;
+lightbox.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
+lightbox.addEventListener("touchend", e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) stepLb(dx < 0 ? 1 : -1); tx = null; });
+document.addEventListener("keydown", e => {
+  if (!lightbox.hidden) { if (e.key === "Escape") closeLightbox(); else if (e.key === "ArrowRight") stepLb(1); else if (e.key === "ArrowLeft") stepLb(-1); return; }
+  if (e.key === "Escape" && curAlbum) closeAlbum();
+});
+
 /* newsletter (demo) */
 signup.addEventListener("submit", e=>{
   e.preventDefault();
@@ -1042,7 +1167,7 @@ function setLang(l){
   document.querySelectorAll("[data-set-lang]").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.setLang===l)));
   document.title = l==="en" ? "Z. Batbayar" : "З. Батбаяр";
   try{ localStorage.setItem("site-lang", l); }catch(e){}
-  render(); renderPressHome(); renderLakeStats(); renderLakes(); if(pOpen) renderPressAll(); if(cur) openPost(cur, true); if(curLake) openLake(curLake, true);
+  render(); renderPressHome(); renderLakeStats(); renderLakes(); renderGallery(); if(curAlbum) openAlbum(curAlbum, true); if(pOpen) renderPressAll(); if(cur) openPost(cur, true); if(curLake) openLake(curLake, true);
 }
 document.querySelectorAll("[data-set-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.setLang));
 
@@ -1070,6 +1195,14 @@ fetch("/lakes.json", { cache: "no-cache" })
     LAKES = (d && Array.isArray(d.lakes)) ? d.lakes : [];
     renderLakeStats(); renderLakes();
     if (location.hash.startsWith("#lake/")) openLake(decodeURIComponent(location.hash.slice(6)));
+  });
+fetch("/gallery.json", { cache: "no-cache" })
+  .then(r => r.ok ? r.json() : [])
+  .catch(() => [])
+  .then(list => {
+    ALBUMS = Array.isArray(list) ? list.filter(a => a.photos && a.photos.length) : [];
+    renderGallery();
+    if (location.hash.startsWith("#album/")) openAlbum(decodeURIComponent(location.hash.slice(7)));
   });
 fetch("/press.json", { cache: "no-cache" })
   .then(r => r.ok ? r.json() : [])
