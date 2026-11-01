@@ -34,7 +34,7 @@ a{color:inherit}
 button{font-family:inherit}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
 @media (max-width:640px){.wrap{padding:0 16px}body{font-size:16px}}
-html[lang="mn"] [data-lang="en"],html[lang="en"] [data-lang="mn"]{display:none !important}
+html:not([lang="mn"]) [data-lang="mn"],html:not([lang="en"]) [data-lang="en"],html:not([lang="hu"]) [data-lang="hu"]{display:none !important}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
 /* ---------- photo placeholders ---------- */
@@ -56,7 +56,7 @@ html[lang="mn"] [data-lang="en"],html[lang="en"] [data-lang="mn"]{display:none !
 .brand{display:flex;flex-direction:column;line-height:1.1;text-decoration:none}
 .brand b{font-size:1.2rem;font-weight:800;letter-spacing:-.01em}
 .brand small{font-size:.72rem;color:var(--muted);font-weight:500;letter-spacing:.02em}
-.nav{display:flex;align-items:center;gap:28px}
+.nav{display:flex;align-items:center;gap:28px;margin-left:auto}
 .nav ul{list-style:none;display:flex;gap:26px;margin:0;padding:0}
 .nav ul a{font-size:.95rem;font-weight:600;text-decoration:none;padding:6px 0;border-bottom:2px solid transparent}
 .nav ul a:hover{border-color:var(--ink)}
@@ -81,6 +81,19 @@ html[lang="mn"] [data-lang="en"],html[lang="en"] [data-lang="mn"]{display:none !
   .nav ul a{display:block;padding:12px 0;font-size:1.05rem;border-bottom:1px solid var(--line)}
 }
 
+/* language dropdown */
+.lang-dd{position:relative}
+.lang-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font:700 .82rem var(--font);color:var(--ink);cursor:pointer;letter-spacing:.04em}
+.lang-btn:hover,.lang-btn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.lang-btn .car{transition:transform .15s}
+.lang-btn[aria-expanded="true"] .car{transform:rotate(180deg)}
+.lang-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:180px;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 18px 40px -18px rgba(11,30,39,.35);padding:6px;z-index:60}
+.lang-menu[hidden]{display:none}
+.lang-menu button{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;padding:10px 12px;border-radius:7px;font:500 .95rem var(--font);color:var(--ink);cursor:pointer;text-align:left}
+.lang-menu button b{font-size:.72rem;letter-spacing:.08em;color:var(--muted);width:22px}
+.lang-menu button:hover{background:var(--bg-2)}
+.lang-menu button[aria-pressed="true"]{color:var(--accent);font-weight:700}
+.lang-menu button[aria-pressed="true"]::after{content:"✓";margin-left:auto}
 /* ---------- hero ---------- */
 .hero{position:relative;min-height:min(86vh,820px);display:flex;align-items:flex-end;color:#fff}
 .hero .photo{position:absolute;inset:0;--p1:#3d7f95;--p2:#0a2c39}
@@ -463,30 +476,38 @@ section.dark::before,footer::before{background:var(--deep)}
 </head>
 <body>
 
-<a href="#main" class="sr">Үндсэн хэсэг рүү шилжих</a>
+<a href="#main" class="sr"><span data-lang="mn">Үндсэн хэсэг рүү шилжих</span><span data-lang="en">Skip to main content</span><span data-lang="hu">Ugrás a fő tartalomra</span></a>
 
 <div class="notice" id="notice"><div class="wrap">
-  <span class="tag"><span data-lang="mn">Шинэ нийтлэл</span><span data-lang="en">New</span></span>
+  <span class="tag"><span data-lang="mn">Шинэ нийтлэл</span><span data-lang="en">New</span><span data-lang="hu">Új</span></span>
   <span id="noticeTitle"></span>
-  <a href="#stories" id="noticeLink"><span data-lang="mn">Унших →</span><span data-lang="en">Read →</span></a>
+  <a href="#stories" id="noticeLink"><span data-lang="mn">Унших →</span><span data-lang="en">Read →</span><span data-lang="hu">Tovább →</span></a>
 </div></div>
 
 <header class="site-header">
   <div class="wrap">
     <nav class="nav" aria-label="Main">
       <ul id="navList">
-        <li><a href="#about"><span data-lang="mn">Намтар</span><span data-lang="en">About</span></a></li>
-        <li><a href="#whoami"><span data-lang="mn">Би хэн бэ</span><span data-lang="en">Who I am</span></a></li>
-        <li><a href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span></a></li>
-        <li><a href="#stories"><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span></a></li>
-        <li class="nav-gallery" hidden><a href="#gallery"><span data-lang="mn">Зураг</span><span data-lang="en">Photos</span></a></li>
-        <li><a href="#press"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">Press</span></a></li>
+        <li><a href="#about"><span data-lang="mn">Намтар</span><span data-lang="en">About</span><span data-lang="hu">Életrajz</span></a></li>
+        <li><a href="#whoami"><span data-lang="mn">Би хэн бэ</span><span data-lang="en">Who I am</span><span data-lang="hu">Bemutatkozás</span></a></li>
+        <li><a href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span><span data-lang="hu">333 tó</span></a></li>
+        <li><a href="#stories"><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span><span data-lang="hu">Írások</span></a></li>
+        <li class="nav-gallery" hidden><a href="#gallery"><span data-lang="mn">Зураг</span><span data-lang="en">Photos</span><span data-lang="hu">Fotók</span></a></li>
+        <li><a href="#press"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">Press</span><span data-lang="hu">Sajtó</span></a></li>
       </ul>
-      <div class="lang" role="group" aria-label="Language">
-        <button type="button" data-set-lang="mn" aria-pressed="true">MN</button>
-        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      <div class="lang-dd" id="langDD">
+        <button type="button" class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Хэл / Language / Nyelv">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          <span id="langCur">MN</span>
+          <svg class="car" width="10" height="10" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu" hidden>
+          <button type="button" role="menuitemradio" data-set-lang="mn" aria-pressed="true"><b>MN</b>Монгол</button>
+          <button type="button" role="menuitemradio" data-set-lang="en" aria-pressed="false"><b>EN</b>English</button>
+          <button type="button" role="menuitemradio" data-set-lang="hu" aria-pressed="false"><b>HU</b>Magyar</button>
+        </div>
       </div>
-      <a class="btn sm" href="#contact"><span data-lang="mn">Холбогдох</span><span data-lang="en">Contact</span></a>
+      <a class="btn sm" href="#contact"><span data-lang="mn">Холбогдох</span><span data-lang="en">Contact</span><span data-lang="hu">Kapcsolat</span></a>
       <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-label="Menu">☰</button>
     </nav>
   </div>
@@ -497,13 +518,13 @@ section.dark::before,footer::before{background:var(--deep)}
 
 <!-- HERO -->
 <section class="hero" style="padding:0">
-  <div class="photo" data-mn="Нүүр зураг/видео: гол, усан сан эсвэл ажлын талбай" data-en="Hero photo/video: river, reservoir or field site"></div>
+  <div class="photo" data-mn="Нүүр зураг/видео: гол, усан сан эсвэл ажлын талбай" data-en="Hero photo/video: river, reservoir or field site" data-hu="Nyitókép/videó: folyó, tározó vagy terepi helyszín"></div>
   <div class="wrap">
-    <h1><span data-lang="mn">Зэнээмядарын<br>Батбаяр</span><span data-lang="en">Zeneemyadar<br>Batbayar</span></h1>
-    <p><span data-lang="mn">Усны нөөцийг хамгаалах, иргэдийг цэвэр, аюулгүй усаар хангах төрийн бодлогыг удирдан хэрэгжүүлж байна.</span><span data-lang="en">Leading national policy to protect water resources and provide every citizen with clean, safe water.</span></p>
+    <h1><span data-lang="mn">Зэнээмядарын<br>Батбаяр</span><span data-lang="en">Zeneemyadar<br>Batbayar</span><span data-lang="hu">Zeneemyadar<br>Batbayar</span></h1>
+    <p><span data-lang="mn">Усны нөөцийг хамгаалах, иргэдийг цэвэр, аюулгүй усаар хангах төрийн бодлогыг удирдан хэрэгжүүлж байна.</span><span data-lang="en">Leading national policy to protect water resources and provide every citizen with clean, safe water.</span><span data-lang="hu">A vízkészletek védelméért és azért dolgozik, hogy minden állampolgár tiszta, biztonságos vízhez jusson.</span></p>
     <div class="btns">
-      <a class="btn light" href="#about"><span data-lang="mn">Намтар</span><span data-lang="en">Biography</span></a>
-      <a class="btn outline-light" href="#stories"><span data-lang="mn">Нийтлэлүүд</span><span data-lang="en">Read stories</span></a>
+      <a class="btn light" href="#about"><span data-lang="mn">Намтар</span><span data-lang="en">Biography</span><span data-lang="hu">Életrajz</span></a>
+      <a class="btn outline-light" href="#stories"><span data-lang="mn">Нийтлэлүүд</span><span data-lang="en">Read stories</span><span data-lang="hu">Írások</span></a>
     </div>
   </div>
 </section>
@@ -512,8 +533,8 @@ section.dark::before,footer::before{background:var(--deep)}
 <section id="whoami">
   <div class="wrap who">
     <div class="who-text">
-      <p class="kicker"><span data-lang="mn">Танилцуулга</span><span data-lang="en">About me</span></p>
-      <h2 class="big"><span data-lang="mn">Би хэн бэ</span><span data-lang="en">Who I am</span></h2>
+      <p class="kicker"><span data-lang="mn">Танилцуулга</span><span data-lang="en">About me</span><span data-lang="hu">Bemutatkozás</span></p>
+      <h2 class="big"><span data-lang="mn">Би хэн бэ</span><span data-lang="en">Who I am</span><span data-lang="hu">Ki vagyok?</span></h2>
       <div id="whoIntro">
         <div data-lang="mn">
           <p>Би Зэнээмядарын Батбаяр. Говь-Алтай аймгийн Алтай хотод төрсөн, мэргэжлээрээ хуульч.</p>
@@ -524,11 +545,15 @@ section.dark::before,footer::before{background:var(--deep)}
           <p>I am Zeneemyadar Batbayar, born in Altai, Govi-Altai Province, and a lawyer by training.</p>
           <p>I have spent more than 25 years in the private sector, public administration and diplomacy, including as Ambassador to Hungary from 2016 to 2021.</p>
           <p>Since 2024 I have led the Water Agency of Mongolia, implementing the “One Soum – One Lake – 333 Lakes” initiative.</p>
+        </div><div data-lang="hu">
+          <p>Zeneemyadar Batbayar vagyok. A Góbi-Altaj tartománybeli Altajban születtem, végzettségemet tekintve jogász.</p>
+          <p>Több mint 25 évet dolgoztam a magánszektorban, a közigazgatásban és a diplomáciában; 2016 és 2021 között Mongólia magyarországi nagyköveteként szolgáltam.</p>
+          <p>2024 óta vezetem Mongólia Vízügyi Hivatalát, ahol az „Egy szum – egy tó – 333 tó” programot valósítjuk meg.</p>
         </div>
       </div>
       <div class="work-links">
-        <a class="more-link" href="#about"><span data-lang="mn">Намтар унших</span><span data-lang="en">Read biography</span> →</a>
-        <a class="more-link" href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span> →</a>
+        <a class="more-link" href="#about"><span data-lang="mn">Намтар унших</span><span data-lang="en">Read biography</span><span data-lang="hu">Életrajz</span> →</a>
+        <a class="more-link" href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span><span data-lang="hu">333 tó</span> →</a>
       </div>
     </div>
     <div class="who-show" id="whoShow" aria-roledescription="carousel" aria-label="Зургууд">
@@ -544,11 +569,11 @@ section.dark::before,footer::before{background:var(--deep)}
 <!-- MISSION -->
 <section class="mission">
   <div class="wrap">
-    <p class="kicker"><span data-lang="mn">Эрхэм зорилго</span><span data-lang="en">Mission</span></p>
+    <p class="kicker"><span data-lang="mn">Эрхэм зорилго</span><span data-lang="en">Mission</span><span data-lang="hu">Küldetés</span></p>
     <p class="stmt" data-lang="mn"><span>Сум бүрт нуур.</span><span class="hl">333 шинэ нуур</span><span>Монгол орондоо.</span></p>
-    <p class="stmt" data-lang="en"><span>A lake for every soum.</span><span class="hl">333 new lakes</span><span>for Mongolia.</span></p>
-    <p><span data-lang="mn">Ерөнхийлөгч У.Хүрэлсүхийн санаачилсан «Нэг сум — Нэг нуур — 333 нуур» хөтөлбөрийг Усны газар хэрэгжүүлж байна. Бороо, үерийн усыг хуримтлуулж, малчид, тариаланчид, иргэдээ усаар хангаж, гадаргын усны нөөцөө нэмэгдүүлнэ.</span><span data-lang="en">The Water Agency is implementing the “One Soum – One Lake – 333 Lakes” initiative launched by President U. Khurelsukh: capturing rain and flood water, supplying herders, farmers and communities, and growing the nation's surface water reserves.</span></p>
-    <p style="margin-top:28px"><a class="btn" href="#lakes"><span data-lang="mn">333 нуурыг үзэх →</span><span data-lang="en">Explore the 333 lakes →</span></a></p>
+    <p class="stmt" data-lang="en"><span>A lake for every soum.</span><span class="hl">333 new lakes</span><span>for Mongolia.</span></p><p class="stmt" data-lang="hu"><span>Minden szumnak egy tó.</span><span class="hl">333 új tó</span><span>Mongóliának.</span></p>
+    <p><span data-lang="mn">Ерөнхийлөгч У.Хүрэлсүхийн санаачилсан «Нэг сум — Нэг нуур — 333 нуур» хөтөлбөрийг Усны газар хэрэгжүүлж байна. Бороо, үерийн усыг хуримтлуулж, малчид, тариаланчид, иргэдээ усаар хангаж, гадаргын усны нөөцөө нэмэгдүүлнэ.</span><span data-lang="en">The Water Agency is implementing the “One Soum – One Lake – 333 Lakes” initiative launched by President U. Khurelsukh: capturing rain and flood water, supplying herders, farmers and communities, and growing the nation's surface water reserves.</span><span data-lang="hu">A Vízügyi Hivatal valósítja meg U. Hürelszüh államfő „Egy szum – egy tó – 333 tó” kezdeményezését: összegyűjti az eső- és árvizet, vízzel látja el a pásztorokat, a gazdálkodókat és a településeket, és növeli az ország felszíni vízkészletét.</span></p>
+    <p style="margin-top:28px"><a class="btn" href="#lakes"><span data-lang="mn">333 нуурыг үзэх →</span><span data-lang="en">Explore the 333 lakes →</span><span data-lang="hu">Fedezze fel a 333 tavat →</span></a></p>
   </div>
 </section>
 
@@ -557,9 +582,9 @@ section.dark::before,footer::before{background:var(--deep)}
   <div class="wrap">
     <div class="sec-top">
       <div>
-        <p class="kicker"><span data-lang="mn">Нэг сум — Нэг нуур</span><span data-lang="en">One soum – one lake</span></p>
-        <h2 class="big"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span></h2>
-        <p><span data-lang="mn">Улс орны хэмжээнд байгуулж буй нуур, цөөрөм бүрийн байршил, явц, хэмжээ.</span><span data-lang="en">Where each lake and reservoir is being built, how far along it is, and how big it will be.</span></p>
+        <p class="kicker"><span data-lang="mn">Нэг сум — Нэг нуур</span><span data-lang="en">One soum – one lake</span><span data-lang="hu">Egy szum – egy tó</span></p>
+        <h2 class="big"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span><span data-lang="hu">333 tó</span></h2>
+        <p><span data-lang="mn">Улс орны хэмжээнд байгуулж буй нуур, цөөрөм бүрийн байршил, явц, хэмжээ.</span><span data-lang="en">Where each lake and reservoir is being built, how far along it is, and how big it will be.</span><span data-lang="hu">Az egyes tavak és tározók helye, készültsége és mérete.</span></p>
       </div>
     </div>
 
@@ -574,7 +599,7 @@ section.dark::before,footer::before{background:var(--deep)}
     <div class="controls lk-controls">
       <div class="chips" id="lkChips"></div>
       <div class="lk-right">
-        <label class="sel"><span class="sr">Аймаг / Province</span><select id="lkAimag"></select></label>
+        <label class="sel"><span class="sr"><span data-lang="mn">Аймаг</span><span data-lang="en">Province</span><span data-lang="hu">Tartomány</span></span><select id="lkAimag"></select></label>
         <label class="search">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           <input id="lkSearch" type="search" autocomplete="off">
@@ -591,10 +616,10 @@ section.dark::before,footer::before{background:var(--deep)}
 <!-- ABOUT -->
 <section class="dark" id="about">
   <div class="wrap about">
-    <div class="photo" data-mn="Албан ёсны хөрөг зураг" data-en="Official portrait"></div>
+    <div class="photo" data-mn="Албан ёсны хөрөг зураг" data-en="Official portrait" data-hu="Hivatalos portré"></div>
     <div>
-      <p class="kicker"><span data-lang="mn">Намтар</span><span data-lang="en">Biography</span></p>
-      <h2 class="big"><span data-lang="mn">Зэнээмядарын Батбаяр</span><span data-lang="en">Zeneemyadar Batbayar</span></h2>
+      <p class="kicker"><span data-lang="mn">Намтар</span><span data-lang="en">Biography</span><span data-lang="hu">Életrajz</span></p>
+      <h2 class="big"><span data-lang="mn">Зэнээмядарын Батбаяр</span><span data-lang="en">Zeneemyadar Batbayar</span><span data-lang="hu">Zeneemyadar Batbayar</span></h2>
       <div class="bio" data-lang="mn">
         <p>1974 онд Говь-Алтай аймгийн Алтай хотод төрсөн. Хуульч мэргэжилтэй, 2024 оноос Монгол Улсын Усны газрын даргаар ажиллаж байна.</p>
         <p>Улаанбаатар хотын 1-р сургууль, МУИС-ийн Хуулийн сургуульд суралцаж, Унгар Улсын Этвёш Лорандын их сургуулийн (ELTE) Хуулийн факультетэд 1999 онд докторын зэрэг хамгаалсан. Маастрихтын их сургуулийн Executive MBA хөтөлбөрийг төгссөн.</p>
@@ -604,24 +629,28 @@ section.dark::before,footer::before{background:var(--deep)}
         <p>Born in 1974 in Altai, Govi-Altai Province. A lawyer by training, he has headed the Water Agency of Mongolia since 2024.</p>
         <p>He studied at School No. 1 in Ulaanbaatar and the Law School of the National University of Mongolia, earned a doctorate from the Faculty of Law of Eötvös Loránd University (ELTE) in Hungary in 1999, and completed Maastricht University's Executive MBA programme.</p>
         <p>He has served as legal advisor at Nomin Holding, Executive Director of the State Department Store, Deputy Head of the Water Agency and advisor to the Minister of Finance, and from 2016 to 2021 as Mongolia's Ambassador Extraordinary and Plenipotentiary to Hungary.</p>
+      </div><div class="bio" data-lang="hu">
+        <p>1974-ben született Altajban, Góbi-Altaj tartományban. Jogász végzettségű, 2024 óta Mongólia Vízügyi Hivatalának vezetője.</p>
+        <p>Az ulánbátori 1. számú iskolában és a Mongol Nemzeti Egyetem jogi karán tanult, 1999-ben doktori fokozatot szerzett az Eötvös Loránd Tudományegyetem (ELTE) Állam- és Jogtudományi Karán, majd elvégezte a Maastrichti Egyetem Executive MBA programját.</p>
+        <p>Dolgozott a Nomin Holding jogi tanácsadójaként, az Állami Áruház vezérigazgatójaként, a Vízügyi Hivatal elnökhelyetteseként és a pénzügyminiszter tanácsadójaként; 2016 és 2021 között Mongólia rendkívüli és meghatalmazott nagykövete volt Magyarországon.</p>
       </div>
       <dl class="facts">
-        <div><dt><span data-lang="mn">Албан тушаал</span><span data-lang="en">Position</span></dt><dd><span data-lang="mn">Усны газрын дарга</span><span data-lang="en">Head, Water Agency</span></dd></div>
-        <div><dt><span data-lang="mn">Мэргэжил</span><span data-lang="en">Profession</span></dt><dd><span data-lang="mn">Хуульч</span><span data-lang="en">Lawyer</span></dd></div>
-        <div><dt><span data-lang="mn">Боловсрол</span><span data-lang="en">Education</span></dt><dd><span data-lang="mn">Доктор (ELTE) · Executive MBA</span><span data-lang="en">Doctorate (ELTE) · Executive MBA</span></dd></div>
-        <div><dt><span data-lang="mn">Төрсөн</span><span data-lang="en">Born</span></dt><dd><span data-lang="mn">1974 · Говь-Алтай</span><span data-lang="en">1974 · Govi-Altai</span></dd></div>
+        <div><dt><span data-lang="mn">Албан тушаал</span><span data-lang="en">Position</span><span data-lang="hu">Beosztás</span></dt><dd><span data-lang="mn">Усны газрын дарга</span><span data-lang="en">Head, Water Agency</span><span data-lang="hu">a Vízügyi Hivatal vezetője</span></dd></div>
+        <div><dt><span data-lang="mn">Мэргэжил</span><span data-lang="en">Profession</span><span data-lang="hu">Szakma</span></dt><dd><span data-lang="mn">Хуульч</span><span data-lang="en">Lawyer</span><span data-lang="hu">Jogász</span></dd></div>
+        <div><dt><span data-lang="mn">Боловсрол</span><span data-lang="en">Education</span><span data-lang="hu">Végzettség</span></dt><dd><span data-lang="mn">Доктор (ELTE) · Executive MBA</span><span data-lang="en">Doctorate (ELTE) · Executive MBA</span><span data-lang="hu">Doktori fokozat (ELTE) · Executive MBA</span></dd></div>
+        <div><dt><span data-lang="mn">Төрсөн</span><span data-lang="en">Born</span><span data-lang="hu">Született</span></dt><dd><span data-lang="mn">1974 · Говь-Алтай</span><span data-lang="en">1974 · Govi-Altai</span><span data-lang="hu">1974 · Góbi-Altaj</span></dd></div>
       </dl>
       <div class="tl">
-        <h3><span data-lang="mn">Ажлын туршлага</span><span data-lang="en">Career</span></h3>
+        <h3><span data-lang="mn">Ажлын туршлага</span><span data-lang="en">Career</span><span data-lang="hu">Szakmai pálya</span></h3>
         <ol>
-          <li class="now"><span class="yr"><span data-lang="mn">2024 — одоо</span><span data-lang="en">2024 — now</span></span><span><span class="t"><span data-lang="mn">Дарга</span><span data-lang="en">Head</span></span><br><span class="o"><span data-lang="mn">Монгол Улсын Усны газар</span><span data-lang="en">Water Agency of Mongolia</span></span></span></li>
-          <li><span class="yr">2022 — 2023</span><span><span class="t"><span data-lang="mn">Судалгааны багийн ахлагч</span><span data-lang="en">Research team leader</span></span><br><span class="o"><span data-lang="mn">Шихихутуг их сургууль</span><span data-lang="en">Shikhikhutug University</span></span></span></li>
-          <li><span class="yr">2016 — 2021</span><span><span class="t"><span data-lang="mn">Онц бөгөөд бүрэн эрхт элчин сайд</span><span data-lang="en">Ambassador Extraordinary and Plenipotentiary</span></span><br><span class="o"><span data-lang="mn">Монгол Улсаас Унгар Улсад</span><span data-lang="en">Mongolia to Hungary</span></span></span></li>
-          <li><span class="yr">2013 — 2016</span><span><span class="t"><span data-lang="mn">Гадаад харилцаа хариуцсан нарийн бичгийн дарга</span><span data-lang="en">Secretary for Foreign Affairs</span></span><br><span class="o"><span data-lang="mn">УИХ-д суудалтай улс төрийн нам</span><span data-lang="en">Parliamentary political party</span></span></span></li>
-          <li><span class="yr">2012 — 2014</span><span><span class="t"><span data-lang="mn">Сангийн сайдын зөвлөх</span><span data-lang="en">Advisor to the Minister of Finance</span></span></span></li>
-          <li><span class="yr">2005 — 2012</span><span><span class="t"><span data-lang="mn">Дэд дарга</span><span data-lang="en">Deputy Head</span></span><br><span class="o"><span data-lang="mn">Усны газар</span><span data-lang="en">Water Agency</span></span></span></li>
-          <li><span class="yr">2003 — 2005</span><span><span class="t"><span data-lang="mn">Гүйцэтгэх захирал</span><span data-lang="en">Executive Director</span></span><br><span class="o"><span data-lang="mn">“Улсын их дэлгүүр” ХК</span><span data-lang="en">State Department Store JSC</span></span></span></li>
-          <li><span class="yr">1999 — 2003</span><span><span class="t"><span data-lang="mn">Хуулийн зөвлөх</span><span data-lang="en">Legal Advisor</span></span><br><span class="o"><span data-lang="mn">“Номин холдинг” ХХК</span><span data-lang="en">Nomin Holding LLC</span></span></span></li>
+          <li class="now"><span class="yr"><span data-lang="mn">2024 — одоо</span><span data-lang="en">2024 — now</span><span data-lang="hu">2024 — napjainkig</span></span><span><span class="t"><span data-lang="mn">Дарга</span><span data-lang="en">Head</span><span data-lang="hu">Vezető</span></span><br><span class="o"><span data-lang="mn">Монгол Улсын Усны газар</span><span data-lang="en">Water Agency of Mongolia</span><span data-lang="hu">Mongólia Vízügyi Hivatala</span></span></span></li>
+          <li><span class="yr">2022 — 2023</span><span><span class="t"><span data-lang="mn">Судалгааны багийн ахлагч</span><span data-lang="en">Research team leader</span><span data-lang="hu">Kutatócsoport-vezető</span></span><br><span class="o"><span data-lang="mn">Шихихутуг их сургууль</span><span data-lang="en">Shikhikhutug University</span><span data-lang="hu">Sihihutug Egyetem</span></span></span></li>
+          <li><span class="yr">2016 — 2021</span><span><span class="t"><span data-lang="mn">Онц бөгөөд бүрэн эрхт элчин сайд</span><span data-lang="en">Ambassador Extraordinary and Plenipotentiary</span><span data-lang="hu">Rendkívüli és meghatalmazott nagykövet</span></span><br><span class="o"><span data-lang="mn">Монгол Улсаас Унгар Улсад</span><span data-lang="en">Mongolia to Hungary</span><span data-lang="hu">Mongólia – Magyarország</span></span></span></li>
+          <li><span class="yr">2013 — 2016</span><span><span class="t"><span data-lang="mn">Гадаад харилцаа хариуцсан нарийн бичгийн дарга</span><span data-lang="en">Secretary for Foreign Affairs</span><span data-lang="hu">Külügyi titkár</span></span><br><span class="o"><span data-lang="mn">УИХ-д суудалтай улс төрийн нам</span><span data-lang="en">Parliamentary political party</span><span data-lang="hu">Parlamenti párt</span></span></span></li>
+          <li><span class="yr">2012 — 2014</span><span><span class="t"><span data-lang="mn">Сангийн сайдын зөвлөх</span><span data-lang="en">Advisor to the Minister of Finance</span><span data-lang="hu">A pénzügyminiszter tanácsadója</span></span></span></li>
+          <li><span class="yr">2005 — 2012</span><span><span class="t"><span data-lang="mn">Дэд дарга</span><span data-lang="en">Deputy Head</span><span data-lang="hu">Elnökhelyettes</span></span><br><span class="o"><span data-lang="mn">Усны газар</span><span data-lang="en">Water Agency</span><span data-lang="hu">Vízügyi Hivatal</span></span></span></li>
+          <li><span class="yr">2003 — 2005</span><span><span class="t"><span data-lang="mn">Гүйцэтгэх захирал</span><span data-lang="en">Executive Director</span><span data-lang="hu">Vezérigazgató</span></span><br><span class="o"><span data-lang="mn">“Улсын их дэлгүүр” ХК</span><span data-lang="en">State Department Store JSC</span><span data-lang="hu">Állami Áruház Zrt.</span></span></span></li>
+          <li><span class="yr">1999 — 2003</span><span><span class="t"><span data-lang="mn">Хуулийн зөвлөх</span><span data-lang="en">Legal Advisor</span><span data-lang="hu">Jogi tanácsadó</span></span><br><span class="o"><span data-lang="mn">“Номин холдинг” ХХК</span><span data-lang="en">Nomin Holding LLC</span><span data-lang="hu">Nomin Holding Kft.</span></span></span></li>
         </ol>
       </div>
     </div>
@@ -633,10 +662,10 @@ section.dark::before,footer::before{background:var(--deep)}
   <div class="wrap">
     <div class="sec-top">
       <div>
-        <p class="kicker"><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span></p>
-        <h2 class="big"><span data-lang="mn">Сүүлийн нийтлэлүүд</span><span data-lang="en">Latest stories</span></h2>
+        <p class="kicker"><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span><span data-lang="hu">Írások</span></p>
+        <h2 class="big"><span data-lang="mn">Сүүлийн нийтлэлүүд</span><span data-lang="en">Latest stories</span><span data-lang="hu">Legfrissebb írások</span></h2>
       </div>
-      <a class="more-link" href="/admin/"><span data-lang="mn">✎ Нийтлэл бичих (админ)</span><span data-lang="en">✎ Write a post (admin)</span></a>
+      <a class="more-link" href="/admin/"><span data-lang="mn">✎ Нийтлэл бичих (админ)</span><span data-lang="en">✎ Write a post (admin)</span><span data-lang="hu">✎ Új írás (admin)</span></a>
     </div>
     <div id="featured"></div>
     <div class="controls">
@@ -657,8 +686,8 @@ section.dark::before,footer::before{background:var(--deep)}
   <div class="wrap">
     <div class="sec-top">
       <div>
-        <p class="kicker"><span data-lang="mn">Зургийн цомог</span><span data-lang="en">Gallery</span></p>
-        <h2 class="big" style="margin:0"><span data-lang="mn">Үйл явдлын зургууд</span><span data-lang="en">Photos from the field</span></h2>
+        <p class="kicker"><span data-lang="mn">Зургийн цомог</span><span data-lang="en">Gallery</span><span data-lang="hu">Fotógaléria</span></p>
+        <h2 class="big" style="margin:0"><span data-lang="mn">Үйл явдлын зургууд</span><span data-lang="en">Photos from the field</span><span data-lang="hu">Képek az eseményekről</span></h2>
       </div>
       <p class="count" id="gCount" style="margin:0"></p>
     </div>
@@ -672,8 +701,8 @@ section.dark::before,footer::before{background:var(--deep)}
   <div class="wrap">
     <div class="sec-top">
       <div>
-        <p class="kicker"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">In the press</span></p>
-        <h2 class="big" style="margin:0"><span data-lang="mn">Мэдээ</span><span data-lang="en">News</span></h2>
+        <p class="kicker"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">In the press</span><span data-lang="hu">A sajtóban</span></p>
+        <h2 class="big" style="margin:0"><span data-lang="mn">Мэдээ</span><span data-lang="en">News</span><span data-lang="hu">Hírek</span></h2>
       </div>
     </div>
     <ul class="plist" id="pressList"></ul>
@@ -685,21 +714,21 @@ section.dark::before,footer::before{background:var(--deep)}
 <div class="band" id="contact">
   <div class="wrap">
     <div>
-      <h2><span data-lang="mn">Санал, хүсэлт байна уу?</span><span data-lang="en">Have a question or suggestion?</span></h2>
-      <p><span data-lang="mn">Усны асуудлаар санал, хүсэлт, мэдээллээ бидэнд илгээгээрэй.</span><span data-lang="en">Send us your questions, suggestions or reports about water issues.</span></p>
+      <h2><span data-lang="mn">Санал, хүсэлт байна уу?</span><span data-lang="en">Have a question or suggestion?</span><span data-lang="hu">Kérdése vagy javaslata van?</span></h2>
+      <p><span data-lang="mn">Усны асуудлаар санал, хүсэлт, мэдээллээ бидэнд илгээгээрэй.</span><span data-lang="en">Send us your questions, suggestions or reports about water issues.</span><span data-lang="hu">Küldje el nekünk vízügyi kérdéseit, javaslatait vagy bejelentéseit.</span></p>
     </div>
-    <a class="btn light" href="#office"><span data-lang="mn">Холбоо барих</span><span data-lang="en">Get in touch</span></a>
+    <a class="btn light" href="#office"><span data-lang="mn">Холбоо барих</span><span data-lang="en">Get in touch</span><span data-lang="hu">Kapcsolatfelvétel</span></a>
   </div>
 </div>
 
 <!-- OFFICE -->
 <section class="tight" id="office">
   <div class="wrap">
-    <div class="staff-note"><strong data-lang="mn">Ажилтны тэмдэглэл:</strong><strong data-lang="en">Staff note:</strong> <span data-lang="mn">шар налуу бичвэрүүдийг албан ёсны мэдээллээр солино уу.</span><span data-lang="en">replace the italic placeholders with official details.</span></div>
+    <div class="staff-note"><strong data-lang="mn">Ажилтны тэмдэглэл:</strong><strong data-lang="en">Staff note:</strong><strong data-lang="hu">Megjegyzés a munkatársaknak:</strong> <span data-lang="mn">шар налуу бичвэрүүдийг албан ёсны мэдээллээр солино уу.</span><span data-lang="en">replace the italic placeholders with official details.</span><span data-lang="hu">cserélje ki a dőlt helykitöltőket a hivatalos adatokra.</span></div>
     <div class="office">
-      <div><h3><span data-lang="mn">Хаяг</span><span data-lang="en">Address</span></h3><p class="ph-text"><span data-lang="mn">[Албан хаяг]</span><span data-lang="en">[Office address]</span></p></div>
-      <div><h3><span data-lang="mn">Ажлын цаг</span><span data-lang="en">Hours</span></h3><p class="ph-text"><span data-lang="mn">[Даваа–Баасан, 09:00–18:00]</span><span data-lang="en">[Mon–Fri, 09:00–18:00]</span></p></div>
-      <div><h3><span data-lang="mn">Холбоо барих</span><span data-lang="en">Contact</span></h3><p class="ph-text">[email@example.mn] · [+976 ____ ____]</p></div>
+      <div><h3><span data-lang="mn">Хаяг</span><span data-lang="en">Address</span><span data-lang="hu">Cím</span></h3><p class="ph-text"><span data-lang="mn">[Албан хаяг]</span><span data-lang="en">[Office address]</span><span data-lang="hu">[Hivatali cím]</span></p></div>
+      <div><h3><span data-lang="mn">Ажлын цаг</span><span data-lang="en">Hours</span><span data-lang="hu">Ügyfélfogadás</span></h3><p class="ph-text"><span data-lang="mn">[Даваа–Баасан, 09:00–18:00]</span><span data-lang="en">[Mon–Fri, 09:00–18:00]</span><span data-lang="hu">[H–P, 09:00–18:00]</span></p></div>
+      <div><h3><span data-lang="mn">Холбоо барих</span><span data-lang="en">Contact</span><span data-lang="hu">Kapcsolat</span></h3><p class="ph-text">[email@example.mn] · [+976 ____ ____]</p></div>
     </div>
   </div>
 </section>
@@ -709,55 +738,55 @@ section.dark::before,footer::before{background:var(--deep)}
   <div class="wrap">
     <div class="fgrid">
       <div class="fb">
-        <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span></b>
-        <span><span data-lang="mn">Монгол Улсын Усны газрын дарга</span><span data-lang="en">Head of the Water Agency of Mongolia</span></span>
+        <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span><span data-lang="hu">Z. Batbayar</span></b>
+        <span><span data-lang="mn">Монгол Улсын Усны газрын дарга</span><span data-lang="en">Head of the Water Agency of Mongolia</span><span data-lang="hu">Mongólia Vízügyi Hivatalának vezetője</span></span>
       </div>
-      <div><h4><span data-lang="mn">Тухай</span><span data-lang="en">About</span></h4><ul>
-        <li><a href="#about"><span data-lang="mn">Намтар</span><span data-lang="en">Biography</span></a></li>
-        <li><a href="#whoami"><span data-lang="mn">Би хэн бэ</span><span data-lang="en">Who I am</span></a></li>
-        <li><a href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span></a></li>
-        <li><a href="#press"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">Press</span></a></li>
+      <div><h4><span data-lang="mn">Тухай</span><span data-lang="en">About</span><span data-lang="hu">Életrajz</span></h4><ul>
+        <li><a href="#about"><span data-lang="mn">Намтар</span><span data-lang="en">Biography</span><span data-lang="hu">Életrajz</span></a></li>
+        <li><a href="#whoami"><span data-lang="mn">Би хэн бэ</span><span data-lang="en">Who I am</span><span data-lang="hu">Bemutatkozás</span></a></li>
+        <li><a href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span><span data-lang="hu">333 tó</span></a></li>
+        <li><a href="#press"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">Press</span><span data-lang="hu">Sajtó</span></a></li>
       </ul></div>
-      <div><h4><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span></h4><ul>
-        <li><a href="#stories"><span data-lang="mn">Бүх нийтлэл</span><span data-lang="en">All stories</span></a></li>
-        <li><a href="/admin/"><span data-lang="mn">Админ</span><span data-lang="en">Admin</span></a></li>
+      <div><h4><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span><span data-lang="hu">Írások</span></h4><ul>
+        <li><a href="#stories"><span data-lang="mn">Бүх нийтлэл</span><span data-lang="en">All stories</span><span data-lang="hu">Összes írás</span></a></li>
+        <li><a href="/admin/"><span data-lang="mn">Админ</span><span data-lang="en">Admin</span><span data-lang="hu">Admin</span></a></li>
       </ul></div>
-      <div><h4><span data-lang="mn">Холбогдох</span><span data-lang="en">Connect</span></h4>
+      <div><h4><span data-lang="mn">Холбогдох</span><span data-lang="en">Connect</span><span data-lang="hu">Közösségi média</span></h4>
         <div class="social">
           <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v2H7v4h2v9h4v-9h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg></a>
           <a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.2 2h3.4l-7.4 8.5L23 22h-6.8l-5.3-7-6.1 7H1.4l7.9-9L1 2h7l4.8 6.4zM17 20h1.9L7.1 4H5.1z"/></svg></a>
           <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 5 12 5 12 5s-7 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C5 19 12 19 12 19s7 0 8.9-.4a3 3 0 0 0 2.1-2.1c.3-1.5.4-3 .4-4.5s-.1-3-.4-4.5zM9.7 15.1V8.9L15.3 12z"/></svg></a>
         </div>
-        <p style="font-size:.82rem;color:#8d969b;margin:12px 0 0"><span data-lang="mn">Холбоосуудыг оруулна уу</span><span data-lang="en">Add social links</span></p>
+        <p style="font-size:.82rem;color:#8d969b;margin:12px 0 0"><span data-lang="mn">Холбоосуудыг оруулна уу</span><span data-lang="en">Add social links</span><span data-lang="hu">Adja meg a közösségi linkeket</span></p>
       </div>
     </div>
     <div class="fbottom">
-      <span>© 2026 <span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span></span>
-      <a href="#top"><span data-lang="mn">Дээш буцах ↑</span><span data-lang="en">Back to top ↑</span></a>
+      <span>© 2026 <span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span><span data-lang="hu">Z. Batbayar</span></span>
+      <a href="#top"><span data-lang="mn">Дээш буцах ↑</span><span data-lang="en">Back to top ↑</span><span data-lang="hu">Vissza az oldal tetejére ↑</span></a>
     </div>
   </div>
 </footer>
 
 <div class="reader" id="reader" role="dialog" aria-modal="true" aria-labelledby="readerTitle">
   <div class="rbar"><div class="wrap">
-    <button type="button" id="readerClose"><span data-lang="mn">← Нийтлэлүүд рүү буцах</span><span data-lang="en">← Back to stories</span></button>
-    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span></b>
+    <button type="button" id="readerClose"><span data-lang="mn">← Нийтлэлүүд рүү буцах</span><span data-lang="en">← Back to stories</span><span data-lang="hu">← Vissza az írásokhoz</span></button>
+    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span><span data-lang="hu">Z. Batbayar</span></b>
   </div></div>
   <article class="article" id="readerBody"></article>
 </div>
 
 <div class="reader" id="lakeView" role="dialog" aria-modal="true" aria-labelledby="lakeTitle">
   <div class="rbar"><div class="wrap">
-    <button type="button" id="lakeClose"><span data-lang="mn">← 333 нуур руу буцах</span><span data-lang="en">← Back to 333 Lakes</span></button>
-    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span></b>
+    <button type="button" id="lakeClose"><span data-lang="mn">← 333 нуур руу буцах</span><span data-lang="en">← Back to 333 Lakes</span><span data-lang="hu">← Vissza: 333 tó</span></button>
+    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span><span data-lang="hu">Z. Batbayar</span></b>
   </div></div>
   <article class="article lk-detail" id="lakeBody"></article>
 </div>
 
 <div class="reader" id="albumView" role="dialog" aria-modal="true" aria-labelledby="albumTitle">
   <div class="rbar"><div class="wrap">
-    <button type="button" id="albumClose"><span data-lang="mn">← Зургийн цомог руу буцах</span><span data-lang="en">← Back to gallery</span></button>
-    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span></b>
+    <button type="button" id="albumClose"><span data-lang="mn">← Зургийн цомог руу буцах</span><span data-lang="en">← Back to gallery</span><span data-lang="hu">← Vissza a galériához</span></button>
+    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span><span data-lang="hu">Z. Batbayar</span></b>
   </div></div>
   <div class="wrap g-album" id="albumBody"></div>
 </div>
@@ -771,13 +800,13 @@ section.dark::before,footer::before{background:var(--deep)}
 
 <div class="reader pall" id="pressAll" role="dialog" aria-modal="true" aria-labelledby="pallTitle">
   <div class="rbar"><div class="wrap">
-    <button type="button" id="pallClose"><span data-lang="mn">← Нүүр хуудас руу буцах</span><span data-lang="en">← Back to home</span></button>
-    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span></b>
+    <button type="button" id="pallClose"><span data-lang="mn">← Нүүр хуудас руу буцах</span><span data-lang="en">← Back to home</span><span data-lang="hu">← Vissza a főoldalra</span></button>
+    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span><span data-lang="hu">Z. Batbayar</span></b>
   </div></div>
   <div class="wrap">
     <div class="pall-head">
-      <p class="kicker"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">In the press</span></p>
-      <h1 id="pallTitle"><span data-lang="mn">Хэвлэлд гарсан бүх мэдээ</span><span data-lang="en">All press coverage</span></h1>
+      <p class="kicker"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">In the press</span><span data-lang="hu">A sajtóban</span></p>
+      <h1 id="pallTitle"><span data-lang="mn">Хэвлэлд гарсан бүх мэдээ</span><span data-lang="en">All press coverage</span><span data-lang="hu">Összes sajtómegjelenés</span></h1>
     </div>
     <div class="controls">
       <div class="chips" id="pChips"></div>
@@ -799,20 +828,26 @@ section.dark::before,footer::before{background:var(--deep)}
    posts.json болж хувирна. Энд гараар юу ч нэмэх шаардлагагүй.
    Ангиллыг өөрчилбөл admin/config.yml дахь жагсаалтыг бас засна. */
 const CATS = {
-  policy:   { mn: "Усны бодлого", en: "Water policy", p1: "#2e7a72", p2: "#0f3c38" },
-  drinking: { mn: "Ундны ус", en: "Drinking water", p1: "#2f7fa3", p2: "#123c55" },
-  env:      { mn: "Байгаль орчин", en: "Environment", p1: "#4f8a5b", p2: "#1f4229" },
-  intl:     { mn: "Олон улсын хамтын ажиллагаа", en: "International", p1: "#6b5f92", p2: "#2e2748" },
-  admin:    { mn: "Төрийн захиргаа", en: "Public administration", p1: "#a0703a", p2: "#4d3418" }
+  policy:   { mn: "Усны бодлого", en: "Water policy", hu: "Vízpolitika", p1: "#2e7a72", p2: "#0f3c38" },
+  drinking: { mn: "Ундны ус", en: "Drinking water", hu: "Ivóvíz", p1: "#2f7fa3", p2: "#123c55" },
+  env:      { mn: "Байгаль орчин", en: "Environment", hu: "Környezet", p1: "#4f8a5b", p2: "#1f4229" },
+  intl:     { mn: "Олон улсын хамтын ажиллагаа", en: "International", hu: "Nemzetközi együttműködés", p1: "#6b5f92", p2: "#2e2748" },
+  admin:    { mn: "Төрийн захиргаа", en: "Public administration", hu: "Közigazgatás", p1: "#a0703a", p2: "#4d3418" }
 };
 let POSTS = [];
 /* ========================================================== */
 
 const root = document.documentElement;
-const L = () => root.getAttribute("lang") === "en" ? "en" : "mn";
+const LANGS = ["mn", "en", "hu"];
+const L = () => { const l = root.getAttribute("lang"); return LANGS.includes(l) ? l : "mn"; };
+/* T(монгол, англи, магяр): одоогийн хэлээр сонгоно */
+const T = (mn, en, hu) => { const l = L(); return l === "en" ? en : l === "hu" ? hu : mn; };
+/* pick({mn,en,hu}): тухайн хэлээр бичээгүй бол англи, тэгээд монголыг харуулна */
+const pick = o => { if (!o) return ""; const l = L(); return o[l] || (l !== "mn" ? o.en : "") || o.mn || o.en || ""; };
 const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const fmt = d => { const [y,m,dd] = d.split("-"); return L()==="en" ? `${MON[+m-1]} ${+dd}, ${y}` : `${y}.${m}.${dd}`; };
-const sampleTag = () => `<span class="sample">${L()==="en"?"sample":"жишээ"}</span>`;
+const HUMON = ["jan.","febr.","márc.","ápr.","máj.","jún.","júl.","aug.","szept.","okt.","nov.","dec."];
+const fmt = d => { const [y,m,dd] = d.split("-"); return T(`${y}.${m}.${dd}`, `${MON[+m-1]} ${+dd}, ${y}`, `${y}. ${HUMON[+m-1]} ${+dd}.`); };
+const sampleTag = () => `<span class="sample">${T("жишээ","sample","minta")}</span>`;
 
 /* photo placeholder */
 const camIcon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="4"/></svg>';
@@ -826,7 +861,7 @@ function wavesSVG(seed){
 }
 function fillPhotos(scope){
   (scope || document).querySelectorAll(".photo[data-mn]").forEach((el, i) => {
-    el.innerHTML = wavesSVG(i + 3) + `<span class="cap">${camIcon}<span data-lang="mn">${el.dataset.mn}</span><span data-lang="en">${el.dataset.en}</span></span>`;
+    el.innerHTML = wavesSVG(i + 3) + `<span class="cap">${camIcon}<span data-lang="mn">${el.dataset.mn}</span><span data-lang="en">${el.dataset.en}</span><span data-lang="hu">${el.dataset.hu || el.dataset.en}</span></span>`;
   });
 }
 const catOf = p => CATS[p.cat] || CATS.policy;
@@ -844,29 +879,29 @@ const filtered = () => { const l = L(), q = st.q.trim().toLowerCase();
 
 function renderChips(){
   const l = L();
-  const items = [{k:"all",t:l==="en"?"All":"Бүгд",n:POSTS.length}, ...Object.keys(CATS).map(k=>({k,t:CATS[k][l],n:POSTS.filter(p=>p.cat===k).length}))];
+  const items = [{k:"all",t:T("Бүгд","All","Mind"),n:POSTS.length}, ...Object.keys(CATS).map(k=>({k,t:CATS[k][l],n:POSTS.filter(p=>p.cat===k).length}))];
   chips.innerHTML = items.map(c=>`<button class="chip" role="tab" data-cat="${c.k}" aria-selected="${st.cat===c.k}">${c.t}<span class="n">${c.n}</span></button>`).join("");
   chips.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{st.cat=b.dataset.cat;st.page=1;render();});
 }
 function render(){
   const l = L();
-  search.placeholder = l==="en" ? "Search stories…" : "Нийтлэл хайх…";
+  search.placeholder = T("Нийтлэл хайх…","Search stories…","Keresés az írásokban…");
   const f = featuredPost(), showF = !!f && st.cat==="all" && !st.q && st.page===1;
   notice.style.display = f ? "" : "none";
   featured.innerHTML = showF ? `<button class="featured" type="button" data-post="${f.id}">
       ${postPhoto(f)}
       <div><div class="tags"><span class="tagp">${catOf(f)[l]}</span><span class="date">${fmt(f.date)}</span></div>
-      <h3>${f.title[l]}</h3><p>${f.summary[l]}</p><span class="more-link">${l==="en"?"Read story":"Нийтлэл унших"} →</span></div></button>` : "";
+      <h3>${f.title[l]}</h3><p>${f.summary[l]}</p><span class="more-link">${T("Нийтлэл унших","Read story","Elolvasom")} →</span></div></button>` : "";
   renderChips();
   const all = filtered(); let list = showF ? all.filter(p=>p.id!==f.id) : all;
   const pages = Math.max(1, Math.ceil(list.length/PER)); st.page = Math.min(st.page, pages);
   const slice = list.slice((st.page-1)*PER, st.page*PER);
-  count.textContent = l==="en" ? `${all.length} stor${all.length===1?"y":"ies"}` : `Нийт ${all.length} нийтлэл`;
+  count.textContent = T(`Нийт ${all.length} нийтлэл`, `${all.length} stor${all.length===1?"y":"ies"}`, `${all.length} írás`);
   grid.innerHTML = slice.length ? slice.map(p=>`<button class="story" type="button" data-post="${p.id}">
       ${postPhoto(p)}
       <div class="tags"><span class="tagp">${catOf(p)[l]}</span><span class="date">${fmt(p.date)}</span></div>
-      <h3>${p.title[l]}</h3><p>${p.summary[l]}</p><span class="lm">${l==="en"?"Learn more":"Дэлгэрэнгүй"} →</span></button>`).join("")
-    : (POSTS.length && !showF) || !POSTS.length ? `<div class="empty">${!POSTS.length ? (l==="en"?"No stories yet.":"Одоогоор нийтлэл алга.") : (l==="en"?"No stories match your search.":"Хайлтад тохирох нийтлэл олдсонгүй.")}</div>` : "";
+      <h3>${p.title[l]}</h3><p>${p.summary[l]}</p><span class="lm">${T("Дэлгэрэнгүй","Learn more","Tovább")} →</span></button>`).join("")
+    : (POSTS.length && !showF) || !POSTS.length ? `<div class="empty">${!POSTS.length ? (T("Одоогоор нийтлэл алга.","No stories yet.","Még nincs írás.")) : (T("Хайлтад тохирох нийтлэл олдсонгүй.","No stories match your search.","Nincs a keresésnek megfelelő írás."))}</div>` : "";
   if (pages<=1) pager.innerHTML = "";
   else {
     let h = `<button data-page="${st.page-1}" ${st.page===1?"disabled":""} aria-label="Prev">←</button>`;
@@ -888,7 +923,7 @@ function openPost(id, silent){
   const rel = POSTS.filter(x=>x.cat===p.cat && x.id!==p.id).slice(0,3);
   readerBody.innerHTML = `<div class="tags"><span class="tagp">${catOf(p)[l]}</span><span class="date">${fmt(p.date)}</span></div>
     <h1 id="readerTitle">${p.title[l]}</h1>${postPhoto(p)}${p.body[l]}
-    ${rel.length?`<div class="related"><h2>${l==="en"?"Related stories":"Холбоотой нийтлэлүүд"}</h2><div class="rel">${rel.map(r=>`<button type="button" data-rel="${r.id}">${postPhoto(r)}<div class="date">${fmt(r.date)}</div><div class="t">${r.title[l]}</div></button>`).join("")}</div></div>`:""}`;
+    ${rel.length?`<div class="related"><h2>${T("Холбоотой нийтлэлүүд","Related stories","Kapcsolódó írások")}</h2><div class="rel">${rel.map(r=>`<button type="button" data-rel="${r.id}">${postPhoto(r)}<div class="date">${fmt(r.date)}</div><div class="t">${r.title[l]}</div></button>`).join("")}</div></div>`:""}`;
   readerBody.querySelectorAll("[data-rel]").forEach(b=>b.onclick=()=>openPost(b.dataset.rel));
   reader.classList.add("open"); document.body.style.overflow="hidden";
   if(!silent){ reader.scrollTop=0; history.replaceState(null,"","#post/"+id); }
@@ -901,7 +936,7 @@ document.addEventListener("keydown", e=>{ if(e.key==="Escape" && cur) closePost(
 let PRESS = [];
 const HOME_PRESS = 6, PSTEP = 20, MAX_CHIPS = 6;
 const ps = { src: "all", q: "", shown: PSTEP };
-const pTitle = p => (L()==="en" && p.title.en) ? p.title.en : p.title.mn;
+const pTitle = p => pick(p.title);
 const arrow = '<span class="ar" aria-hidden="true">↗</span>';
 const pRow = p => `<li><a href="${p.url}" target="_blank" rel="noopener">
     <span><span class="src">${p.source}</span><span class="pd">${fmt(p.date)}</span></span>
@@ -911,34 +946,34 @@ function renderPressHome(){
   const l = L();
   pressList.innerHTML = PRESS.slice(0, HOME_PRESS).map(pRow).join("");
   pressList.style.display = PRESS.length ? "" : "none";
-  if (!PRESS.length) { pressMore.innerHTML = `<p class="press-empty">${l==="en"?"No press coverage yet.":"Одоогоор мэдээ алга."}</p>`; return; }
+  if (!PRESS.length) { pressMore.innerHTML = `<p class="press-empty">${T("Одоогоор мэдээ алга.","No press coverage yet.","Még nincs sajtómegjelenés.")}</p>`; return; }
   pressMore.innerHTML = PRESS.length > HOME_PRESS
-    ? `<button class="btn outline" type="button" id="pressAllBtn">${l==="en"?"All press coverage":"Бүх мэдээ"} (${PRESS.length}) →</button>` : "";
+    ? `<button class="btn outline" type="button" id="pressAllBtn">${T("Бүх мэдээ","All press coverage","Összes sajtómegjelenés")} (${PRESS.length}) →</button>` : "";
   const b = document.getElementById("pressAllBtn"); if (b) b.onclick = openPressAll;
 }
 
 function renderPressAll(){
   const l = L(), q = ps.q.trim().toLowerCase();
-  pSearch.placeholder = l==="en" ? "Search headlines…" : "Гарчгаар хайх…";
+  pSearch.placeholder = T("Гарчгаар хайх…","Search headlines…","Keresés a címekben…");
   // хэвлэлүүд: хамгийн олон мэдээтэй эхэнд
   const counts = {}; PRESS.forEach(p => counts[p.source] = (counts[p.source]||0) + 1);
   const srcs = Object.keys(counts).sort((a,b) => counts[b]-counts[a]);
   const top = srcs.slice(0, MAX_CHIPS), rest = srcs.slice(MAX_CHIPS);
-  pChips.innerHTML = `<button class="chip" data-src="all" aria-selected="${ps.src==="all"}">${l==="en"?"All":"Бүгд"}<span class="n">${PRESS.length}</span></button>`
+  pChips.innerHTML = `<button class="chip" data-src="all" aria-selected="${ps.src==="all"}">${T("Бүгд","All","Mind")}<span class="n">${PRESS.length}</span></button>`
     + top.map(s=>`<button class="chip" data-src="${s}" aria-selected="${ps.src===s}">${s}<span class="n">${counts[s]}</span></button>`).join("")
-    + (rest.length ? `<span class="chip" aria-selected="${rest.includes(ps.src)}"><select id="pOther" aria-label="${l==="en"?"Other outlets":"Бусад хэвлэл"}"><option value="">${l==="en"?"Other…":"Бусад…"}</option>${rest.map(s=>`<option value="${s}" ${ps.src===s?"selected":""}>${s} (${counts[s]})</option>`).join("")}</select></span>` : "");
+    + (rest.length ? `<span class="chip" aria-selected="${rest.includes(ps.src)}"><select id="pOther" aria-label="${T("Бусад хэвлэл","Other outlets","Egyéb médiumok")}"><option value="">${T("Бусад…","Other…","Egyéb…")}</option>${rest.map(s=>`<option value="${s}" ${ps.src===s?"selected":""}>${s} (${counts[s]})</option>`).join("")}</select></span>` : "");
   pChips.querySelectorAll("[data-src]").forEach(b => b.onclick = () => { ps.src = b.dataset.src; ps.shown = PSTEP; renderPressAll(); });
   const o = document.getElementById("pOther"); if (o) o.onchange = () => { ps.src = o.value || "all"; ps.shown = PSTEP; renderPressAll(); };
 
-  const list = PRESS.filter(p => (ps.src==="all" || p.source===ps.src) && (!q || (p.title.mn+" "+(p.title.en||"")+" "+p.source).toLowerCase().includes(q)));
-  pCount.textContent = l==="en" ? `${list.length} article${list.length===1?"":"s"}` : `Нийт ${list.length} мэдээ`;
+  const list = PRESS.filter(p => (ps.src==="all" || p.source===ps.src) && (!q || (p.title.mn+" "+(p.title.en||"")+" "+(p.title.hu||"")+" "+p.source).toLowerCase().includes(q)));
+  pCount.textContent = T(`Нийт ${list.length} мэдээ`, `${list.length} article${list.length===1?"":"s"}`, `${list.length} cikk`);
   const shown = list.slice(0, ps.shown), groups = {};
   shown.forEach(p => (groups[p.date.slice(0,4)] ||= []).push(p));
   const yc = {}; list.forEach(p => { const y = p.date.slice(0,4); yc[y] = (yc[y]||0) + 1; });
   pGroups.innerHTML = list.length
-    ? Object.keys(groups).sort().reverse().map(y => `<h2 class="yr-h">${y}<small>${yc[y]} ${l==="en"?"articles":"мэдээ"}</small></h2><ul class="plist">${groups[y].map(pRow).join("")}</ul>`).join("")
-    : `<div class="empty">${l==="en"?"Nothing matches your search.":"Хайлтад тохирох мэдээ олдсонгүй."}</div>`;
-  pLoad.innerHTML = list.length > ps.shown ? `<button class="btn outline" type="button" id="pMoreBtn">${l==="en"?"Show more":"Цааш үзэх"} (${list.length - ps.shown})</button>` : "";
+    ? Object.keys(groups).sort().reverse().map(y => `<h2 class="yr-h">${y}<small>${yc[y]} ${T("мэдээ","articles","cikk")}</small></h2><ul class="plist">${groups[y].map(pRow).join("")}</ul>`).join("")
+    : `<div class="empty">${T("Хайлтад тохирох мэдээ олдсонгүй.","Nothing matches your search.","Nincs a keresésnek megfelelő találat.")}</div>`;
+  pLoad.innerHTML = list.length > ps.shown ? `<button class="btn outline" type="button" id="pMoreBtn">${T("Цааш үзэх","Show more","Továbbiak")} (${list.length - ps.shown})</button>` : "";
   const m = document.getElementById("pMoreBtn"); if (m) m.onclick = () => { ps.shown += PSTEP; renderPressAll(); };
 }
 let pOpen = false;
@@ -950,33 +985,34 @@ let ptm; pSearch.addEventListener("input", e => { clearTimeout(ptm); ptm = setTi
 
 /* 333 lakes (admin → lakes/*.md + data/lakes-program.json → lakes.json) */
 const AIMAGS = {
-  arkhangai:["Архангай","Arkhangai"], bayan_ulgii:["Баян-Өлгий","Bayan-Ölgii"], bayankhongor:["Баянхонгор","Bayankhongor"],
-  bulgan:["Булган","Bulgan"], govi_altai:["Говь-Алтай","Govi-Altai"], govisumber:["Говьсүмбэр","Govisümber"],
-  darkhan_uul:["Дархан-Уул","Darkhan-Uul"], dornogovi:["Дорноговь","Dornogovi"], dornod:["Дорнод","Dornod"],
-  dundgovi:["Дундговь","Dundgovi"], zavkhan:["Завхан","Zavkhan"], orkhon:["Орхон","Orkhon"],
-  uvurkhangai:["Өвөрхангай","Övörkhangai"], umnugovi:["Өмнөговь","Ömnögovi"], sukhbaatar:["Сүхбаатар","Sükhbaatar"],
-  selenge:["Сэлэнгэ","Selenge"], tuv:["Төв","Töv"], uvs:["Увс","Uvs"], khovd:["Ховд","Khovd"],
-  khuvsgul:["Хөвсгөл","Khövsgöl"], khentii:["Хэнтий","Khentii"], ulaanbaatar:["Улаанбаатар","Ulaanbaatar"]
+  arkhangai:["Архангай","Arkhangai","Arhangaj"], bayan_ulgii:["Баян-Өлгий","Bayan-Ölgii","Bajan-Ölgij"], bayankhongor:["Баянхонгор","Bayankhongor","Bajanhongor"],
+  bulgan:["Булган","Bulgan","Bulgan"], govi_altai:["Говь-Алтай","Govi-Altai","Góbi-Altaj"], govisumber:["Говьсүмбэр","Govisümber","Góbiszümber"],
+  darkhan_uul:["Дархан-Уул","Darkhan-Uul","Darhan-Úl"], dornogovi:["Дорноговь","Dornogovi","Kelet-Góbi"], dornod:["Дорнод","Dornod","Dornod"],
+  dundgovi:["Дундговь","Dundgovi","Közép-Góbi"], zavkhan:["Завхан","Zavkhan","Zavhan"], orkhon:["Орхон","Orkhon","Orhon"],
+  uvurkhangai:["Өвөрхангай","Övörkhangai","Övörhangaj"], umnugovi:["Өмнөговь","Ömnögovi","Dél-Góbi"], sukhbaatar:["Сүхбаатар","Sükhbaatar","Szühbátor"],
+  selenge:["Сэлэнгэ","Selenge","Szelenge"], tuv:["Төв","Töv","Töv"], uvs:["Увс","Uvs","Uvsz"], khovd:["Ховд","Khovd","Hovd"],
+  khuvsgul:["Хөвсгөл","Khövsgöl","Hövszgöl"], khentii:["Хэнтий","Khentii","Hentij"], ulaanbaatar:["Улаанбаатар","Ulaanbaatar","Ulánbátor"]
 };
 const STATUS = {
-  done:     { mn:"Ашиглалтад орсон", en:"Completed" },
-  building: { mn:"Байгуулж буй", en:"Under construction" },
-  planned:  { mn:"Төлөвлөсөн", en:"Planned" }
+  done:     { mn:"Ашиглалтад орсон", en:"Completed", hu:"Elkészült" },
+  building: { mn:"Байгуулж буй", en:"Under construction", hu:"Épülőben" },
+  planned:  { mn:"Төлөвлөсөн", en:"Planned", hu:"Tervezett" }
 };
-const KIND = { new:{mn:"Шинэ нуур",en:"New lake"}, reservoir:{mn:"Хөв, цөөрөм",en:"Reservoir / pond"}, restored:{mn:"Сэргээсэн нуур",en:"Restored lake"} };
+const KIND = { new:{mn:"Шинэ нуур",en:"New lake",hu:"Új tó"}, reservoir:{mn:"Хөв, цөөрөм",en:"Reservoir / pond",hu:"Tározó / tavacska"}, restored:{mn:"Сэргээсэн нуур",en:"Restored lake",hu:"Helyreállított tó"} };
 const PURPOSES = {
-  drinking:  { mn:"Хүн амын ундны ус", en:"Drinking water", ic:'<path d="M12 3C9 7.5 6.5 10.5 6.5 14a5.5 5.5 0 0 0 11 0C17.5 10.5 15 7.5 12 3z"/>' },
-  livestock: { mn:"Мал аж ахуйн ус", en:"Water for livestock", ic:'<path d="M4 10h13a3 3 0 0 1 3 3v2H4z"/><path d="M6 15v4M17 15v4M4 10l-1-3M17 10l2-3"/>' },
-  farming:   { mn:"Тариалангийн ус", en:"Water for crops", ic:'<path d="M12 21V9"/><path d="M12 13c-3 0-5-2-5-5 3 0 5 2 5 5zM12 11c0-3 2-5 5-5 0 3-2 5-5 5z"/>' },
-  flood:     { mn:"Үерээс хамгаалах", en:"Flood protection", ic:'<path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/>' },
-  ecology:   { mn:"Экологийн тэнцвэр", en:"Ecological balance", ic:'<circle cx="12" cy="12" r="8"/><path d="M8 13c2 0 4-2 4-5 2 3 4 4 4 5a4 4 0 0 1-8 0z"/>' }
+  drinking:  { mn:"Хүн амын ундны ус", en:"Drinking water", hu:"Ivóvíz a lakosságnak", ic:'<path d="M12 3C9 7.5 6.5 10.5 6.5 14a5.5 5.5 0 0 0 11 0C17.5 10.5 15 7.5 12 3z"/>' },
+  livestock: { mn:"Мал аж ахуйн ус", en:"Water for livestock", hu:"Állatitatás", ic:'<path d="M4 10h13a3 3 0 0 1 3 3v2H4z"/><path d="M6 15v4M17 15v4M4 10l-1-3M17 10l2-3"/>' },
+  farming:   { mn:"Тариалангийн ус", en:"Water for crops", hu:"Öntözés", ic:'<path d="M12 21V9"/><path d="M12 13c-3 0-5-2-5-5 3 0 5 2 5 5zM12 11c0-3 2-5 5-5 0 3-2 5-5 5z"/>' },
+  flood:     { mn:"Үерээс хамгаалах", en:"Flood protection", hu:"Árvízvédelem", ic:'<path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/>' },
+  ecology:   { mn:"Экологийн тэнцвэр", en:"Ecological balance", hu:"Ökológiai egyensúly", ic:'<circle cx="12" cy="12" r="8"/><path d="M8 13c2 0 4-2 4-5 2 3 4 4 4 5a4 4 0 0 1-8 0z"/>' }
 };
 let LAKES = [], PROG = {};
 const LSTEP = 12;
 const ls = { status:"all", aimag:"", q:"", shown:LSTEP };
-const aimagName = k => (AIMAGS[k] || [k||"", k||""])[L()==="en"?1:0];
-const lName = k => (L()==="en" && k.name_en) ? k.name_en : k.name;
-const nf = n => Number(n).toLocaleString(L()==="en" ? "en-US" : "ru-RU");
+const aimagName = k => (AIMAGS[k] || [k||"", k||"", k||""])[{ mn: 0, en: 1, hu: 2 }[L()]];
+const lName = k => pick({ mn: k.name, en: k.name_en, hu: k.name_hu });
+const lSoum = k => pick({ mn: k.soum, en: k.soum_en, hu: k.soum_hu });
+const nf = n => Number(n).toLocaleString(T("ru-RU","en-US","hu-HU"));
 const isNum = v => v !== null && v !== undefined && v !== "" && !isNaN(v);
 const stBadge = k => `<span class="st st-${STATUS[k.status]?k.status:"planned"}">${(STATUS[k.status]||STATUS.planned)[L()]}</span>`;
 const lakePhoto = k => k.photo ? `<div class="photo"><img src="${k.photo}" alt="" loading="lazy"></div>`
@@ -990,43 +1026,43 @@ function renderLakeStats(){
   const hasDone = isNum(p.completed), hasBuild = isNum(p.in_progress);
   const done = hasDone ? +p.completed : 0, building = hasBuild ? +p.in_progress : 0;
   const cells = [
-    { v: target, t: l==="en"?"Target lakes":"Зорилтот нуур" },
-    isNum(p.sites_identified) ? { v: +p.sites_identified, t: l==="en"?"Suitable sites identified":"Тохиромжтой байршил тогтоосон" } : null,
-    hasDone ? { v: done, t: l==="en"?"Completed":"Ашиглалтад орсон", hl: true } : null,
-    hasBuild ? { v: building, t: l==="en"?"Under construction":"Байгуулж буй" } : null,
-    (!hasDone && !hasBuild) ? { v: LAKES.length, t: l==="en"?"Lakes listed on this site":"Энэ сайтад бүртгэсэн нуур", hl: true } : null
+    { v: target, t: T("Зорилтот нуур","Target lakes","Tervezett tavak") },
+    isNum(p.sites_identified) ? { v: +p.sites_identified, t: T("Тохиромжтой байршил тогтоосон","Suitable sites identified","Kijelölt alkalmas helyszín") } : null,
+    hasDone ? { v: done, t: T("Ашиглалтад орсон","Completed","Elkészült"), hl: true } : null,
+    hasBuild ? { v: building, t: T("Байгуулж буй","Under construction","Épülőben") } : null,
+    (!hasDone && !hasBuild) ? { v: LAKES.length, t: T("Энэ сайтад бүртгэсэн нуур","Lakes listed on this site","Az oldalon szereplő tavak"), hl: true } : null
   ].filter(Boolean);
   const pd = Math.min(100, done / target * 100), pb = Math.max(0, Math.min(100 - pd, building / target * 100));
   lkStats.style.gridTemplateColumns = `repeat(${cells.length},1fr)`;
   lkStats.innerHTML = cells.map(c => `<div class="lk-stat ${c.hl?"hl":""}"><b>${nf(c.v)}</b><span>${c.t}</span></div>`).join("")
     + ((hasDone || hasBuild) ? `<div class="lk-bar"><div class="track" role="img" aria-label="${done} / ${target}"><div class="done" style="width:${pd}%"></div><div class="build" style="width:${pb}%"></div></div>
-       <div class="legend">${hasDone?`<span><i style="background:var(--accent)"></i>${l==="en"?"Completed":"Ашиглалтад орсон"} ${Math.round(pd)}%</span>`:""}${hasBuild?`<span><i style="background:#8fbfcf"></i>${l==="en"?"Under construction":"Байгуулж буй"} ${Math.round(pb)}%</span>`:""}</div></div>` : "")
-    + (p.as_of ? `<div class="lk-asof">${l==="en"?"Figures as of":"Тоон мэдээллийн огноо:"} ${fmt(String(p.as_of).slice(0,10))}${(l==="en" ? p.note_en : p.note) ? " · " + (l==="en" ? p.note_en : p.note) : ""}</div>` : "");
+       <div class="legend">${hasDone?`<span><i style="background:var(--accent)"></i>${T("Ашиглалтад орсон","Completed","Elkészült")} ${Math.round(pd)}%</span>`:""}${hasBuild?`<span><i style="background:#8fbfcf"></i>${T("Байгуулж буй","Under construction","Épülőben")} ${Math.round(pb)}%</span>`:""}</div></div>` : "")
+    + (p.as_of ? `<div class="lk-asof">${T("Тоон мэдээллийн огноо:","Figures as of","Az adatok állapota:")} ${fmt(String(p.as_of).slice(0,10))}${pick({ mn: p.note, en: p.note_en, hu: p.note_hu }) ? " · " + pick({ mn: p.note, en: p.note_en, hu: p.note_hu }) : ""}</div>` : "");
 }
 
 function renderLakes(){
   const l = L(), q = ls.q.trim().toLowerCase();
-  lkSearch.placeholder = l==="en" ? "Search lake or soum…" : "Нуур, сумаар хайх…";
-  const chipsData = [{k:"all",t:l==="en"?"All":"Бүгд",n:LAKES.length}, ...Object.keys(STATUS).map(k=>({k,t:STATUS[k][l],n:LAKES.filter(x=>x.status===k).length}))];
+  lkSearch.placeholder = T("Нуур, сумаар хайх…","Search lake or soum…","Keresés tó vagy szum szerint…");
+  const chipsData = [{k:"all",t:T("Бүгд","All","Mind"),n:LAKES.length}, ...Object.keys(STATUS).map(k=>({k,t:STATUS[k][l],n:LAKES.filter(x=>x.status===k).length}))];
   lkChips.innerHTML = chipsData.map(c=>`<button class="chip" data-st="${c.k}" aria-selected="${ls.status===c.k}">${c.t}<span class="n">${c.n}</span></button>`).join("");
   lkChips.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{ls.status=b.dataset.st;ls.shown=LSTEP;renderLakes();});
   const used = [...new Set(LAKES.map(k=>k.aimag))].filter(Boolean).sort((a,b)=>aimagName(a).localeCompare(aimagName(b)));
-  lkAimag.innerHTML = `<option value="">${l==="en"?"All provinces":"Бүх аймаг"}</option>` + used.map(a=>`<option value="${a}" ${ls.aimag===a?"selected":""}>${aimagName(a)} (${LAKES.filter(k=>k.aimag===a).length})</option>`).join("");
+  lkAimag.innerHTML = `<option value="">${T("Бүх аймаг","All provinces","Összes tartomány")}</option>` + used.map(a=>`<option value="${a}" ${ls.aimag===a?"selected":""}>${aimagName(a)} (${LAKES.filter(k=>k.aimag===a).length})</option>`).join("");
   const list = LAKES.filter(k => (ls.status==="all"||k.status===ls.status) && (!ls.aimag||k.aimag===ls.aimag)
-    && (!q || [k.name,k.name_en,k.soum,aimagName(k.aimag)].join(" ").toLowerCase().includes(q)));
-  lkCount.textContent = l==="en" ? `${list.length} lake${list.length===1?"":"s"} listed` : `Жагсаалтад ${list.length} нуур`;
+    && (!q || [k.name,k.name_en,k.name_hu,k.soum,k.soum_en,k.soum_hu,aimagName(k.aimag)].join(" ").toLowerCase().includes(q)));
+  lkCount.textContent = T(`Жагсаалтад ${list.length} нуур`, `${list.length} lake${list.length===1?"":"s"} listed`, `${list.length} tó a listán`);
   lkGrid.innerHTML = list.length ? list.slice(0, ls.shown).map(k => `<button class="lake" type="button" data-lake="${k.id}">
       ${lakePhoto(k)}
       <div class="lb">${stBadge(k)}<h3>${lName(k)}</h3>
-        <div class="loc">${aimagName(k.aimag)}${k.soum ? " · " + k.soum + (l==="en"?" soum":" сум") : ""}</div>
-        <div class="meta">${k.kind&&KIND[k.kind]?`<span>${KIND[k.kind][l]}</span>`:""}${isNum(k.volume_m3)?`<span><b>${nf(k.volume_m3)}</b> м³</span>`:""}${isNum(k.area_ha)?`<span><b>${nf(k.area_ha)}</b> ${l==="en"?"ha":"га"}</span>`:""}${k.year?`<span>${k.year}</span>`:""}</div>
+        <div class="loc">${aimagName(k.aimag)}${k.soum ? " · " + lSoum(k) + (T(" сум"," soum"," szum")) : ""}</div>
+        <div class="meta">${k.kind&&KIND[k.kind]?`<span>${KIND[k.kind][l]}</span>`:""}${isNum(k.volume_m3)?`<span><b>${nf(k.volume_m3)}</b> м³</span>`:""}${isNum(k.area_ha)?`<span><b>${nf(k.area_ha)}</b> ${T("га","ha","ha")}</span>`:""}${k.year?`<span>${k.year}</span>`:""}</div>
       </div></button>`).join("")
-    : `<div class="empty">${LAKES.length ? (l==="en"?"No lakes match these filters.":"Шүүлтүүрт тохирох нуур олдсонгүй.") : (l==="en"?"Lakes will appear here as they are added.":"Нуурууд нэмэгдэхээр энд харагдана.")}</div>`;
-  lkLoad.innerHTML = list.length > ls.shown ? `<button class="btn outline" type="button" id="lkMore">${l==="en"?"Show more":"Цааш үзэх"} (${list.length-ls.shown})</button>` : "";
+    : `<div class="empty">${LAKES.length ? (T("Шүүлтүүрт тохирох нуур олдсонгүй.","No lakes match these filters.","Nincs a szűrésnek megfelelő tó.")) : (T("Нуурууд нэмэгдэхээр энд харагдана.","Lakes will appear here as they are added.","A tavak itt jelennek meg, amint felkerülnek."))}</div>`;
+  lkLoad.innerHTML = list.length > ls.shown ? `<button class="btn outline" type="button" id="lkMore">${T("Цааш үзэх","Show more","Továbbiak")} (${list.length-ls.shown})</button>` : "";
   const m = document.getElementById("lkMore"); if (m) m.onclick = () => { ls.shown += LSTEP; renderLakes(); };
   lkGrid.querySelectorAll("[data-lake]").forEach(b=>b.onclick=()=>openLake(b.dataset.lake));
   let host = ""; try { host = PROG.source_url ? new URL(PROG.source_url).hostname.replace(/^www\./,"") : ""; } catch(e) { host = PROG.source_url; }
-  lkSrc.innerHTML = PROG.source_url ? `${l==="en"?"Source for program figures":"Хөтөлбөрийн тоон мэдээллийн эх сурвалж"}: <a href="${PROG.source_url}" target="_blank" rel="noopener">${host}</a>` : "";
+  lkSrc.innerHTML = PROG.source_url ? `${T("Хөтөлбөрийн тоон мэдээллийн эх сурвалж","Source for program figures","A programadatok forrása")}: <a href="${PROG.source_url}" target="_blank" rel="noopener">${host}</a>` : "";
   updateMap(list);
 }
 lkAimag.onchange = () => { ls.aimag = lkAimag.value; ls.shown = LSTEP; renderLakes(); };
@@ -1067,7 +1103,7 @@ const marker = (Lf, pos, k, big) => Lf.circleMarker([pos[0], pos[1]], pos[2]
 function renderLegend(){
   const l = L();
   lkLegend.innerHTML = Object.keys(STATUS).map(s => `<span><i style="background:${pinColor(s)}"></i>${STATUS[s][l]}</span>`).join("")
-    + `<span><i class="ring"></i>${l==="en"?"Approximate location (soum or province centre)":"Ойролцоо байршил (сум, аймгийн төв)"}</span>`;
+    + `<span><i class="ring"></i>${T("Ойролцоо байршил (сум, аймгийн төв)","Approximate location (soum or province centre)","Hozzávetőleges hely (szum- vagy tartományközpont)")}</span>`;
 }
 function updateMap(list){
   renderLegend();
@@ -1081,7 +1117,7 @@ function updateMap(list){
     const l = L(), items = [];
     list.forEach(k => { const pos = lakePos(k, LAKES.indexOf(k)); if (pos) items.push([k, pos]); });
     mapLayer = Lf.layerGroup(items.map(([k, pos]) => marker(Lf, pos, k)
-      .bindTooltip(`<div class="lk-tip">${lName(k)}<small>${aimagName(k.aimag)}${k.soum?" · "+k.soum:""} · ${STATUS[k.status][l]}${pos[2] ? (l==="en"?" · approx.":" · ойролцоо") : ""}</small></div>`)
+      .bindTooltip(`<div class="lk-tip">${lName(k)}<small>${aimagName(k.aimag)}${k.soum?" · "+lSoum(k):""} · ${STATUS[k.status][l]}${pos[2] ? (T(" · ойролцоо"," · approx."," · hozzávetőleges")) : ""}</small></div>`)
       .on("click", () => openLake(k.id)))).addTo(map);
     if (items.length > 1) map.fitBounds(Lf.latLngBounds(items.map(([, p]) => [p[0], p[1]])).pad(0.25), { maxZoom: 8 });
     else if (items.length === 1) map.setView([items[0][1][0], items[0][1][1]], 7);
@@ -1098,18 +1134,18 @@ function openLake(id, silent){
     <h1 id="lakeTitle">${lName(k)}</h1>
     ${lakePhoto(k)}
     <dl class="facts">
-      ${row(l==="en"?"Province":"Аймаг", aimagName(k.aimag))}
-      ${row(l==="en"?"Soum":"Сум", k.soum)}
-      ${row(l==="en"?"Type":"Төрөл", k.kind&&KIND[k.kind] ? KIND[k.kind][l] : "")}
-      ${row(l==="en"?"Year":"Он", k.year)}
-      ${row(l==="en"?"Volume":"Багтаамж", isNum(k.volume_m3) ? nf(k.volume_m3)+" м³" : "")}
-      ${row(l==="en"?"Area":"Талбай", isNum(k.area_ha) ? nf(k.area_ha)+(l==="en"?" ha":" га") : "")}
-      ${row(l==="en"?"Partners":"Хамтрагч", k.partners)}
+      ${row(T("Аймаг","Province","Tartomány"), aimagName(k.aimag))}
+      ${row(T("Сум","Soum","Szum"), lSoum(k))}
+      ${row(T("Төрөл","Type","Típus"), k.kind&&KIND[k.kind] ? KIND[k.kind][l] : "")}
+      ${row(T("Он","Year","Év"), k.year)}
+      ${row(T("Багтаамж","Volume","Térfogat"), isNum(k.volume_m3) ? nf(k.volume_m3)+" м³" : "")}
+      ${row(T("Талбай","Area","Terület"), isNum(k.area_ha) ? nf(k.area_ha)+(T(" га"," ha"," ha")) : "")}
+      ${row(T("Хамтрагч","Partners","Partnerek"), pick({ mn: k.partners, en: k.partners_en, hu: k.partners_hu }))}
     </dl>
     ${(k.purposes||[]).length ? `<div class="pur">${k.purposes.map(p=>PURPOSES[p]?`<span>${PURPOSES[p][l]}</span>`:"").join("")}</div>` : ""}
-    ${(l==="en" && k.description.en) ? k.description.en : k.description.mn}
-    ${lakePos(k, LAKES.indexOf(k)) ? `<div class="mini-map" id="miniMap"></div>${lakePos(k, LAKES.indexOf(k))[2] ? `<p class="approx-note">${l==="en" ? "Approximate location: the exact coordinates have not been entered yet." : "Ойролцоо байршил: нуурын нарийн координатыг хараахан оруулаагүй байна."}</p>` : ""}` : ""}
-    ${k.source_url ? `<p><a class="srcl" href="${k.source_url}" target="_blank" rel="noopener">${l==="en"?"Source article":"Эх сурвалж"} ↗</a></p>` : ""}`;
+    ${pick(k.description)}
+    ${lakePos(k, LAKES.indexOf(k)) ? `<div class="mini-map" id="miniMap"></div>${lakePos(k, LAKES.indexOf(k))[2] ? `<p class="approx-note">${T("Ойролцоо байршил: нуурын нарийн координатыг хараахан оруулаагүй байна.","Approximate location: the exact coordinates have not been entered yet.","Hozzávetőleges hely: a tó pontos koordinátái még nincsenek megadva.")}</p>` : ""}` : ""}
+    ${k.source_url ? `<p><a class="srcl" href="${k.source_url}" target="_blank" rel="noopener">${T("Эх сурвалж","Source article","Forrás")} ↗</a></p>` : ""}`;
   lakeView.classList.add("open"); document.body.style.overflow = "hidden";
   if (!silent) { lakeView.scrollTop = 0; history.replaceState(null,"","#lake/"+id); }
   const pos = lakePos(k, LAKES.indexOf(k));
@@ -1128,22 +1164,22 @@ document.addEventListener("keydown", e => { if (e.key==="Escape" && curLake) clo
 let WHO = {};
 const WHO_MS = 5000;
 const WHO_PH = [
-  { p1:"#3d7f95", p2:"#0a2c39", mn:"Хөрөг зураг", en:"Portrait" },
-  { p1:"#2e7a72", p2:"#0f3c38", mn:"Нуурын нээлт", en:"Opening a lake" },
-  { p1:"#6b5f92", p2:"#2e2748", mn:"Олон улсын уулзалт", en:"International meeting" },
-  { p1:"#a0703a", p2:"#4d3418", mn:"Орон нутагт", en:"In the countryside" },
-  { p1:"#2f7fa3", p2:"#123c55", mn:"Иргэдтэй уулзалт", en:"Meeting citizens" }
+  { p1:"#3d7f95", p2:"#0a2c39", mn:"Хөрөг зураг", en:"Portrait", hu:"Portré" },
+  { p1:"#2e7a72", p2:"#0f3c38", mn:"Нуурын нээлт", en:"Opening a lake", hu:"Tóátadás" },
+  { p1:"#6b5f92", p2:"#2e2748", mn:"Олон улсын уулзалт", en:"International meeting", hu:"Nemzetközi találkozó" },
+  { p1:"#a0703a", p2:"#4d3418", mn:"Орон нутагт", en:"In the countryside", hu:"Vidéken" },
+  { p1:"#2f7fa3", p2:"#123c55", mn:"Иргэдтэй уулзалт", en:"Meeting citizens", hu:"Találkozó a lakossággal" }
 ];
 let whoI = 0, whoTimer = null, whoPaused = false, whoBuilt = "";
 const whoReduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 function whoSlides(){
   const ph = !(WHO.photos && WHO.photos.length);
-  return ph ? WHO_PH.map(x => ({ ph: x, caption: { mn: x.mn, en: x.en } })) : WHO.photos;
+  return ph ? WHO_PH.map(x => ({ ph: x, caption: { mn: x.mn, en: x.en, hu: x.hu } })) : WHO.photos;
 }
 function renderWho(fresh){
   const l = L(), slides = whoSlides();
-  if (WHO.intro && (WHO.intro.mn || WHO.intro.en)) {
-    whoIntro.innerHTML = `<div data-lang="mn">${WHO.intro.mn || WHO.intro.en}</div><div data-lang="en">${WHO.intro.en || WHO.intro.mn}</div>`;
+  if (WHO.intro && (WHO.intro.mn || WHO.intro.en || WHO.intro.hu)) {
+    whoIntro.innerHTML = `<div data-lang="mn">${WHO.intro.mn || WHO.intro.en}</div><div data-lang="en">${WHO.intro.en || WHO.intro.mn}</div><div data-lang="hu">${WHO.intro.hu || WHO.intro.en || WHO.intro.mn}</div>`;
   }
   const key = JSON.stringify(slides.map(s => s.src || s.ph.mn));
   if (key !== whoBuilt || fresh) {
@@ -1165,8 +1201,8 @@ function whoSlides_build(slides){
 const whoSlides_el = () => document.getElementById("whoSlides");
 function whoCaption(slides){
   const s = slides[whoI], l = L();
-  const cap = s && s.caption ? (s.caption[l] || s.caption.mn || "") : "";
-  const note = !(WHO.photos && WHO.photos.length) ? `<small>${l==="en" ? "Placeholder: add photos in the admin under “Who I am”" : "Түр орлуулга: зургийг админы «Би хэн бэ» хэсгээс оруулна"}</small>` : "";
+  const cap = s && s.caption ? pick(s.caption) : "";
+  const note = !(WHO.photos && WHO.photos.length) ? `<small>${T("Түр орлуулга: зургийг админы «Би хэн бэ» хэсгээс оруулна","Placeholder: add photos in the admin under “Who I am”","Helykitöltő: a képeket az admin «Би хэн бэ» részében lehet feltölteni")}</small>` : "";
   whoCap.innerHTML = cap + note;
 }
 function whoGo(i, instant){
@@ -1205,7 +1241,7 @@ let gShown = GSTEP, curAlbum = null;
 /* Netlify-ийн зургийн CDN-ээр жижигрүүлсэн хувилбар; ажиллахгүй бол эх зургийг харуулна */
 const thumb = (src, w) => src.startsWith("/") && !/^\/\//.test(src) ? `/.netlify/images?url=${encodeURIComponent(src)}&w=${w}` : src;
 const imgTag = (src, w, alt) => `<img src="${thumb(src, w)}" data-orig="${src}" alt="${alt||""}" loading="lazy" onerror="if(this.src.indexOf('/.netlify/images')>-1){this.src=this.dataset.orig}">`;
-const aTitle = a => (L()==="en" && a.title.en) ? a.title.en : a.title.mn;
+const aTitle = a => pick(a.title);
 const camSm = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="4"/></svg>';
 
 function renderGallery(){
@@ -1214,23 +1250,23 @@ function renderGallery(){
   document.querySelectorAll(".nav-gallery").forEach(li => li.hidden = !on);
   if (!on) return;
   const total = ALBUMS.reduce((n, a) => n + a.photos.length, 0);
-  gCount.textContent = l==="en" ? `${ALBUMS.length} albums · ${total} photos` : `${ALBUMS.length} цомог · ${total} зураг`;
+  gCount.textContent = T(`${ALBUMS.length} цомог · ${total} зураг`, `${ALBUMS.length} albums · ${total} photos`, `${ALBUMS.length} album · ${total} fotó`);
   gAlbums.innerHTML = ALBUMS.slice(0, gShown).map(a => `<button class="g-card" type="button" data-album="${a.id}">
       <div class="g-cover">${imgTag(a.cover || a.photos[0].src, 800, "")}<span class="n">${camSm}${a.photos.length}</span></div>
       <span class="g-meta">${a.date ? fmt(a.date) : ""}${a.location ? " · " + a.location : ""}</span>
       <h3>${aTitle(a)}</h3></button>`).join("");
   gAlbums.querySelectorAll("[data-album]").forEach(b => b.onclick = () => openAlbum(b.dataset.album));
-  gLoad.innerHTML = ALBUMS.length > gShown ? `<button class="btn outline" type="button" id="gMore">${l==="en"?"More albums":"Бусад цомог"} (${ALBUMS.length - gShown})</button>` : "";
+  gLoad.innerHTML = ALBUMS.length > gShown ? `<button class="btn outline" type="button" id="gMore">${T("Бусад цомог","More albums","További albumok")} (${ALBUMS.length - gShown})</button>` : "";
   const m = document.getElementById("gMore"); if (m) m.onclick = () => { gShown += GSTEP; renderGallery(); };
 }
 
 function openAlbum(id, silent){
   const a = ALBUMS.find(x => x.id === id); if (!a) return; curAlbum = id; const l = L();
-  albumBody.innerHTML = `<p class="kicker">${l==="en"?"Gallery":"Зургийн цомог"}</p>
+  albumBody.innerHTML = `<p class="kicker">${T("Зургийн цомог","Gallery","Fotógaléria")}</p>
     <h1 id="albumTitle">${aTitle(a)}</h1>
-    <span class="g-meta">${a.date ? fmt(a.date) : ""}${a.location ? " · " + a.location : ""} · ${a.photos.length} ${l==="en"?"photos":"зураг"}</span>
-    ${(l==="en" && a.description.en) ? `<div class="g-desc">${a.description.en}</div>` : (a.description.mn ? `<div class="g-desc">${a.description.mn}</div>` : "")}
-    <div class="g-grid">${a.photos.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.caption || (l==="en"?"Photo":"Зураг") + " " + (i+1)}">${imgTag(p.src, 700, p.caption)}</button>`).join("")}</div>`;
+    <span class="g-meta">${a.date ? fmt(a.date) : ""}${a.location ? " · " + a.location : ""} · ${a.photos.length} ${T("зураг","photos","fotó")}</span>
+    ${pick(a.description) ? `<div class="g-desc">${pick(a.description)}</div>` : ""}
+    <div class="g-grid">${a.photos.map((p, i) => `<button type="button" data-i="${i}" aria-label="${p.caption || (T("Зураг","Photo","Fotó")) + " " + (i+1)}">${imgTag(p.src, 700, p.caption)}</button>`).join("")}</div>`;
   albumBody.querySelectorAll("[data-i]").forEach(b => b.onclick = () => openLightbox(+b.dataset.i));
   albumView.classList.add("open"); document.body.style.overflow = "hidden";
   if (!silent) { albumView.scrollTop = 0; history.replaceState(null, "", "#album/" + id); }
@@ -1266,11 +1302,21 @@ document.addEventListener("keydown", e => {
 function setLang(l){
   root.setAttribute("lang", l);
   document.querySelectorAll("[data-set-lang]").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.setLang===l)));
-  document.title = l==="en" ? "Z. Batbayar" : "З. Батбаяр";
+  langCur.textContent = l.toUpperCase();
+  document.title = T("З. Батбаяр","Z. Batbayar","Z. Batbayar");
   try{ localStorage.setItem("site-lang", l); }catch(e){}
   render(); renderPressHome(); renderLakeStats(); renderLakes(); renderGallery(); renderWho(); if(curAlbum) openAlbum(curAlbum, true); if(pOpen) renderPressAll(); if(cur) openPost(cur, true); if(curLake) openLake(curLake, true);
 }
-document.querySelectorAll("[data-set-lang]").forEach(b=>b.onclick=()=>setLang(b.dataset.setLang));
+document.querySelectorAll("[data-set-lang]").forEach(b=>b.onclick=()=>{ setLang(b.dataset.setLang); langOpen(false); langBtn.focus(); });
+function langOpen(o){ langMenu.hidden = !o; langBtn.setAttribute("aria-expanded", String(o)); if (o) (langMenu.querySelector('[aria-pressed="true"]') || langMenu.querySelector("button")).focus(); }
+langBtn.onclick = e => { e.stopPropagation(); langOpen(langMenu.hidden); };
+document.addEventListener("click", e => { if (!langMenu.hidden && !langDD.contains(e.target)) langOpen(false); });
+langMenu.addEventListener("keydown", e => {
+  const items = [...langMenu.querySelectorAll("button")], i = items.indexOf(document.activeElement);
+  if (e.key === "Escape") { langOpen(false); langBtn.focus(); }
+  else if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+  else if (e.key === "ArrowUp") { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+});
 
 /* mobile menu */
 menuBtn.onclick = () => { const o = navList.classList.toggle("open"); menuBtn.setAttribute("aria-expanded", String(o)); };
@@ -1279,7 +1325,7 @@ navList.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>navList.
 /* init */
 fillPhotos();
 let saved=null; try{ saved=localStorage.getItem("site-lang"); }catch(e){}
-setLang(saved==="en"?"en":"mn");
+setLang(LANGS.includes(saved) ? saved : "mn");
 fetch("/posts.json", { cache: "no-cache" })
   .then(r => r.ok ? r.json() : [])
   .catch(() => [])
