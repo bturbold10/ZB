@@ -25,14 +25,14 @@ logo_url: "/admin/logo.svg"
 # Монгол, англи хоёр хэл
 i18n:
   structure: multiple_files
-  locales: [mn, en]
+  locales: [mn, en, hu]
   default_locale: mn
 
 collections:
   - name: posts
     label: "Блогийн нийтлэлүүд"
     label_singular: "нийтлэл"
-    description: "Сайтын блогт гарах нийтлэлүүд. Монгол хувилбарыг заавал бөглөнө, англи хувилбар сонголттой."
+    description: "Сайтын блогт гарах нийтлэлүүд. Монгол хувилбарыг заавал бөглөнө; англи, магяр хувилбар сонголттой (бөглөөгүй бол англи, тэгээд монгол харагдана)."
     folder: "posts"
     extension: "md"
     format: "frontmatter"
@@ -90,6 +90,7 @@ collections:
       - { name: url, label: "Мэдээний холбоос (линк)", widget: string, pattern: ["^https?://", "https:// эсвэл http://-ээр эхэлсэн линк оруулна уу"] }
       - { name: title, label: "Гарчиг (монгол)", widget: string }
       - { name: title_en, label: "Гарчиг (англи)", widget: string, required: false, hint: "Хоосон орхивол англи хэл дээр монгол гарчиг харагдана." }
+      - { name: title_hu, label: "Гарчиг (магяр)", widget: string, required: false, hint: "Хоосон орхивол англи, тэгээд монгол гарчиг харагдана." }
       - { name: source, label: "Хэвлэлийн нэр", widget: string, required: false, hint: "Жишээ: ikon.mn, gogo.mn, Монцамэ. Хоосон орхивол линкээс автоматаар авна." }
       - name: date
         label: "Огноо"
@@ -120,6 +121,7 @@ collections:
     fields:
       - { name: name, label: "Нуурын нэр (монгол)", widget: string }
       - { name: name_en, label: "Нуурын нэр (англи)", widget: string, required: false }
+      - { name: name_hu, label: "Нуурын нэр (магяр)", widget: string, required: false }
       - name: aimag
         label: "Аймаг"
         widget: select
@@ -147,6 +149,8 @@ collections:
           - { label: "Хэнтий", value: khentii }
           - { label: "Улаанбаатар", value: ulaanbaatar }
       - { name: soum, label: "Сум / дүүрэг", widget: string }
+      - { name: soum_en, label: "Сум (англи)", widget: string, required: false }
+      - { name: soum_hu, label: "Сум (магяр)", widget: string, required: false }
       - name: status
         label: "Төлөв"
         widget: select
@@ -178,12 +182,45 @@ collections:
           - { label: "Үерээс хамгаалах", value: flood }
           - { label: "Экологийн тэнцвэр", value: ecology }
       - { name: partners, label: "Хамтрагч байгууллагууд", widget: string, required: false }
-      - { name: lat, label: "Өргөрөг (latitude)", widget: number, value_type: float, required: false, hint: "Google Maps дээр нуурын байрлал дээр баруун товч дарахад гарах эхний тоо. Жишээ: 47.19. Оруулбал газрын зураг дээр харагдана." }
+      - { name: partners_en, label: "Хамтрагч байгууллагууд (англи)", widget: string, required: false }
+      - { name: partners_hu, label: "Хамтрагч байгууллагууд (магяр)", widget: string, required: false }
+      - { name: lat, label: "Өргөрөг (latitude)", widget: number, value_type: float, required: false, hint: "Google Maps дээр нуурын байрлал дээр баруун товч дарахад гарах эхний тоо. Жишээ: 47.19" }
       - { name: lng, label: "Уртраг (longitude)", widget: number, value_type: float, required: false, hint: "Хоёр дахь тоо. Жишээ: 102.82" }
+      - { name: approx, label: "Байршил ойролцоо (жишээ нь сумын төвийн координат)", widget: boolean, default: false, required: false, hint: "Нарийн координат мэдэхгүй бол асаана. Зураг дээр хөндий цэгээр харагдана. Координат огт оруулаагүй бол нуур аймгийн төв дээр ойролцоогоор харагдана." }
       - { name: photo, label: "Зураг", widget: image, required: false }
       - { name: source_url, label: "Эх сурвалж (мэдээний линк)", widget: string, required: false }
       - { name: description_en, label: "Тайлбар (англи)", widget: markdown, required: false, buttons: [bold, italic, link, bulleted-list] }
+      - { name: description_hu, label: "Тайлбар (магяр)", widget: markdown, required: false, buttons: [bold, italic, link, bulleted-list] }
       - { name: body, label: "Тайлбар (монгол)", widget: markdown, required: false }
+
+  # ---------------- Би хэн бэ ----------------
+  - name: about
+    label: "Би хэн бэ"
+    description: "Нүүр хуудасны «Би хэн бэ» хэсгийн бичвэр, дараалан солигдох 4–5 зураг."
+    editor: { preview: false }
+    files:
+      - name: about
+        label: "Би хэн бэ: бичвэр ба зургууд"
+        file: "data/about.json"
+        format: json
+        media_folder: "/uploads/about"
+        public_folder: "/uploads/about"
+        fields:
+          - { name: intro_mn, label: "Танилцуулга (монгол)", widget: markdown, required: false, buttons: [bold, italic, link], hint: "Хоосон орхивол сайтад байгаа анхны бичвэр харагдана. Догол мөр бүрийг хоосон мөрөөр тусгаарлана." }
+          - { name: intro_en, label: "Танилцуулга (англи)", widget: markdown, required: false, buttons: [bold, italic, link] }
+          - { name: intro_hu, label: "Танилцуулга (магяр)", widget: markdown, required: false, buttons: [bold, italic, link] }
+          - name: photos
+            label: "Зургууд (дарааллаар нь)"
+            label_singular: "зураг"
+            widget: list
+            required: false
+            hint: "4–5 зураг. Дээрээс доош дарааллаараа 5 секунд тутам солигдоно. Босоо (4:5) зураг хамгийн тохиромжтой."
+            summary: "{{fields.caption}}"
+            fields:
+              - { name: image, label: "Зураг", widget: image }
+              - { name: caption, label: "Тайлбар (монгол)", widget: string, required: false }
+              - { name: caption_en, label: "Тайлбар (англи)", widget: string, required: false }
+              - { name: caption_hu, label: "Тайлбар (магяр)", widget: string, required: false }
 
   # ---------------- 333 нуур: хөтөлбөрийн тоон үзүүлэлт ----------------
   - name: settings
@@ -203,4 +240,47 @@ collections:
           - { name: as_of, label: "Тоон мэдээллийн огноо", widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY.MM.DD", time_format: false, required: false }
           - { name: note, label: "Тайлбар (монгол)", widget: string, required: false }
           - { name: note_en, label: "Тайлбар (англи)", widget: string, required: false }
+          - { name: note_hu, label: "Тайлбар (магяр)", widget: string, required: false }
           - { name: source_url, label: "Эх сурвалж (линк)", widget: string, required: false }
+
+  # ---------------- Зургийн цомог ----------------
+  - name: gallery
+    label: "Зургийн цомог"
+    label_singular: "цомог"
+    description: "Арга хэмжээ, ажлын талбайн зургууд. Цомог бүрт олон зураг. Зургийг 2–3 MB-аас ихгүй, урт тал нь 2000 px орчим байхаар багасгаж оруулахыг зөвлөж байна."
+    folder: "gallery"
+    editor: { preview: false }
+    media_folder: "/uploads/gallery"
+    public_folder: "/uploads/gallery"
+    extension: "md"
+    format: "frontmatter"
+    create: true
+    i18n: false
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    identifier_field: title
+    summary: "{{date | date('YYYY.MM.DD')}} · {{title}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { name: title, label: "Цомгийн нэр (монгол)", widget: string, hint: "Жишээ: Хэлтгийн цагаан нуурын нээлт" }
+      - { name: title_en, label: "Цомгийн нэр (англи)", widget: string, required: false }
+      - { name: title_hu, label: "Цомгийн нэр (магяр)", widget: string, required: false }
+      - name: date
+        label: "Огноо"
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY.MM.DD"
+        time_format: false
+      - { name: location, label: "Газар", widget: string, required: false, hint: "Жишээ: Өвөрхангай, Хархорин" }
+      - { name: cover, label: "Нүүр зураг", widget: image, required: false, hint: "Хоосон орхивол эхний зураг нүүр болно." }
+      - name: photos
+        label: "Зургууд"
+        label_singular: "зураг"
+        widget: list
+        summary: "{{fields.caption}}"
+        min: 1
+        fields:
+          - { name: image, label: "Зураг", widget: image }
+          - { name: caption, label: "Тайлбар", widget: string, required: false }
+      - { name: description_en, label: "Тайлбар (англи)", widget: text, required: false }
+      - { name: description_hu, label: "Тайлбар (магяр)", widget: text, required: false }
+      - { name: body, label: "Тайлбар (монгол)", widget: markdown, required: false, buttons: [bold, italic, link] }
