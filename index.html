@@ -156,6 +156,23 @@ h2.big{font-size:clamp(2.1rem,4.6vw,3.6rem);font-weight:800;line-height:1.04;let
 @media (max-width:900px){.about{grid-template-columns:1fr;gap:40px}.about .photo{position:static;max-width:420px}}
 @media (max-width:520px){.tl li{grid-template-columns:1fr;gap:2px}.facts{grid-template-columns:1fr}.facts div:nth-child(odd){padding-right:0}}
 
+/* biography on dark background */
+section.dark{background:#0b2530;color:#e6edf0}
+.dark .kicker{color:#8fc7d8}
+.dark h2.big{color:#fff}
+.dark .about .photo{--p1:#2b5566;--p2:#0f2f3b;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.dark .about .bio p{color:#c3d0d5}
+.dark .about .bio p:first-of-type{color:#fff}
+.dark .facts{border-top-color:#fff}
+.dark .facts div{border-bottom-color:rgba(255,255,255,.14)}
+.dark .facts dt{color:#8ea4ad}
+.dark .facts dd{color:#fff}
+.dark .tl h3{color:#fff}
+.dark .tl li{border-color:rgba(255,255,255,.14)}
+.dark .tl .yr{color:#8fc7d8}
+.dark .tl .t{color:#fff}
+.dark .tl .o{color:#aebdc3}
+.dark .tl li.now .yr::before{background:var(--warm)}
 /* ---------- stories (blog) ---------- */
 .staff-note{background:var(--note-bg);border:1px dashed var(--note-line);border-radius:var(--r);padding:12px 16px;font-size:.88rem;color:#5b4a1f;margin:0 0 30px}
 .staff-note code{background:rgba(0,0,0,.06);padding:1px 5px;border-radius:3px;font-size:.85em}
@@ -225,14 +242,14 @@ h2.big{font-size:clamp(2.1rem,4.6vw,3.6rem);font-weight:800;line-height:1.04;let
 .lk-bar .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
 .lk-asof{grid-column:1/-1;font-size:.8rem;color:var(--muted);padding:0 0 14px}
 @media (max-width:760px){.lk-stats{grid-template-columns:1fr 1fr !important}.lk-stat:nth-child(odd){padding-left:0;border-left:0}.lk-stat:nth-child(n+3){border-top:1px solid var(--line)}}
-.lk-purpose{margin:0 0 44px}
-.lk-purpose h3{font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
-.lk-purpose ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-.lk-purpose li{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;font-weight:700;font-size:.95rem;line-height:1.3;display:flex;flex-direction:column;gap:10px}
-.lk-purpose li .ic{width:34px;height:34px;border-radius:50%;background:var(--accent-pale);color:var(--accent-2);display:flex;align-items:center;justify-content:center}
-@media (max-width:900px){.lk-purpose ul{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:560px){.lk-purpose ul{grid-template-columns:1fr 1fr}}
-.lk-map{height:440px;border-radius:var(--r);border:1px solid var(--line);margin:0 0 36px;z-index:1}
+.lk-map{height:480px;border-radius:var(--r);border:1px solid var(--line);z-index:1;background:#dfe8ea}
+.lk-map-wrap{margin:0 0 40px}
+.lk-legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:12px;font-size:.84rem;color:var(--ink-2)}
+.lk-legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:7px;vertical-align:-1px;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.lk-legend i.ring{background:#fff !important;border:2.5px solid #4a545b;box-shadow:none}
+.lk-tip{font:600 13px var(--font)}
+.lk-tip small{display:block;font-weight:500;color:#6b757c}
+.approx-note{font-size:.85rem;color:var(--muted);margin:-20px 0 30px}
 @media (max-width:640px){.lk-map{height:320px}}
 .lk-controls{border-top:2px solid var(--ink)}
 .lk-right{display:flex;gap:10px;flex-wrap:wrap}
@@ -419,8 +436,7 @@ footer a:hover{color:#fff;text-decoration:underline}
   <div class="wrap">
     <div class="sec-top">
       <div>
-        <p class="kicker"><span data-lang="mn">Үйл ажиллагааны чиглэл</span><span data-lang="en">Areas of focus</span></p>
-        <h2 class="big"><span data-lang="mn">Ус бол амьдрал</span><span data-lang="en">Water is life</span></h2>
+        <h2 class="big"><span data-lang="mn">Үйл ажиллагааны чиглэл</span><span data-lang="en">Areas of focus</span></h2>
       </div>
     </div>
     <div class="trio">
@@ -464,12 +480,11 @@ footer a:hover{color:#fff;text-decoration:underline}
 
     <div class="lk-stats" id="lkStats"></div>
 
-    <div class="lk-purpose">
-      <h3><span data-lang="mn">Нуур бүрийн зорилго</span><span data-lang="en">What each lake is for</span></h3>
-      <ul id="lkPurposes"></ul>
-    </div>
 
-    <div class="lk-map-wrap" id="lkMapWrap" hidden><div id="lkMap" class="lk-map" role="region" aria-label="Map"></div></div>
+    <div class="lk-map-wrap" id="lkMapWrap">
+      <div id="lkMap" class="lk-map" role="region" aria-label="Map"></div>
+      <div class="lk-legend" id="lkLegend"></div>
+    </div>
 
     <div class="controls lk-controls">
       <div class="chips" id="lkChips"></div>
@@ -489,7 +504,7 @@ footer a:hover{color:#fff;text-decoration:underline}
 </section>
 
 <!-- ABOUT -->
-<section class="alt" id="about">
+<section class="dark" id="about">
   <div class="wrap about">
     <div class="photo" data-mn="Албан ёсны хөрөг зураг" data-en="Official portrait"></div>
     <div>
@@ -891,7 +906,6 @@ function renderLakeStats(){
     + ((hasDone || hasBuild) ? `<div class="lk-bar"><div class="track" role="img" aria-label="${done} / ${target}"><div class="done" style="width:${pd}%"></div><div class="build" style="width:${pb}%"></div></div>
        <div class="legend">${hasDone?`<span><i style="background:var(--accent)"></i>${l==="en"?"Completed":"Ашиглалтад орсон"} ${Math.round(pd)}%</span>`:""}${hasBuild?`<span><i style="background:#8fbfcf"></i>${l==="en"?"Under construction":"Байгуулж буй"} ${Math.round(pb)}%</span>`:""}</div></div>` : "")
     + (p.as_of ? `<div class="lk-asof">${l==="en"?"Figures as of":"Тоон мэдээллийн огноо:"} ${fmt(String(p.as_of).slice(0,10))}${(l==="en" ? p.note_en : p.note) ? " · " + (l==="en" ? p.note_en : p.note) : ""}</div>` : "");
-  lkPurposes.innerHTML = Object.values(PURPOSES).map(x => `<li><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${x.ic}</svg></span>${x[l]}</li>`).join("");
 }
 
 function renderLakes(){
@@ -922,9 +936,25 @@ function renderLakes(){
 lkAimag.onchange = () => { ls.aimag = lkAimag.value; ls.shown = LSTEP; renderLakes(); };
 let ltm; lkSearch.addEventListener("input", e => { clearTimeout(ltm); ltm = setTimeout(()=>{ ls.q = e.target.value; ls.shown = LSTEP; renderLakes(); }, 150); });
 
-/* Газрын зураг: зөвхөн координаттай нуур байвал харагдана (Leaflet + OpenStreetMap) */
+/* Газрын зураг (Leaflet + OpenStreetMap). Нарийн координаттай нуур — дүүргэлттэй цэг.
+   Координатгүй эсвэл «ойролцоо» гэж тэмдэглэсэн нуур — хөндий цэг (сум/аймгийн төв). */
+const AIMAG_CENTER = {
+  arkhangai:[47.475,101.454], bayan_ulgii:[48.968,89.962], bayankhongor:[46.194,100.718], bulgan:[48.812,103.535],
+  govi_altai:[46.373,96.258], govisumber:[46.360,108.361], darkhan_uul:[49.487,105.923], dornogovi:[44.892,110.140],
+  dornod:[48.068,114.536], dundgovi:[45.763,106.270], zavkhan:[47.742,96.844], orkhon:[49.028,104.044],
+  uvurkhangai:[46.266,102.775], umnugovi:[43.570,104.425], sukhbaatar:[46.681,113.280], selenge:[50.231,106.208],
+  tuv:[47.707,106.953], uvs:[49.981,92.067], khovd:[48.006,91.641], khuvsgul:[49.634,100.163],
+  khentii:[47.320,110.661], ulaanbaatar:[47.918,106.917]
+};
 let map = null, mapLayer = null, leafletLoading = null;
 const hasXY = k => isNum(k.lat) && isNum(k.lng);
+/* байршил: [lat, lng, ойролцоо эсэх] */
+function lakePos(k, i){
+  if (hasXY(k)) return [+k.lat, +k.lng, !!k.approx];
+  const c = AIMAG_CENTER[k.aimag]; if (!c) return null;
+  const a = (i * 2.399) % (2 * Math.PI), r = 0.08 + 0.05 * (i % 4);   // нэг аймгийн цэгүүд давхцахгүй
+  return [c[0] + r * Math.sin(a), c[1] + r * 1.4 * Math.cos(a), true];
+}
 function loadLeaflet(){
   if (window.L && window.L.map) return Promise.resolve();
   if (leafletLoading) return leafletLoading;
@@ -935,21 +965,32 @@ function loadLeaflet(){
   return leafletLoading;
 }
 const pinColor = s => s==="done" ? "#1d6b45" : s==="building" ? "#c98a3a" : "#7a858c";
+const marker = (Lf, pos, k, big) => Lf.circleMarker([pos[0], pos[1]], pos[2]
+  ? { radius: big ? 9 : 7, color: pinColor(k.status), weight: 3, fillColor: "#fff", fillOpacity: 1, dashArray: "3 3" }
+  : { radius: big ? 9 : 7, color: "#fff", weight: 2, fillColor: pinColor(k.status), fillOpacity: 1 });
+function renderLegend(){
+  const l = L();
+  lkLegend.innerHTML = Object.keys(STATUS).map(s => `<span><i style="background:${pinColor(s)}"></i>${STATUS[s][l]}</span>`).join("")
+    + `<span><i class="ring"></i>${l==="en"?"Approximate location (soum or province centre)":"Ойролцоо байршил (сум, аймгийн төв)"}</span>`;
+}
 function updateMap(list){
-  const pts = list.filter(hasXY);
-  if (!LAKES.some(hasXY)) { lkMapWrap.hidden = true; return; }
-  lkMapWrap.hidden = false;
+  renderLegend();
   loadLeaflet().then(() => {
     const Lf = window.L;
     if (!map) {
-      map = Lf.map("lkMap", { scrollWheelZoom: false }).setView([46.8, 103.0], 5);
+      map = Lf.map("lkMap", { scrollWheelZoom: false, minZoom: 4 }).setView([46.9, 103.5], 5);
       Lf.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "© OpenStreetMap" }).addTo(map);
     }
     if (mapLayer) mapLayer.remove();
-    mapLayer = Lf.layerGroup(pts.map(k => Lf.circleMarker([+k.lat, +k.lng], { radius: 7, color: "#fff", weight: 2, fillColor: pinColor(k.status), fillOpacity: 1 })
-      .bindTooltip(lName(k)).on("click", () => openLake(k.id)))).addTo(map);
-    if (pts.length > 1) map.fitBounds(Lf.latLngBounds(pts.map(k=>[+k.lat,+k.lng])).pad(0.2), { maxZoom: 9 });
-    else if (pts.length === 1) map.setView([+pts[0].lat, +pts[0].lng], 8);
+    const l = L(), items = [];
+    list.forEach(k => { const pos = lakePos(k, LAKES.indexOf(k)); if (pos) items.push([k, pos]); });
+    mapLayer = Lf.layerGroup(items.map(([k, pos]) => marker(Lf, pos, k)
+      .bindTooltip(`<div class="lk-tip">${lName(k)}<small>${aimagName(k.aimag)}${k.soum?" · "+k.soum:""} · ${STATUS[k.status][l]}${pos[2] ? (l==="en"?" · approx.":" · ойролцоо") : ""}</small></div>`)
+      .on("click", () => openLake(k.id)))).addTo(map);
+    if (items.length > 1) map.fitBounds(Lf.latLngBounds(items.map(([, p]) => [p[0], p[1]])).pad(0.25), { maxZoom: 8 });
+    else if (items.length === 1) map.setView([items[0][1][0], items[0][1][1]], 7);
+    else map.setView([46.9, 103.5], 5);
+    setTimeout(() => map.invalidateSize(), 50);
   }).catch(() => { lkMapWrap.hidden = true; });
 }
 
@@ -971,15 +1012,16 @@ function openLake(id, silent){
     </dl>
     ${(k.purposes||[]).length ? `<div class="pur">${k.purposes.map(p=>PURPOSES[p]?`<span>${PURPOSES[p][l]}</span>`:"").join("")}</div>` : ""}
     ${(l==="en" && k.description.en) ? k.description.en : k.description.mn}
-    ${hasXY(k) ? `<div class="mini-map" id="miniMap"></div>` : ""}
+    ${lakePos(k, LAKES.indexOf(k)) ? `<div class="mini-map" id="miniMap"></div>${lakePos(k, LAKES.indexOf(k))[2] ? `<p class="approx-note">${l==="en" ? "Approximate location: the exact coordinates have not been entered yet." : "Ойролцоо байршил: нуурын нарийн координатыг хараахан оруулаагүй байна."}</p>` : ""}` : ""}
     ${k.source_url ? `<p><a class="srcl" href="${k.source_url}" target="_blank" rel="noopener">${l==="en"?"Source article":"Эх сурвалж"} ↗</a></p>` : ""}`;
   lakeView.classList.add("open"); document.body.style.overflow = "hidden";
   if (!silent) { lakeView.scrollTop = 0; history.replaceState(null,"","#lake/"+id); }
-  if (hasXY(k)) loadLeaflet().then(() => {
+  const pos = lakePos(k, LAKES.indexOf(k));
+  if (pos) loadLeaflet().then(() => {
     const Lf = window.L; if (miniMap) { miniMap.remove(); miniMap = null; }
-    miniMap = Lf.map("miniMap", { scrollWheelZoom:false }).setView([+k.lat,+k.lng], 10);
+    miniMap = Lf.map("miniMap", { scrollWheelZoom:false }).setView([pos[0], pos[1]], pos[2] ? 8 : 11);
     Lf.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "© OpenStreetMap" }).addTo(miniMap);
-    Lf.circleMarker([+k.lat,+k.lng], { radius: 8, color:"#fff", weight:2, fillColor: pinColor(k.status), fillOpacity:1 }).addTo(miniMap);
+    marker(Lf, pos, k, true).addTo(miniMap);
   }).catch(()=>{});
 }
 function closeLake(){ lakeView.classList.remove("open"); document.body.style.overflow=""; curLake=null; history.replaceState(null,"","#lakes"); }
