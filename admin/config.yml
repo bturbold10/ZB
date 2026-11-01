@@ -1,0 +1,72 @@
+# ============================================================
+#  Админ хэсгийн (Decap CMS) тохиргоо
+#  Нэвтрэлт: Netlify Identity + Git Gateway
+#  Нийтлэлүүд posts/ хавтсанд .mn.md, .en.md файлаар хадгалагдана.
+# ============================================================
+
+backend:
+  name: git-gateway
+  branch: main
+  commit_messages:
+    create: "Шинэ нийтлэл: {{slug}}"
+    update: "Нийтлэл засав: {{slug}}"
+    delete: "Нийтлэл устгав: {{slug}}"
+    uploadMedia: "Зураг нэмэв: {{path}}"
+    deleteMedia: "Зураг устгав: {{path}}"
+
+# Зураг, файлууд энд хадгалагдана
+media_folder: "uploads"
+public_folder: "/uploads"
+
+site_url: "/"
+display_url: "/"
+logo_url: "/admin/logo.svg"
+
+# Монгол, англи хоёр хэл
+i18n:
+  structure: multiple_files
+  locales: [mn, en]
+  default_locale: mn
+
+collections:
+  - name: posts
+    label: "Блогийн нийтлэлүүд"
+    label_singular: "нийтлэл"
+    description: "Сайтын блогт гарах нийтлэлүүд. Монгол хувилбарыг заавал бөглөнө, англи хувилбар сонголттой."
+    folder: "posts"
+    extension: "md"
+    format: "frontmatter"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    i18n: true
+    summary: "{{title}} · {{date | date('YYYY.MM.DD')}}"
+    sortable_fields: ["date", "title", "category"]
+    view_filters:
+      - { label: "Усны бодлого", field: category, pattern: policy }
+      - { label: "Ундны ус", field: category, pattern: drinking }
+      - { label: "Байгаль орчин", field: category, pattern: env }
+      - { label: "Олон улсын хамтын ажиллагаа", field: category, pattern: intl }
+      - { label: "Төрийн захиргаа", field: category, pattern: admin }
+    fields:
+      - { name: title, label: "Гарчиг", widget: string, i18n: true }
+      - name: date
+        label: "Нийтлэх огноо"
+        widget: datetime
+        i18n: duplicate
+        format: "YYYY-MM-DD"
+        date_format: "YYYY.MM.DD"
+        time_format: false
+      - name: category
+        label: "Ангилал"
+        widget: select
+        i18n: duplicate
+        options:
+          - { label: "Усны бодлого", value: policy }
+          - { label: "Ундны ус", value: drinking }
+          - { label: "Байгаль орчин", value: env }
+          - { label: "Олон улсын хамтын ажиллагаа", value: intl }
+          - { label: "Төрийн захиргаа", value: admin }
+      - { name: cover, label: "Нүүр зураг", widget: image, i18n: duplicate, required: false }
+      - { name: summary, label: "Товч агуулга", widget: text, i18n: true, hint: "Блогийн жагсаалтад харагдах 1–2 өгүүлбэр." }
+      - { name: featured, label: "Онцлох нийтлэл (блогийн хамгийн дээр том харагдана)", widget: boolean, i18n: duplicate, default: false, required: false }
+      - { name: body, label: "Нийтлэлийн эх", widget: markdown, i18n: true }
