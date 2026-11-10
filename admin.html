@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Админ · З. Батбаяр</title>
+<script>
+  /* Тохиргоог admin/config.yml-ээс уншаад, нэвтрэлтийн хаягийг энэ сайтын хаягаар тохируулна
+     (zb.pages.dev ч, өөрийн домэйн ч автоматаар ажиллана). */
+  window.CMS_MANUAL_INIT = true;
+</script>
+</head>
+<body>
+<!-- Админ хэсэг (Decap CMS). Тохиргоо нь admin/config.yml файлд байна. -->
+<script src="https://unpkg.com/decap-cms@3.17.1/dist/decap-cms.js"></script>
+<script>
+  CMS.init({ config: { backend: { name: "github", repo: "bturbold10/ZB", branch: "main", base_url: window.location.origin, auth_endpoint: "api/auth" } } });
+</script>
+<script>
+  /* Урьдчилан харах хэсгийг сайтын загвартай ойролцоо болгох */
+  CMS.registerPreviewStyle(`
+    @import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700;800&display=swap');
+    body{font-family:Onest,system-ui,sans-serif;color:#0d1114;background:#fff;line-height:1.6;font-size:17px}
+    .pv{max-width:760px;margin:0 auto;padding:40px 24px}
+    .pv .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid #0d1114;padding:3px 8px;margin-right:8px}
+    .pv .date{font-size:13px;color:#6b757c}
+    .pv h1{font-weight:800;font-size:40px;letter-spacing:-.03em;line-height:1.05;margin:16px 0 22px}
+    .pv .sum{font-size:20px;color:#3b444b;margin:0 0 24px}
+    .pv img.cover{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:4px;margin:0 0 28px}
+    .pv h2{font-weight:800;letter-spacing:-.02em}
+  `, { raw: true });
+
+  const CAT = { policy: "Усны бодлого", drinking: "Ундны ус", env: "Байгаль орчин", intl: "Олон улсын хамтын ажиллагаа", admin: "Төрийн захиргаа" };
+  CMS.registerPreviewTemplate("posts", createClass({
+    render() {
+      const e = this.props.entry;
+      const d = e.getIn(["data", "date"]);
+      const img = e.getIn(["data", "cover"]);
+      const date = d ? String(d).slice(0, 10).replace(/-/g, ".") : "";
+      return h("div", { className: "pv" },
+        h("span", { className: "tag" }, CAT[e.getIn(["data", "category"])] || ""),
+        h("span", { className: "date" }, date),
+        h("h1", {}, e.getIn(["data", "title"]) || "Гарчиг"),
+        e.getIn(["data", "summary"]) ? h("p", { className: "sum" }, e.getIn(["data", "summary"])) : null,
+        img ? h("img", { className: "cover", src: this.props.getAsset(img).toString() }) : null,
+        this.props.widgetFor("body")
+      );
+    }
+  }));
+</script>
+</body>
+</html>
