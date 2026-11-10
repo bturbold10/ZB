@@ -332,6 +332,38 @@ section.dark{background:#0b2530;color:#e6edf0}
 .lk-detail .mini-map{height:280px;border-radius:var(--r);border:1px solid var(--line);margin:10px 0 30px}
 .lk-detail .srcl{font-weight:700}
 
+/* books */
+.b-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:36px 28px}
+@media (max-width:960px){.b-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:640px){.b-grid{grid-template-columns:1fr 1fr;gap:28px 16px}}
+#bLoad{display:flex;justify-content:center;margin-top:40px}
+#bLoad:empty{display:none}
+.book{display:flex;flex-direction:column;text-align:left;background:none;border:0;padding:0;color:inherit;cursor:pointer}
+.b-cover{position:relative;aspect-ratio:2/3;border-radius:3px 6px 6px 3px;overflow:hidden;background:#d6dadc;margin-bottom:14px;box-shadow:0 1px 0 rgba(0,0,0,.05),0 14px 28px -16px rgba(11,30,39,.55);transition:transform .2s ease,box-shadow .2s ease}
+.b-cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:linear-gradient(90deg,rgba(0,0,0,.22),rgba(0,0,0,0));z-index:2}
+.book:hover .b-cover{transform:translateY(-4px);box-shadow:0 1px 0 rgba(0,0,0,.05),0 22px 34px -18px rgba(11,30,39,.6)}
+.b-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.b-pdf{position:absolute;right:8px;top:8px;z-index:3;font-size:.68rem;font-weight:800;letter-spacing:.08em;background:#fff;color:var(--accent-2);padding:3px 7px;border-radius:3px}
+.b-gen{position:absolute;inset:0;background:linear-gradient(160deg,var(--c1),var(--c2));color:#fff;display:flex;flex-direction:column;padding:18px 16px 16px 20px}
+.b-gen-a{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+.b-gen-t{margin-top:auto;font-size:1.15rem;font-weight:800;line-height:1.2;letter-spacing:-.01em}
+.b-gen-y{font-size:.8rem;opacity:.75;margin-top:8px}
+.book h3{font-size:1.05rem;font-weight:800;line-height:1.3;margin:0 0 4px}
+.book:hover h3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.b-meta{font-size:.85rem;color:var(--muted)}
+.b-detail{padding-top:44px;padding-bottom:90px}
+.b-head{display:grid;grid-template-columns:280px 1fr;gap:48px;align-items:start}
+.b-cover.big{margin:0}
+.b-head h1{font-size:clamp(1.9rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;margin:8px 0 6px}
+.b-head .facts{margin:20px 0 26px}
+.b-actions{display:flex;flex-wrap:wrap;gap:12px}
+.b-desc{max-width:760px;margin:44px 0 0;font-size:1.05rem;color:var(--ink-2)}
+.b-desc p{margin:0 0 16px}
+.b-viewer{margin-top:44px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#525659}
+.b-viewer-bar{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:10px 16px;background:var(--deep);color:#fff;font-size:.9rem}
+.b-viewer-bar a{color:#cfe6ee}
+.b-viewer iframe{display:block;width:100%;height:85vh;border:0}
+@media (max-width:760px){.b-head{grid-template-columns:1fr;gap:26px}.b-cover.big{max-width:220px}}
 /* gallery */
 .g-albums{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
 #gLoad{display:flex;justify-content:center;margin-top:40px}
@@ -495,6 +527,7 @@ section.dark::before,footer::before{background:var(--deep)}
         <li><a href="#whoami"><span data-lang="mn">Би хэн бэ</span><span data-lang="en">Who I am</span><span data-lang="hu">Bemutatkozás</span></a></li>
         <li><a href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span><span data-lang="hu">333 tó</span></a></li>
         <li><a href="#stories"><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span><span data-lang="hu">Írások</span></a></li>
+        <li class="nav-books" hidden><a href="#books"><span data-lang="mn">Ном</span><span data-lang="en">Books</span><span data-lang="hu">Könyvek</span></a></li>
         <li class="nav-gallery" hidden><a href="#gallery"><span data-lang="mn">Зураг</span><span data-lang="en">Photos</span><span data-lang="hu">Fotók</span></a></li>
         <li><a href="#press"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">Press</span><span data-lang="hu">Sajtó</span></a></li>
       </ul>
@@ -685,6 +718,21 @@ section.dark::before,footer::before{background:var(--deep)}
   </div>
 </section>
 
+<!-- BOOKS: admin → «Ном» -->
+<section id="books" hidden>
+  <div class="wrap">
+    <div class="sec-top">
+      <div>
+        <p class="kicker"><span data-lang="mn">Бүтээл</span><span data-lang="en">Publications</span><span data-lang="hu">Művek</span></p>
+        <h2 class="big" style="margin:0"><span data-lang="mn">Ном</span><span data-lang="en">Books</span><span data-lang="hu">Könyvek</span></h2>
+      </div>
+      <p class="count" id="bCount" style="margin:0"></p>
+    </div>
+    <div class="b-grid" id="bGrid"></div>
+    <div class="load" id="bLoad"></div>
+  </div>
+</section>
+
 <!-- GALLERY -->
 <section class="alt" id="gallery" hidden>
   <div class="wrap">
@@ -752,6 +800,7 @@ section.dark::before,footer::before{background:var(--deep)}
         <li><a href="#press"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">Press</span><span data-lang="hu">Sajtó</span></a></li>
       </ul></div>
       <div><h4><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span><span data-lang="hu">Írások</span></h4><ul>
+        <li class="nav-books" hidden><a href="#books"><span data-lang="mn">Ном</span><span data-lang="en">Books</span><span data-lang="hu">Könyvek</span></a></li>
         <li><a href="#stories"><span data-lang="mn">Бүх нийтлэл</span><span data-lang="en">All stories</span><span data-lang="hu">Összes írás</span></a></li>
         <li><a href="/admin/"><span data-lang="mn">Админ</span><span data-lang="en">Admin</span><span data-lang="hu">Admin</span></a></li>
       </ul></div>
@@ -785,6 +834,14 @@ section.dark::before,footer::before{background:var(--deep)}
     <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span><span data-lang="hu">Z. Batbayar</span></b>
   </div></div>
   <article class="article lk-detail" id="lakeBody"></article>
+</div>
+
+<div class="reader" id="bookView" role="dialog" aria-modal="true" aria-labelledby="bookTitle">
+  <div class="rbar"><div class="wrap">
+    <button type="button" id="bookClose"><span data-lang="mn">← Ном руу буцах</span><span data-lang="en">← Back to books</span><span data-lang="hu">← Vissza a könyvekhez</span></button>
+    <b><span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span><span data-lang="hu">Z. Batbayar</span></b>
+  </div></div>
+  <div class="wrap b-detail" id="bookBody"></div>
 </div>
 
 <div class="reader" id="albumView" role="dialog" aria-modal="true" aria-labelledby="albumTitle">
@@ -1238,6 +1295,74 @@ let wtx = null;
 whoShow.addEventListener("touchstart", e => { wtx = e.touches[0].clientX; }, { passive: true });
 whoShow.addEventListener("touchend", e => { if (wtx === null) return; const dx = e.changedTouches[0].clientX - wtx; if (Math.abs(dx) > 40) whoGo(whoI + (dx < 0 ? 1 : -1)); wtx = null; });
 
+/* Ном (admin → books/*.md → books.json). PDF-ийг сайт дотор уншиж, татаж авна. */
+let BOOKS = [], curBook = null;
+const BSTEP = 8;
+let bShown = BSTEP;
+const LANG_NAMES = { mn: ["Монгол","Mongolian","Mongol"], en: ["Англи","English","Angol"], hu: ["Магяр","Hungarian","Magyar"], ru: ["Орос","Russian","Orosz"], other: ["Бусад","Other","Egyéb"] };
+const langName = k => (LANG_NAMES[k] || [k, k, k])[{ mn: 0, en: 1, hu: 2 }[L()]];
+const bTitle = b => pick(b.title);
+const isPhone = () => window.matchMedia && matchMedia("(max-width: 760px), (pointer: coarse)").matches;
+const COVER_COLORS = [["#0b5d7a","#073f53"],["#2e7a72","#0f3c38"],["#6b5f92","#2e2748"],["#a0703a","#4d3418"],["#3d6b8a","#1a3347"]];
+function coverHTML(b, i){
+  if (b.cover) return `<img src="${thumb(b.cover, 600)}" data-orig="${b.cover}" alt="" loading="lazy" onerror="if(this.src.indexOf('/.netlify/images')>-1){this.src=this.dataset.orig}">`;
+  const [c1, c2] = COVER_COLORS[i % COVER_COLORS.length];
+  return `<div class="b-gen" style="--c1:${c1};--c2:${c2}"><span class="b-gen-a">${T("З. Батбаяр","Z. Batbayar","Z. Batbayar")}</span><span class="b-gen-t">${bTitle(b)}</span>${b.year ? `<span class="b-gen-y">${b.year}</span>` : ""}</div>`;
+}
+function renderBooks(){
+  const on = BOOKS.length > 0;
+  books.hidden = !on;
+  document.querySelectorAll(".nav-books").forEach(li => li.hidden = !on);
+  if (!on) return;
+  bCount.textContent = T(`${BOOKS.length} ном`, `${BOOKS.length} book${BOOKS.length === 1 ? "" : "s"}`, `${BOOKS.length} könyv`);
+  bGrid.innerHTML = BOOKS.slice(0, bShown).map((b, i) => `<button class="book" type="button" data-book="${b.id}">
+      <div class="b-cover">${coverHTML(b, i)}${b.pdf ? `<span class="b-pdf">PDF</span>` : ""}</div>
+      <h3>${bTitle(b)}</h3>
+      <span class="b-meta">${[b.year, b.publisher].filter(Boolean).join(" · ")}</span></button>`).join("");
+  bGrid.querySelectorAll("[data-book]").forEach(x => x.onclick = () => openBook(x.dataset.book));
+  bLoad.innerHTML = BOOKS.length > bShown ? `<button class="btn outline" type="button" id="bMore">${T("Бусад ном","More books","További könyvek")} (${BOOKS.length - bShown})</button>` : "";
+  const m = document.getElementById("bMore"); if (m) m.onclick = () => { bShown += BSTEP; renderBooks(); };
+}
+function openBook(id, silent){
+  const b = BOOKS.find(x => x.id === id); if (!b) return; curBook = id;
+  const i = BOOKS.indexOf(b), desc = pick(b.description);
+  const row = (t, v) => v ? `<div><dt>${t}</dt><dd>${v}</dd></div>` : "";
+  bookBody.innerHTML = `<div class="b-head">
+      <div class="b-cover big">${coverHTML(b, i)}</div>
+      <div>
+        <p class="kicker">${T("Ном","Book","Könyv")}</p>
+        <h1 id="bookTitle">${bTitle(b)}</h1>
+        <dl class="facts">
+          ${row(T("Он","Year","Év"), b.year)}
+          ${row(T("Хэвлэл","Publisher","Kiadó"), b.publisher)}
+          ${row(T("Хэл","Language","Nyelv"), (b.languages || []).map(langName).join(", "))}
+          ${row(T("Хуудас","Pages","Oldalszám"), b.pages)}
+          ${row("ISBN", b.isbn)}
+        </dl>
+        <div class="b-actions">
+          ${b.pdf ? `<button class="btn" type="button" id="bRead">${T("Унших","Read","Olvasás")}</button>
+          <a class="btn outline" href="${b.pdf}" download>${T("PDF татах","Download PDF","PDF letöltése")}${b.pdf_mb ? ` · ${b.pdf_mb} MB` : ""}</a>` : ""}
+          ${b.buy_url ? `<a class="btn outline" href="${b.buy_url}" target="_blank" rel="noopener">${T("Худалдаж авах","Buy","Megvásárlás")} ↗</a>` : ""}
+        </div>
+      </div>
+    </div>
+    ${desc ? `<div class="b-desc">${desc}</div>` : ""}
+    <div class="b-viewer" id="bViewer" hidden></div>`;
+  const r = document.getElementById("bRead");
+  if (r) r.onclick = () => {
+    if (isPhone()) { window.open(b.pdf, "_blank", "noopener"); return; }   // утсан дээр PDF-ийг шинэ цонхонд нээнэ
+    bViewer.hidden = false;
+    bViewer.innerHTML = `<div class="b-viewer-bar"><b>${bTitle(b)}</b><span><a href="${b.pdf}" target="_blank" rel="noopener">${T("Шинэ цонхонд нээх","Open in new tab","Megnyitás új lapon")} ↗</a></span></div>
+      <iframe src="${b.pdf}#view=FitH" title="${bTitle(b)}" loading="lazy"></iframe>`;
+    bViewer.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  bookView.classList.add("open"); document.body.style.overflow = "hidden";
+  if (!silent) { bookView.scrollTop = 0; history.replaceState(null, "", "#book/" + id); }
+}
+function closeBook(){ bookView.classList.remove("open"); document.body.style.overflow = ""; curBook = null; history.replaceState(null, "", "#books"); }
+bookClose.onclick = closeBook;
+document.addEventListener("keydown", e => { if (e.key === "Escape" && curBook && lightbox.hidden) closeBook(); });
+
 /* Зургийн цомог (admin → gallery/*.md → gallery.json) */
 let ALBUMS = [];
 const GSTEP = 6;
@@ -1309,7 +1434,7 @@ function setLang(l){
   langCur.textContent = l.toUpperCase();
   document.title = T("З. Батбаяр","Z. Batbayar","Z. Batbayar");
   try{ localStorage.setItem("site-lang", l); }catch(e){}
-  render(); renderPressHome(); renderLakeStats(); renderLakes(); renderGallery(); renderWho(); if(curAlbum) openAlbum(curAlbum, true); if(pOpen) renderPressAll(); if(cur) openPost(cur, true); if(curLake) openLake(curLake, true);
+  render(); renderPressHome(); renderLakeStats(); renderLakes(); renderGallery(); renderBooks(); renderWho(); if(curAlbum) openAlbum(curAlbum, true); if(curBook) openBook(curBook, true); if(pOpen) renderPressAll(); if(cur) openPost(cur, true); if(curLake) openLake(curLake, true);
 }
 document.querySelectorAll("[data-set-lang]").forEach(b=>b.onclick=()=>{ setLang(b.dataset.setLang); langOpen(false); langBtn.focus(); });
 function langOpen(o){ langMenu.hidden = !o; langBtn.setAttribute("aria-expanded", String(o)); if (o) (langMenu.querySelector('[aria-pressed="true"]') || langMenu.querySelector("button")).focus(); }
@@ -1351,6 +1476,14 @@ fetch("/about.json", { cache: "no-cache" })
   .then(r => r.ok ? r.json() : {})
   .catch(() => ({}))
   .then(d => { WHO = d || {}; renderWho(true); });
+fetch("/books.json", { cache: "no-cache" })
+  .then(r => r.ok ? r.json() : [])
+  .catch(() => [])
+  .then(list => {
+    BOOKS = Array.isArray(list) ? list : [];
+    renderBooks();
+    if (location.hash.startsWith("#book/")) openBook(decodeURIComponent(location.hash.slice(6)));
+  });
 fetch("/gallery.json", { cache: "no-cache" })
   .then(r => r.ok ? r.json() : [])
   .catch(() => [])
