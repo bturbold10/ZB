@@ -1,7 +1,7 @@
 // Cloudflare Worker-ийн тохиргоо
 {
   "name": "zb",
-  "main": "worker/index.js",
+  "main": "worker.js",
   "compatibility_date": "2025-09-01",
   "assets": {
     "directory": "./dist",
