@@ -1,0 +1,6 @@
+# Cloudflare Pages: HTTP толгойн тохиргоо
+/*.json
+  Cache-Control: no-cache
+
+/admin/*
+  X-Robots-Tag: noindex

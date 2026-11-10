@@ -499,15 +499,6 @@ section.dark::before,footer::before{background:var(--deep)}
 .lk-stats,.lk-controls,.controls,.plist,.facts,.press-empty{border-top-color:var(--accent-2)}
 .dark .facts{border-top-color:#fff}
 </style>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-  /* Админ урилга, нууц үг сэргээх линкээр орж ирсэн хүнийг /admin/ руу шилжүүлнэ */
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; });
-    });
-  }
-</script>
 </head>
 <body>
 
@@ -1368,7 +1359,8 @@ let ALBUMS = [];
 const GSTEP = 6;
 let gShown = GSTEP, curAlbum = null;
 /* Netlify-ийн зургийн CDN-ээр жижигрүүлсэн хувилбар; ажиллахгүй бол эх зургийг харуулна */
-const thumb = (src, w) => src.startsWith("/") && !/^\/\//.test(src) ? `/.netlify/images?url=${encodeURIComponent(src)}&w=${w}` : src;
+/* Зураг шууд эх файлаараа харагдана (Cloudflare Pages) */
+const thumb = (src, w) => src;
 const imgTag = (src, w, alt) => `<img src="${thumb(src, w)}" data-orig="${src}" alt="${alt||""}" loading="lazy" onerror="if(this.src.indexOf('/.netlify/images')>-1){this.src=this.dataset.orig}">`;
 const aTitle = a => pick(a.title);
 const camSm = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="4"/></svg>';
