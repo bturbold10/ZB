@@ -284,3 +284,47 @@ collections:
       - { name: description_en, label: "Тайлбар (англи)", widget: text, required: false }
       - { name: description_hu, label: "Тайлбар (магяр)", widget: text, required: false }
       - { name: body, label: "Тайлбар (монгол)", widget: markdown, required: false, buttons: [bold, italic, link] }
+
+  # ---------------- Ном ----------------
+  - name: books
+    label: "Ном"
+    label_singular: "ном"
+    description: "Батбаярын бичсэн номууд. PDF хавсаргавал сайт дээр уншиж, татаж авах боломжтой. PDF файл 20 MB-аас бага байхыг зөвлөж байна."
+    folder: "books"
+    editor: { preview: false }
+    media_folder: "/uploads/books"
+    public_folder: "/uploads/books"
+    extension: "md"
+    format: "frontmatter"
+    create: true
+    i18n: false
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{year}} · {{title}}"
+    sortable_fields: ["year", "title"]
+    fields:
+      - { name: title, label: "Номын нэр (монгол)", widget: string }
+      - { name: title_en, label: "Номын нэр (англи)", widget: string, required: false }
+      - { name: title_hu, label: "Номын нэр (магяр)", widget: string, required: false }
+      - { name: year, label: "Хэвлэгдсэн он", widget: number, value_type: int, required: false }
+      - { name: publisher, label: "Хэвлэлийн газар", widget: string, required: false }
+      - name: languages
+        label: "Номын хэл"
+        widget: select
+        multiple: true
+        required: false
+        options:
+          - { label: "Монгол", value: mn }
+          - { label: "Англи", value: en }
+          - { label: "Магяр", value: hu }
+          - { label: "Орос", value: ru }
+          - { label: "Бусад", value: other }
+      - { name: pages, label: "Хуудасны тоо", widget: number, value_type: int, required: false }
+      - { name: isbn, label: "ISBN", widget: string, required: false }
+      - { name: cover, label: "Хавтасны зураг", widget: image, required: false, hint: "Босоо (2:3) зураг. Хоосон орхивол номын нэртэй өнгөт хавтас автоматаар гарна." }
+      - { name: pdf, label: "PDF файл", widget: file, required: false, hint: "Хавсаргавал сайт дээр «Унших», «PDF татах» товч гарна. 20 MB-аас бага байхыг зөвлөж байна." }
+      - { name: buy_url, label: "Худалдаж авах холбоос", widget: string, required: false }
+      - { name: order, label: "Эрэмбэ (жижиг тоо эхэнд)", widget: number, value_type: int, required: false, hint: "Хоосон орхивол шинэ номоос нь эхэлж харагдана." }
+      - { name: description_en, label: "Тайлбар (англи)", widget: markdown, required: false, buttons: [bold, italic, link, bulleted-list] }
+      - { name: description_hu, label: "Тайлбар (магяр)", widget: markdown, required: false, buttons: [bold, italic, link, bulleted-list] }
+      - { name: body, label: "Тайлбар (монгол)", widget: markdown, required: false }
