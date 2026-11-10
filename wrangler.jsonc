@@ -1,0 +1,13 @@
+// Cloudflare Worker-ийн тохиргоо
+{
+  "name": "zb",
+  "main": "worker/index.js",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "observability": { "enabled": true },
+  // Dashboard дээр нэмсэн утгуудыг deploy хийх бүрд устгахгүй
+  "keep_vars": true
+}
