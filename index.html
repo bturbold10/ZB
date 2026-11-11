@@ -81,6 +81,43 @@ html:not([lang="mn"]) [data-lang="mn"],html:not([lang="en"]) [data-lang="en"],ht
   .nav ul a{display:block;padding:12px 0;font-size:1.05rem;border-bottom:1px solid var(--line)}
 }
 
+
+/* ---------- dropdown menu + separate pages ---------- */
+.nav ul#navList{align-items:center}
+.nav ul#navList > li > a{display:inline-flex;align-items:center;gap:6px}
+.nav ul .dd{position:relative}
+.nav ul .dd > a{display:inline-flex;align-items:center;gap:6px}
+.nav ul .dd > a .car{opacity:.55;transition:transform .15s}
+.nav ul .dd::after{content:"";position:absolute;left:-10px;right:-10px;top:100%;height:16px}
+.nav ul.sub{display:none;position:absolute;top:calc(100% + 14px);left:-16px;min-width:250px;flex-direction:column;gap:0;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 18px 40px -18px rgba(11,30,39,.35);padding:8px;z-index:60}
+.nav ul .dd:hover > ul.sub,.nav ul .dd:focus-within > ul.sub{display:flex}
+.nav ul .dd:hover > a .car{transform:rotate(180deg)}
+.nav ul.sub a{display:block;border:0;padding:10px 12px;border-radius:7px;font-size:.9rem;font-weight:500;white-space:nowrap}
+.nav ul.sub a:hover{background:var(--bg-2)}
+.nav ul.sub a[aria-current="page"]{color:var(--accent);font-weight:700}
+.nav ul > li.active > a{border-color:var(--accent);color:var(--accent)}
+.pg-off{display:none !important}
+body[data-page="about"] #about .tl{display:none}
+body[data-page="career"] #about .about{grid-template-columns:1fr;max-width:860px}
+body[data-page="career"] #about .portrait,
+body[data-page="career"] #about .kicker,
+body[data-page="career"] #about h2.big,
+body[data-page="career"] #about .bio,
+body[data-page="career"] #about .facts{display:none !important}
+body[data-page="career"] #about .tl{margin-top:0}
+body[data-page="career"] #about .tl h3{font-size:clamp(2rem,4vw,3rem);margin-bottom:28px}
+@media (max-width:980px){
+  .nav ul#navList{max-height:calc(100vh - 76px);overflow:auto}
+  .nav ul .dd::after{display:none}
+  .nav ul .dd > a .car{display:none}
+  .nav ul#navList{align-items:stretch}
+  .nav ul#navList > li > a{display:flex}
+  .nav ul.sub{display:flex;position:static;min-width:0;border:0;box-shadow:none;background:none;padding:0 0 8px 14px;border-radius:0}
+  .nav ul.sub a{padding:9px 0;font-size:.95rem;color:var(--muted);border-bottom:0;white-space:normal}
+  .nav ul.sub a:hover{background:none;color:var(--ink)}
+  .nav ul > li.active > a{color:var(--accent)}
+}
+
 /* language dropdown */
 .lang-dd{position:relative}
 .lang-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font:700 .82rem var(--font);color:var(--ink);cursor:pointer;letter-spacing:.04em}
@@ -514,13 +551,35 @@ section.dark::before,footer::before{background:var(--deep)}
   <div class="wrap">
     <nav class="nav" aria-label="Main">
       <ul id="navList">
-        <li><a href="#about"><span data-lang="mn">Намтар</span><span data-lang="en">About</span><span data-lang="hu">Életrajz</span></a></li>
-        <li><a href="#whoami"><span data-lang="mn">Би хэн бэ</span><span data-lang="en">Who I am</span><span data-lang="hu">Bemutatkozás</span></a></li>
-        <li><a href="#lakes"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span><span data-lang="hu">333 tó</span></a></li>
-        <li><a href="#stories"><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span><span data-lang="hu">Írások</span></a></li>
-        <li class="nav-books" hidden><a href="#books"><span data-lang="mn">Ном</span><span data-lang="en">Books</span><span data-lang="hu">Könyvek</span></a></li>
+        <li><a href="#home"><span data-lang="mn">Нүүр</span><span data-lang="en">Home</span><span data-lang="hu">Kezdőlap</span></a></li>
+        <li class="dd"><a href="#whoami"><span data-lang="mn">Миний тухай</span><span data-lang="en">About me</span><span data-lang="hu">Rólam</span><svg class="car" width="9" height="9" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+          <ul class="sub">
+            <li><a href="#whoami"><span data-lang="mn">Товч танилцуулга</span><span data-lang="en">Introduction</span><span data-lang="hu">Bemutatkozás</span></a></li>
+            <li><a href="#about"><span data-lang="mn">Намтар</span><span data-lang="en">Biography</span><span data-lang="hu">Életrajz</span></a></li>
+            <li><a href="#career"><span data-lang="mn">Ажлын туршлага</span><span data-lang="en">Career</span><span data-lang="hu">Szakmai pálya</span></a></li>
+            <li><a href="#contact"><span data-lang="mn">Холбоо барих</span><span data-lang="en">Contact</span><span data-lang="hu">Kapcsolat</span></a></li>
+          </ul></li>
+        <li class="dd"><a href="#mission"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span><span data-lang="hu">333 tó</span><svg class="car" width="9" height="9" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+          <ul class="sub">
+            <li><a href="#mission"><span data-lang="mn">Хөтөлбөрийн тухай</span><span data-lang="en">About the programme</span><span data-lang="hu">A programról</span></a></li>
+            <li><a href="#lakes"><span data-lang="mn">Газрын зураг, жагсаалт</span><span data-lang="en">Map and list</span><span data-lang="hu">Térkép és lista</span></a></li>
+          </ul></li>
+        <li class="dd"><a href="#stories"><span data-lang="mn">Нийтлэл</span><span data-lang="en">Stories</span><span data-lang="hu">Írások</span><svg class="car" width="9" height="9" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+          <ul class="sub">
+            <li><a href="#stories"><span data-lang="mn">Бүх нийтлэл</span><span data-lang="en">All stories</span><span data-lang="hu">Összes írás</span></a></li>
+            <li><a href="#stories/policy"><span data-lang="mn">Усны бодлого</span><span data-lang="en">Water policy</span><span data-lang="hu">Vízpolitika</span></a></li>
+            <li><a href="#stories/drinking"><span data-lang="mn">Ундны ус</span><span data-lang="en">Drinking water</span><span data-lang="hu">Ivóvíz</span></a></li>
+            <li><a href="#stories/env"><span data-lang="mn">Байгаль орчин</span><span data-lang="en">Environment</span><span data-lang="hu">Környezet</span></a></li>
+            <li><a href="#stories/intl"><span data-lang="mn">Олон улсын хамтын ажиллагаа</span><span data-lang="en">International</span><span data-lang="hu">Nemzetközi együttműködés</span></a></li>
+            <li><a href="#stories/admin"><span data-lang="mn">Төрийн захиргаа</span><span data-lang="en">Public administration</span><span data-lang="hu">Közigazgatás</span></a></li>
+            <li class="nav-books" hidden><a href="#books"><span data-lang="mn">Ном</span><span data-lang="en">Books</span><span data-lang="hu">Könyvek</span></a></li>
+          </ul></li>
+        <li class="dd"><a href="#press"><span data-lang="mn">Мэдээ</span><span data-lang="en">News</span><span data-lang="hu">Hírek</span><svg class="car" width="9" height="9" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+          <ul class="sub">
+            <li><a href="#press"><span data-lang="mn">Сүүлийн мэдээ</span><span data-lang="en">Latest news</span><span data-lang="hu">Friss hírek</span></a></li>
+            <li><a href="#press/all"><span data-lang="mn">Бүх мэдээ</span><span data-lang="en">All news</span><span data-lang="hu">Összes hír</span></a></li>
+          </ul></li>
         <li class="nav-gallery" hidden><a href="#gallery"><span data-lang="mn">Зураг</span><span data-lang="en">Photos</span><span data-lang="hu">Fotók</span></a></li>
-        <li><a href="#press"><span data-lang="mn">Хэвлэлд</span><span data-lang="en">Press</span><span data-lang="hu">Sajtó</span></a></li>
       </ul>
       <div class="lang-dd" id="langDD">
         <button type="button" class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Хэл / Language / Nyelv">
@@ -544,7 +603,7 @@ section.dark::before,footer::before{background:var(--deep)}
 <span id="top"></span>
 
 <!-- HERO -->
-<section class="hero" style="padding:0">
+<section class="hero" style="padding:0" data-pg="home">
   <div class="photo" data-mn="Нүүр зураг/видео: гол, усан сан эсвэл ажлын талбай" data-en="Hero photo/video: river, reservoir or field site" data-hu="Nyitókép/videó: folyó, tározó vagy terepi helyszín"></div>
   <div class="wrap">
     <h1><span data-lang="mn">Зэнээмядарын<br>Батбаяр</span><span data-lang="en">Zeneemyadar<br>Batbayar</span><span data-lang="hu">Zeneemyadar<br>Batbayar</span></h1>
@@ -557,7 +616,7 @@ section.dark::before,footer::before{background:var(--deep)}
 </section>
 
 <!-- WHO AM I (Би хэн бэ): бичвэр + дараалсан зургууд. Админ → «Би хэн бэ» -->
-<section id="whoami">
+<section id="whoami" data-pg="home whoami">
   <div class="wrap who">
     <div class="who-text">
       <p class="kicker"><span data-lang="mn">Танилцуулга</span><span data-lang="en">About me</span><span data-lang="hu">Bemutatkozás</span></p>
@@ -594,7 +653,7 @@ section.dark::before,footer::before{background:var(--deep)}
 </section>
 
 <!-- MISSION -->
-<section class="mission">
+<section class="mission" id="mission" data-pg="home mission">
   <div class="wrap">
     <p class="kicker"><span data-lang="mn">Эрхэм зорилго</span><span data-lang="en">Mission</span><span data-lang="hu">Küldetés</span></p>
     <p class="stmt" data-lang="mn"><span>Сум бүрт нуур.</span><span class="hl">333 шинэ нуур</span><span>Монгол орондоо.</span></p>
@@ -605,7 +664,7 @@ section.dark::before,footer::before{background:var(--deep)}
 </section>
 
 <!-- 333 LAKES -->
-<section class="alt" id="lakes">
+<section class="alt" id="lakes" data-pg="lakes">
   <div class="wrap">
     <div class="sec-top">
       <div>
@@ -641,7 +700,7 @@ section.dark::before,footer::before{background:var(--deep)}
 </section>
 
 <!-- ABOUT -->
-<section class="dark" id="about">
+<section class="dark" id="about" data-pg="about career">
   <div class="wrap about">
     <!-- Албан ёсны хөрөг: uploads/portrait.jpg файлыг солиход зураг солигдоно -->
     <div class="photo portrait"><img src="/uploads/portrait.jpg" alt="Зэнээмядарын Батбаяр" width="314" height="357"></div>
@@ -668,7 +727,7 @@ section.dark::before,footer::before{background:var(--deep)}
         <div><dt><span data-lang="mn">Боловсрол</span><span data-lang="en">Education</span><span data-lang="hu">Végzettség</span></dt><dd><span data-lang="mn">Доктор (ELTE) · Executive MBA</span><span data-lang="en">Doctorate (ELTE) · Executive MBA</span><span data-lang="hu">Doktori fokozat (ELTE) · Executive MBA</span></dd></div>
         <div><dt><span data-lang="mn">Төрсөн</span><span data-lang="en">Born</span><span data-lang="hu">Született</span></dt><dd><span data-lang="mn">1974 · Говь-Алтай</span><span data-lang="en">1974 · Govi-Altai</span><span data-lang="hu">1974 · Góbi-Altaj</span></dd></div>
       </dl>
-      <div class="tl">
+      <div class="tl" id="career">
         <h3><span data-lang="mn">Ажлын туршлага</span><span data-lang="en">Career</span><span data-lang="hu">Szakmai pálya</span></h3>
         <ol>
           <li class="now"><span class="yr"><span data-lang="mn">2024 — одоо</span><span data-lang="en">2024 — now</span><span data-lang="hu">2024 — napjainkig</span></span><span><span class="t"><span data-lang="mn">Дарга</span><span data-lang="en">Head</span><span data-lang="hu">Vezető</span></span><br><span class="o"><span data-lang="mn">Монгол Улсын Усны газар</span><span data-lang="en">Water Agency of Mongolia</span><span data-lang="hu">Mongólia Vízügyi Hivatala</span></span></span></li>
@@ -686,7 +745,7 @@ section.dark::before,footer::before{background:var(--deep)}
 </section>
 
 <!-- STORIES -->
-<section id="stories">
+<section id="stories" data-pg="home stories">
   <div class="wrap">
     <div class="sec-top">
       <div>
@@ -710,7 +769,7 @@ section.dark::before,footer::before{background:var(--deep)}
 </section>
 
 <!-- BOOKS: admin → «Ном» -->
-<section id="books" hidden>
+<section id="books" hidden data-pg="books">
   <div class="wrap">
     <div class="sec-top">
       <div>
@@ -725,7 +784,7 @@ section.dark::before,footer::before{background:var(--deep)}
 </section>
 
 <!-- GALLERY -->
-<section class="alt" id="gallery" hidden>
+<section class="alt" id="gallery" hidden data-pg="gallery">
   <div class="wrap">
     <div class="sec-top">
       <div>
@@ -740,7 +799,7 @@ section.dark::before,footer::before{background:var(--deep)}
 </section>
 
 <!-- PRESS -->
-<section class="tight alt" id="press">
+<section class="tight alt" id="press" data-pg="home press">
   <div class="wrap">
     <div class="sec-top">
       <div>
@@ -754,7 +813,7 @@ section.dark::before,footer::before{background:var(--deep)}
 </section>
 
 <!-- CONTACT BAND -->
-<div class="band" id="contact">
+<div class="band" id="contact" data-pg="home contact">
   <div class="wrap">
     <div>
       <h2><span data-lang="mn">Санал, хүсэлт байна уу?</span><span data-lang="en">Have a question or suggestion?</span><span data-lang="hu">Kérdése vagy javaslata van?</span></h2>
@@ -765,7 +824,7 @@ section.dark::before,footer::before{background:var(--deep)}
 </div>
 
 <!-- OFFICE -->
-<section class="tight" id="office">
+<section class="tight" id="office" data-pg="contact">
   <div class="wrap">
     <div class="staff-note"><strong data-lang="mn">Ажилтны тэмдэглэл:</strong><strong data-lang="en">Staff note:</strong><strong data-lang="hu">Megjegyzés a munkatársaknak:</strong> <span data-lang="mn">шар налуу бичвэрүүдийг албан ёсны мэдээллээр солино уу.</span><span data-lang="en">replace the italic placeholders with official details.</span><span data-lang="hu">cserélje ki a dőlt helykitöltőket a hivatalos adatokra.</span></div>
     <div class="office">
@@ -806,7 +865,7 @@ section.dark::before,footer::before{background:var(--deep)}
     </div>
     <div class="fbottom">
       <span>© 2026 <span data-lang="mn">З. Батбаяр</span><span data-lang="en">Z. Batbayar</span><span data-lang="hu">Z. Batbayar</span></span>
-      <a href="#top"><span data-lang="mn">Дээш буцах ↑</span><span data-lang="en">Back to top ↑</span><span data-lang="hu">Vissza az oldal tetejére ↑</span></a>
+      <a href="#" data-totop><span data-lang="mn">Дээш буцах ↑</span><span data-lang="en">Back to top ↑</span><span data-lang="hu">Vissza az oldal tetejére ↑</span></a>
     </div>
   </div>
 </footer>
@@ -980,7 +1039,7 @@ function openPost(id, silent){
   reader.classList.add("open"); document.body.style.overflow="hidden";
   if(!silent){ reader.scrollTop=0; history.replaceState(null,"","#post/"+id); }
 }
-function closePost(){ reader.classList.remove("open"); document.body.style.overflow=""; cur=null; history.replaceState(null,"","#stories"); }
+function closePost(){ reader.classList.remove("open"); document.body.style.overflow=""; cur=null; history.replaceState(null,"",PG_HASH||"#stories"); }
 readerClose.onclick = closePost;
 document.addEventListener("keydown", e=>{ if(e.key==="Escape" && cur) closePost(); });
 
@@ -1030,7 +1089,7 @@ function renderPressAll(){
 }
 let pOpen = false;
 function openPressAll(){ pOpen = true; renderPressAll(); pressAll.classList.add("open"); pressAll.scrollTop = 0; document.body.style.overflow = "hidden"; history.replaceState(null,"","#press/all"); }
-function closePressAll(){ pOpen = false; pressAll.classList.remove("open"); document.body.style.overflow = ""; history.replaceState(null,"","#press"); }
+function closePressAll(){ pOpen = false; pressAll.classList.remove("open"); document.body.style.overflow = ""; history.replaceState(null,"",PG_HASH||"#press"); }
 pallClose.onclick = closePressAll;
 document.addEventListener("keydown", e => { if (e.key==="Escape" && pOpen) closePressAll(); });
 let ptm; pSearch.addEventListener("input", e => { clearTimeout(ptm); ptm = setTimeout(() => { ps.q = e.target.value; ps.shown = PSTEP; renderPressAll(); }, 150); });
@@ -1208,7 +1267,7 @@ function openLake(id, silent){
     marker(Lf, pos, k, true).addTo(miniMap);
   }).catch(()=>{});
 }
-function closeLake(){ lakeView.classList.remove("open"); document.body.style.overflow=""; curLake=null; history.replaceState(null,"","#lakes"); }
+function closeLake(){ lakeView.classList.remove("open"); document.body.style.overflow=""; curLake=null; history.replaceState(null,"",PG_HASH||"#lakes"); }
 lakeClose.onclick = closeLake;
 document.addEventListener("keydown", e => { if (e.key==="Escape" && curLake) closeLake(); });
 
@@ -1350,7 +1409,7 @@ function openBook(id, silent){
   bookView.classList.add("open"); document.body.style.overflow = "hidden";
   if (!silent) { bookView.scrollTop = 0; history.replaceState(null, "", "#book/" + id); }
 }
-function closeBook(){ bookView.classList.remove("open"); document.body.style.overflow = ""; curBook = null; history.replaceState(null, "", "#books"); }
+function closeBook(){ bookView.classList.remove("open"); document.body.style.overflow = ""; curBook = null; history.replaceState(null,"",PG_HASH||"#books"); }
 bookClose.onclick = closeBook;
 document.addEventListener("keydown", e => { if (e.key === "Escape" && curBook && lightbox.hidden) closeBook(); });
 
@@ -1392,7 +1451,7 @@ function openAlbum(id, silent){
   albumView.classList.add("open"); document.body.style.overflow = "hidden";
   if (!silent) { albumView.scrollTop = 0; history.replaceState(null, "", "#album/" + id); }
 }
-function closeAlbum(){ albumView.classList.remove("open"); document.body.style.overflow = ""; curAlbum = null; history.replaceState(null, "", "#gallery"); }
+function closeAlbum(){ albumView.classList.remove("open"); document.body.style.overflow = ""; curAlbum = null; history.replaceState(null,"",PG_HASH||"#gallery"); }
 albumClose.onclick = closeAlbum;
 
 /* lightbox */
@@ -1441,12 +1500,50 @@ langMenu.addEventListener("keydown", e => {
 
 /* mobile menu */
 menuBtn.onclick = () => { const o = navList.classList.toggle("open"); menuBtn.setAttribute("aria-expanded", String(o)); };
-navList.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>navList.classList.remove("open")));
+
+
+/* pages: menu item → its own page */
+let PG_HASH = "";
+const PAGE_OF = { "":"home", "#":"home", "#home":"home", "#top":"home", "#whoami":"whoami", "#about":"about", "#career":"career",
+  "#mission":"mission", "#lakes":"lakes", "#stories":"stories", "#books":"books", "#gallery":"gallery",
+  "#press":"press", "#contact":"contact", "#office":"contact" };
+function pageFor(h){
+  if (h in PAGE_OF) return PAGE_OF[h];
+  if (h.startsWith("#stories/") || h.startsWith("#post/")) return "stories";
+  if (h.startsWith("#lake/")) return "lakes";
+  if (h.startsWith("#book/")) return "books";
+  if (h.startsWith("#album/")) return "gallery";
+  if (h.startsWith("#press/")) return "press";
+  return "home";
+}
+function showPage(first){
+  const h = decodeURIComponent(location.hash || ""), pg = pageFor(h);
+  document.body.dataset.page = pg;
+  document.querySelectorAll("[data-pg]").forEach(el => el.classList.toggle("pg-off", !el.dataset.pg.split(" ").includes(pg)));
+  const navH = h.startsWith("#stories/") || h === "#press/all" ? h : (Object.keys(PAGE_OF).find(k => PAGE_OF[k] === pg && navList.querySelector(`a[href="${k}"]`)) || "#home");
+  navList.querySelectorAll("a").forEach(a => a.removeAttribute("aria-current"));
+  navList.querySelectorAll(":scope > li").forEach(li => {
+    const hit = [...li.querySelectorAll("a")].some(a => a.getAttribute("href") === navH || PAGE_OF[a.getAttribute("href")] === pg);
+    li.classList.toggle("active", hit);
+  });
+  navList.querySelectorAll(`.sub a[href="${navH}"]`).forEach(a => a.setAttribute("aria-current", "page"));
+  if (h.startsWith("#stories")) { const c = h.slice(9); st.cat = CATS[c] ? c : "all"; st.q = ""; search.value = ""; st.page = 1; render(); }
+  if (h.startsWith("#post/") || h.startsWith("#lake/") || h.startsWith("#book/") || h.startsWith("#album/") || h === "#press/all") PG_HASH = pg === "home" ? "#home" : "#" + (pg === "career" ? "career" : pg);
+  else PG_HASH = h || "#home";
+  if (!first && h === "#press/all" && typeof openPressAll === "function") openPressAll();
+  if (pg === "lakes" && typeof map !== "undefined" && map) setTimeout(() => map.invalidateSize(), 60);
+  navList.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false");
+  document.activeElement && document.activeElement.blur && navList.contains(document.activeElement) && document.activeElement.blur();
+  if (!first || h) window.scrollTo({ top: 0, behavior: "instant" });
+}
+window.addEventListener("hashchange", () => showPage(false));
+document.querySelectorAll("[data-totop]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }));
 
 /* init */
 fillPhotos();
 let saved=null; try{ saved=localStorage.getItem("site-lang"); }catch(e){}
 setLang(LANGS.includes(saved) ? saved : "mn");
+showPage(true);
 fetch("/posts.json", { cache: "no-cache" })
   .then(r => r.ok ? r.json() : [])
   .catch(() => [])
