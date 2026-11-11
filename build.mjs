@@ -184,6 +184,18 @@ if (fs.existsSync(aboutFile)) {
 fs.writeFileSync(path.join(OUT, "about.json"), JSON.stringify(about));
 console.log(`✓ «Би хэн бэ»: ${about.photos.length} зураг → dist/about.json`);
 
+// 6б) Нүүр хэсгийн бичлэг: data/hero.json → dist/hero.json
+let hero = { video: "", poster: "" };
+const heroFile = path.join(ROOT, "data", "hero.json");
+if (fs.existsSync(heroFile)) {
+  try {
+    const h = JSON.parse(fs.readFileSync(heroFile, "utf8"));
+    hero = { video: esc(h.video || ""), poster: esc(h.poster || "") };
+  } catch (e) { console.warn("data/hero.json уншиж чадсангүй:", e.message); }
+}
+fs.writeFileSync(path.join(OUT, "hero.json"), JSON.stringify(hero));
+console.log(`✓ Нүүр хэсэг: ${hero.video ? "бичлэгтэй" : "бичлэггүй"} → dist/hero.json`);
+
 // 7) Ном: books/*.md → dist/books.json
 const BOOKS_DIR = path.join(ROOT, "books");
 const books = [];

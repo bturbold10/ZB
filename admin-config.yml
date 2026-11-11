@@ -226,6 +226,22 @@ collections:
               - { name: caption_en, label: "Тайлбар (англи)", widget: string, required: false }
               - { name: caption_hu, label: "Тайлбар (магяр)", widget: string, required: false }
 
+  # ---------------- Нүүр хэсгийн бичлэг ----------------
+  - name: hero
+    label: "Нүүр хэсгийн бичлэг"
+    description: "Сайтын хамгийн эхэнд, нэрийн ард тоглох бичлэг. Дуугүй, давтагдан тоглоно. MP4 файл, 25 MB-аас бага (Cloudflare-ийн хязгаар), 15–30 секунд, 1920 px өргөнтэй байхад хангалттай."
+    editor: { preview: false }
+    files:
+      - name: hero
+        label: "Бичлэг"
+        file: "data/hero.json"
+        format: json
+        media_folder: "/uploads/video"
+        public_folder: "/uploads/video"
+        fields:
+          - { name: video, label: "Бичлэг (MP4, 25 MB-аас бага)", widget: file, required: false, hint: "Хоосон орхивол одоогийн нүүр зураг харагдана." }
+          - { name: poster, label: "Бичлэг ачаалахаас өмнө харагдах зураг", widget: image, required: false, hint: "Бичлэгийн эхний кадр шиг зураг. Утсан дээр бичлэг тоглохгүй бол энэ харагдана." }
+
   # ---------------- 333 нуур: хөтөлбөрийн тоон үзүүлэлт ----------------
   - name: settings
     label: "333 нуур: тоон үзүүлэлт"
