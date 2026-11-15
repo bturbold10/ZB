@@ -97,15 +97,7 @@ html:not([lang="mn"]) [data-lang="mn"],html:not([lang="en"]) [data-lang="en"],ht
 .nav ul.sub a[aria-current="page"]{color:var(--accent);font-weight:700}
 .nav ul > li.active > a{border-color:var(--accent);color:var(--accent)}
 .pg-off{display:none !important}
-body[data-page="about"] #about .tl{display:none}
-body[data-page="career"] #about .about{grid-template-columns:1fr;max-width:860px}
-body[data-page="career"] #about .portrait,
-body[data-page="career"] #about .kicker,
-body[data-page="career"] #about h2.big,
-body[data-page="career"] #about .bio,
-body[data-page="career"] #about .facts{display:none !important}
-body[data-page="career"] #about .tl{margin-top:0}
-body[data-page="career"] #about .tl h3{font-size:clamp(2rem,4vw,3rem);margin-bottom:28px}
+body[data-page="about"] #whoami .more-link{display:none}
 @media (max-width:980px){
   .nav ul#navList{max-height:calc(100vh - 76px);overflow:auto}
   .nav ul .dd::after{display:none}
@@ -590,13 +582,7 @@ window.addEventListener("load",function(){setTimeout(hide,Math.max(0,900-(Date.n
     <nav class="nav" aria-label="Main">
       <ul id="navList">
         <li><a href="#home"><span data-lang="mn">Нүүр</span><span data-lang="en">Home</span><span data-lang="hu">Kezdőlap</span></a></li>
-        <li class="dd"><a href="#whoami"><span data-lang="mn">Миний тухай</span><span data-lang="en">About me</span><span data-lang="hu">Rólam</span><svg class="car" width="9" height="9" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
-          <ul class="sub">
-            <li><a href="#whoami"><span data-lang="mn">Товч танилцуулга</span><span data-lang="en">Introduction</span><span data-lang="hu">Bemutatkozás</span></a></li>
-            <li><a href="#about"><span data-lang="mn">Намтар</span><span data-lang="en">Biography</span><span data-lang="hu">Életrajz</span></a></li>
-            <li><a href="#career"><span data-lang="mn">Ажлын туршлага</span><span data-lang="en">Career</span><span data-lang="hu">Szakmai pálya</span></a></li>
-            <li><a href="#contact"><span data-lang="mn">Холбоо барих</span><span data-lang="en">Contact</span><span data-lang="hu">Kapcsolat</span></a></li>
-          </ul></li>
+        <li><a href="#about"><span data-lang="mn">Миний тухай</span><span data-lang="en">About me</span><span data-lang="hu">Rólam</span></a></li>
         <li class="dd"><a href="#mission"><span data-lang="mn">333 нуур</span><span data-lang="en">333 Lakes</span><span data-lang="hu">333 tó</span><svg class="car" width="9" height="9" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
           <ul class="sub">
             <li><a href="#mission"><span data-lang="mn">Хөтөлбөрийн тухай</span><span data-lang="en">About the programme</span><span data-lang="hu">A programról</span></a></li>
@@ -656,7 +642,7 @@ window.addEventListener("load",function(){setTimeout(hide,Math.max(0,900-(Date.n
 </section>
 
 <!-- WHO AM I (Би хэн бэ): бичвэр + дараалсан зургууд. Админ → «Би хэн бэ» -->
-<section id="whoami" data-pg="home whoami">
+<section id="whoami" data-pg="home about">
   <div class="wrap who">
     <div class="who-text">
       <p class="kicker"><span data-lang="mn">Танилцуулга</span><span data-lang="en">About me</span><span data-lang="hu">Bemutatkozás</span></p>
@@ -740,7 +726,7 @@ window.addEventListener("load",function(){setTimeout(hide,Math.max(0,900-(Date.n
 </section>
 
 <!-- ABOUT -->
-<section class="dark" id="about" data-pg="about career">
+<section class="dark" id="about" data-pg="about">
   <div class="wrap about">
     <!-- Албан ёсны хөрөг: uploads/portrait.jpg файлыг солиход зураг солигдоно -->
     <div class="photo portrait"><img src="/uploads/portrait.jpg" alt="Зэнээмядарын Батбаяр" width="314" height="357"></div>
@@ -1544,7 +1530,7 @@ menuBtn.onclick = () => { const o = navList.classList.toggle("open"); menuBtn.se
 
 /* pages: menu item → its own page */
 let PG_HASH = "";
-const PAGE_OF = { "":"home", "#":"home", "#home":"home", "#top":"home", "#whoami":"whoami", "#about":"about", "#career":"career",
+const PAGE_OF = { "":"home", "#":"home", "#home":"home", "#top":"home", "#whoami":"about", "#about":"about", "#career":"about",
   "#mission":"mission", "#lakes":"lakes", "#stories":"stories", "#books":"books", "#gallery":"gallery",
   "#press":"press", "#contact":"contact", "#office":"contact" };
 function pageFor(h){
@@ -1568,7 +1554,7 @@ function showPage(first){
   });
   navList.querySelectorAll(`.sub a[href="${navH}"]`).forEach(a => a.setAttribute("aria-current", "page"));
   if (h.startsWith("#stories")) { const c = h.slice(9); st.cat = CATS[c] ? c : "all"; st.q = ""; search.value = ""; st.page = 1; render(); }
-  if (h.startsWith("#post/") || h.startsWith("#lake/") || h.startsWith("#book/") || h.startsWith("#album/") || h === "#press/all") PG_HASH = pg === "home" ? "#home" : "#" + (pg === "career" ? "career" : pg);
+  if (h.startsWith("#post/") || h.startsWith("#lake/") || h.startsWith("#book/") || h.startsWith("#album/") || h === "#press/all") PG_HASH = pg === "home" ? "#home" : "#" + pg;
   else PG_HASH = h || "#home";
   if (!first && h === "#press/all" && typeof openPressAll === "function") openPressAll();
   if (pg === "lakes" && typeof map !== "undefined" && map) setTimeout(() => map.invalidateSize(), 60);
